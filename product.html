@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Products – Kumaon Herbal</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <link href="product.css" rel="stylesheet">
+</head>
+<body>
+
+<!-- DETAIL OVERLAY (Hidden by default) -->
+<div id="detail-overlay">
+  <button class="do-back" onclick="closeDetail()">← Back to Products</button>
+  <div class="do-hero">
+    <div class="do-img-col">
+      <span class="do-sale-badge" id="do-badge">Sale!</span>
+      <img id="do-main-img" src="" alt="product" class="do-main-img"/>
+    </div>
+    <div class="do-info-col">
+      <p class="do-breadcrumb" id="do-breadcrumb">Home / Juices / Litchi Squash</p>
+      <h1 class="do-title" id="do-title">Litchi Squash</h1>
+      <div class="do-price-row">
+        <span class="do-price-now" id="do-price-now">₹190</span>
+        <span class="do-price-old" id="do-price-old">₹200</span>
+      </div>
+      <p class="do-short-desc" id="do-short-desc">Rich in Vitamin C, Natural Energy Booster, Balances Electrolytes.</p>
+      <p class="do-tagline">🌿 Himalayan Purity Guaranteed</p>
+      <div class="do-qty-row">
+        <div class="do-qty-box">
+          <button onclick="changeQty(-1)">-</button>
+          <input type="text" id="do-qty" value="1" readonly/>
+          <button onclick="changeQty(1)">+</button>
+        </div>
+        <button class="do-cart-btn">Add to Bag</button>
+      </div>
+    </div>
+  </div>
+  <div class="do-body">
+    <div class="do-tabs">
+      <button class="do-tab active" onclick="switchTab(this,'tab-desc')">Description</button>
+      <button class="do-tab" onclick="switchTab(this,'tab-benefits')">Health Benefits</button>
+      <button class="do-tab" onclick="switchTab(this,'tab-reviews')">Reviews</button>
+    </div>
+    <div class="do-tab-panel active" id="tab-desc">
+      <h2 class="do-section-title" id="do-desc-title">About the Product</h2>
+      <p class="do-para" id="do-desc-para1"></p>
+      <p class="do-para" id="do-desc-para2"></p>
+      <h2 class="do-section-title">Pros &amp; Cons</h2>
+      <div class="do-pros-cons">
+        <div class="do-pros-box"><h4>✅ Pros</h4><div id="do-pros"></div></div>
+        <div class="do-cons-box"><h4>⚠️ Cons</h4><div id="do-cons"></div></div>
+      </div>
+      <h2 class="do-section-title">What Makes It Special</h2>
+      <div class="do-why-box">
+        <div id="do-why-specials"></div>
+        <p class="do-tagline-end">Experience the purity of <strong>Kumaon</strong> in every serving.</p>
+      </div>
+    </div>
+    <div class="do-tab-panel" id="tab-reviews">
+      <div style="text-align:center; padding:3rem; color:var(--text-light);">⭐ No reviews yet. Be the first to review this product!</div>
+    </div>
+  </div>
+</div>
+
+<!-- NAVBAR -->
+<nav id="navbar">
+  <div class="nav-logo">Kumaon <span>Herbal</span></div>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="product.html" class="active">Products</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="blog.html">Blog</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <div class="nav-actions">
+    <button class="nav-cart">🛒 Cart (0)</button>
+    <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+  </div>
+</nav>
+
+<section class="hero-band">
+  <img class="hero-bg" src="./WhatsApp Image 2026-03-16 at 8.49.50 PM (1).jpeg" alt="Herbal products Kumaon"/>
+  <div class="ov"></div><div class="fade-b"></div>
+  <div class="hero-body">
+    <p class="hero-eyebrow">From the Hills of Uttarakhand</p>
+    <h1 class="hero-title">Our <em>Natural</em> Products</h1>
+    <p class="hero-sub">Handcrafted with wild Himalayan herbs, traditional recipes, and zero artificial additives — straight from Kumaon to your home.</p>
+  </div>
+</section>
+
+<!-- TRUST STRIP -->
+<div class="banner-strip" style="margin: 0; padding: 2rem 5vw; background: var(--warm-white); border-bottom: 1px solid var(--border);">
+  <div style="display:flex; justify-content:space-around; width:100%; flex-wrap:wrap; gap:1.5rem">
+    <div style="font-size:.85rem; font-weight:600; color:var(--text-mid)">🌿 100% Natural</div>
+    <div style="font-size:.85rem; font-weight:600; color:var(--text-mid)">🏔️ Wild Sourced</div>
+    <div style="font-size:.85rem; font-weight:600; color:var(--text-mid)">🚚 Free Shipping > ₹999</div>
+    <div style="font-size:.85rem; font-weight:600; color:var(--text-mid)">♻️ Eco Packaging</div>
+  </div>
+</div>
+
+<div class="filter-bar">
+  <button class="filter-btn active" onclick="filterCards(this,'all')">All Products</button>
+  <button class="filter-btn" onclick="filterCards(this,'juice')">🍹 Natural Juices</button>
+  <button class="filter-btn" onclick="filterCards(this,'pickle')">🫙 Pickles</button>
+  <button class="filter-btn" onclick="filterCards(this,'herbal')">🌿 Herbal Products</button>
+</div>
+
+<!-- JUICES -->
+<div class="section-header" id="sh-juice">
+  <div><h2>🍹 Natural Juices <span class="tag">Cold Pressed</span></h2><div class="sec-divider"></div></div>
+</div>
+<div class="product-grid" id="grid-juice">
+  <div class="card" data-id="litchi" data-cat="juice">
+    <div class="card-img-wrap"><span class="badge badge-popular">Sale</span><button class="wishlist-btn">♡</button><img src="images/litchi squash.jpeg" alt="Litchi Juice"/></div>
+    <div class="card-body"><p class="card-category">Natural Juice</p><h3 class="card-title">Litchi Squash</h3><p class="card-desc">Rich in Vitamin C, Natural Energy Booster, Balances Electrolytes.</p><div class="stars">★★★★★ <span style="color:var(--text-light);margin-left:.3rem">(84)</span></div><div class="card-footer"><div><span class="price">₹190</span><span class="price-old">₹200</span></div><button class="add-btn">Add to Cart</button></div></div>
+  </div>
+  <div class="card" data-id="buransh" data-cat="juice">
+    <div class="card-img-wrap"><span class="badge badge-organic">Sale</span><button class="wishlist-btn">♡</button><img src="images/buransh juice.jpeg" alt="Buransh Juice"/></div>
+    <div class="card-body"><p class="card-category">Natural Juice</p><h3 class="card-title">Buransh Juice</h3><p class="card-desc">Rare rhododendron flower juice — floral, tangy & rich in antioxidants.</p><div class="stars">★★★★☆ <span style="color:var(--text-light);margin-left:.3rem">(61)</span></div><div class="card-footer"><div><span class="price">₹249</span><span class="price-old">₹320</span></div><button class="add-btn">Add to Cart</button></div></div>
+  </div>
+  <div class="card" data-id="aam" data-cat="juice">
+    <div class="card-img-wrap"><span class="badge badge-new">Sale</span><button class="wishlist-btn">♡</button><img src="images/aam panna.jpeg" alt="Aam Panna"/></div>
+    <div class="card-body"><p class="card-category">Natural Juice</p><h3 class="card-title">Aam Panna</h3><p class="card-desc">Classic raw mango summer cooler with cumin, black salt & fresh mint.</p><div class="stars">★★★★★ <span style="color:var(--text-light);margin-left:.3rem">(112)</span></div><div class="card-footer"><div><span class="price">₹199</span></div><button class="add-btn">Add to Cart</button></div></div>
+  </div>
+  <div class="card" data-id="peach" data-cat="juice">
+    <div class="card-img-wrap"><span class="badge badge-popular">Sale</span><button class="wishlist-btn">♡</button><img src="images/litchi squash.jpeg" alt="Peach Blend"/></div>
+    <div class="card-body"><p class="card-category">Natural Juice</p><h3 class="card-title">Peach & Buransh Blend</h3><p class="card-desc">Kumaoni hill peach with rhododendron flower extract — sweet, floral & rich in iron.</p><div class="stars">★★★★☆ <span style="color:var(--text-light);margin-left:.3rem">(47)</span></div><div class="card-footer"><div><span class="price">₹329</span><span class="price-old">₹400</span></div><button class="add-btn">Add to Cart</button></div></div>
+  </div>
+</div>
+
+<div class="photo-divider">
+  <div class="pd-item"><img src="https://images.unsplash.com/photo-1471193945509-9ad0617afabf?w=400&q=80" alt="natural"/></div>
+  <div class="pd-item"><img src="https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=400&q=80" alt="spices"/></div>
+  <div class="pd-item"><img src="https://images.unsplash.com/photo-1591857177580-dc82b9ac4e1e?w=400&q=80" alt="tea"/></div>
+  <div class="pd-item"><img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&q=80" alt="mountains"/></div>
+</div>
+<div class="banner-strip">
+  <div><h3>Free Shipping on Orders Above ₹1000</h3></div>
+  <a href="product.html" class="btn-primary">Shop Now</a>
+</div>
+
+<!-- PICKLES -->
+<div class="section-header" id="sh-pickle">
+  <div><h2>🫙 Traditional Pickles <span class="tag">Hand Made</span></h2><div class="sec-divider"></div></div>
+</div>
+<div class="product-grid" id="grid-pickle">
+  <div class="card" data-id="mango" data-cat="pickle">
+    <div class="card-img-wrap"><span class="badge badge-popular">Bestseller</span><button class="wishlist-btn">♡</button><img src="https://images.unsplash.com/photo-1583394293914-b9f4e0e53a7d?w=500&q=80" alt="Mango Achar"/></div>
+    <div class="card-body"><p class="card-category">Pickles</p><h3 class="card-title">Raw Mango Aam Achar</h3><p class="card-desc">Sun-dried raw mango pieces in mustard oil with traditional Kumaoni spices.</p><div class="stars">★★★★★ <span style="color:var(--text-light);margin-left:.3rem">(203)</span></div><div class="card-footer"><div><span class="price">₹189</span><span class="price-old">₹240</span></div><button class="add-btn">Add to Cart</button></div></div>
+  </div>
+  <div class="card" data-id="chilli" data-cat="pickle">
+    <div class="card-img-wrap"><span class="badge badge-organic">Organic</span><button class="wishlist-btn">♡</button><img src="https://images.unsplash.com/photo-1574484284002-952d92456975?w=500&q=80" alt="Chilli Achar"/></div>
+    <div class="card-body"><p class="card-category">Pickles</p><h3 class="card-title">Green Chilli & Garlic Achar</h3><p class="card-desc">Fiery hill chillis slow-fermented with roasted garlic — bold & probiotic-rich.</p><div class="stars">★★★★★ <span style="color:var(--text-light);margin-left:.3rem">(89)</span></div><div class="card-footer"><div><span class="price">₹169</span></div><button class="add-btn">Add to Cart</button></div></div>
+  </div>
+  <div class="card" data-id="lahsun" data-cat="pickle">
+    <div class="card-img-wrap"><span class="badge badge-new">New</span><button class="wishlist-btn">♡</button><img src="https://images.unsplash.com/photo-1612200523018-bcd15ea966?w=500&q=80" alt="Garlic Achar"/></div>
+    <div class="card-body"><p class="card-category">Pickles</p><h3 class="card-title">Pahadi Lahsun Achar</h3><p class="card-desc">Mountain garlic fermented in cold-pressed mustard oil with Himalayan black salt.</p><div class="stars">★★★★☆ <span style="color:var(--text-light);margin-left:.3rem">(54)</span></div><div class="card-footer"><div><span class="price">₹219</span><span class="price-old">₹280</span></div><button class="add-btn">Add to Cart</button></div></div>
+  </div>
+  <div class="card" data-id="nimbu" data-cat="pickle">
+    <div class="card-img-wrap"><span class="badge badge-organic">Traditional</span><button class="wishlist-btn">♡</button><img src="https://images.unsplash.com/photo-1601066584547-a4f4e92b6c1b?w=500&q=80" alt="Lemon Achar"/></div>
+    <div class="card-body"><p class="card-category">Pickles</p><h3 class="card-title">Nimbu Masala Achar</h3><p class="card-desc">Juicy hill lemons stuffed with cumin, fenugreek & turmeric — aged 3 months.</p><div class="stars">★★★★★ <span style="color:var(--text-light);margin-left:.3rem">(76)</span></div><div class="card-footer"><div><span class="price">₹159</span></div><button class="add-btn">Add to Cart</button></div></div>
+  </div>
+</div>
+
+<!-- HERBAL -->
+<div class="section-header" id="sh-herbal">
+  <div><h2>🌿 Herbal Products <span class="tag">Wild Sourced</span></h2><div class="sec-divider"></div></div>
+</div>
+<div class="product-grid" id="grid-herbal" style="padding-bottom: 8rem;">
+  <div class="card" data-id="tulsi" data-cat="herbal">
+    <div class="card-img-wrap"><span class="badge badge-popular">Popular</span><button class="wishlist-btn">♡</button><img src="https://images.unsplash.com/photo-1591857177580-dc82b9ac4e1e?w=500&q=80" alt="Tulsi Tea"/></div>
+    <div class="card-body"><p class="card-category">Wellness</p><h3 class="card-title">Himalayan Tulsi Green Tea</h3><p class="card-desc">Hand-picked tulsi leaves blended with first-flush Kumaon green tea.</p><div class="stars">★★★★★ <span style="color:var(--text-light);margin-left:.3rem">(132)</span></div><div class="card-footer"><div><span class="price">₹349</span><span class="price-old">₹420</span></div><button class="add-btn">Add to Cart</button></div></div>
+  </div>
+  <div class="card" data-id="honey" data-cat="herbal">
+    <div class="card-img-wrap"><span class="badge badge-organic">Organic</span><button class="wishlist-btn">♡</button><img src="https://images.unsplash.com/photo-1571745544682-143ea663cf2c?w=500&q=80" alt="Honey"/></div>
+    <div class="card-body"><p class="card-category">Wellness</p><h3 class="card-title">Wild Himalayan Forest Honey</h3><p class="card-desc">Raw, unfiltered honey from wild Apis dorsata bees — collected from forests.</p><div class="stars">★★★★★ <span style="color:var(--text-light);margin-left:.3rem">(410)</span></div><div class="card-footer"><div><span class="price">₹499</span><span class="price-old">₹620</span></div><button class="add-btn">Add to Cart</button></div></div>
+  </div>
+  <div class="card" data-id="eucalyptus" data-cat="herbal">
+    <div class="card-img-wrap"><span class="badge badge-popular">Top Pick</span><button class="wishlist-btn">♡</button><img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=500&q=80" alt="Eucalyptus Oil"/></div>
+    <div class="card-body"><p class="card-category">Wellness</p><h3 class="card-title">Eucalyptus & Camphor Oil</h3><p class="card-desc">Steam-distilled from mountain eucalyptus — used for cold relief & massage.</p><div class="stars">★★★★☆ <span style="color:var(--text-light);margin-left:.3rem">(92)</span></div><div class="card-footer"><div><span class="price">₹379</span><span class="price-old">₹450</span></div><button class="add-btn">Add to Cart</button></div></div>
+  </div>
+  <div class="card" data-id="facepack" data-cat="herbal">
+    <div class="card-img-wrap"><span class="badge badge-organic">Organic</span><button class="wishlist-btn">♡</button><img src="https://images.unsplash.com/photo-1567581935884-3349723552ca?w=500&q=80" alt="Face Pack"/></div>
+    <div class="card-body"><p class="card-category">Wellness</p><h3 class="card-title">Chandan & Haldi Face Pack</h3><p class="card-desc">Wild sandalwood & turmeric blend for clear, glowing skin — chemical free.</p><div class="stars">★★★★★ <span style="color:var(--text-light);margin-left:.3rem">(118)</span></div><div class="card-footer"><div><span class="price">₹229</span></div><button class="add-btn">Add to Cart</button></div></div>
+  </div>
+</div>
+
+<footer class="footer-strip">
+  <div class="logo">Kumaon <span>Herbal</span></div>
+  <div class="footer-links">
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="product.html">Products</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </div>
+  <div style="font-size: .8rem; color: var(--text-light); margin-top: 1rem;">© 2026 Kumaon Herbal. All rights reserved. 🏔️ Pure · Natural · Himalayan</div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

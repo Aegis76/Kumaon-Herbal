@@ -1,2 +1,1 @@
-# Kumaon-Herbal
-website for Kumaon Herbal
+ci , cd applied => 
