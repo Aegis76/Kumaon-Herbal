@@ -240,3 +240,276 @@
       footer > div:first-child { grid-template-columns: 1fr !important; gap: 2rem !important; }
       .footer-inner { flex-direction: column; text-align: center; }
     }
+
+/* ==========================================
+COMPLETE MOBILE RESPONSIVE FIX
+ADD THIS AT THE END OF about.css
+========================================== */
+
+html,
+body{
+width:100%;
+overflow-x:hidden;
+}
+
+img,
+video,
+iframe{
+max-width:100%;
+display:block;
+}
+
+/* GENERAL */
+@media (max-width:1024px){
+
+section{
+padding:4rem 5vw;
+}
+
+.story-grid{
+grid-template-columns:1fr;
+gap:3rem;
+}
+
+.story-img-stack{
+max-width:550px;
+width:100%;
+margin:auto;
+}
+
+.values-grid{
+grid-template-columns:repeat(2,1fr);
+}
+
+.team-grid{
+grid-template-columns:repeat(2,1fr);
+}
+
+.gal-grid{
+grid-template-columns:repeat(2,1fr);
+}
+
+.stats-band{
+grid-template-columns:repeat(2,1fr);
+}
+
+}
+
+/* TABLET */
+@media (max-width:768px){
+
+nav{
+padding:0 20px;
+}
+
+.nav-logo{
+font-size:1.1rem;
+}
+
+.nav-links{
+position:fixed;
+top:72px;
+right:-100%;
+width:280px;
+height:calc(100vh - 72px);
+background:var(--gd);
+flex-direction:column;
+align-items:flex-start;
+padding:30px;
+transition:.4s ease;
+z-index:999;
+}
+
+.nav-links.active{
+right:0;
+}
+
+.hamburger{
+display:flex;
+}
+
+.hero{
+height:60vh;
+}
+
+.hero h1{
+font-size:2rem;
+}
+
+.hero p{
+font-size:.9rem;
+}
+
+.story-grid{
+text-align:center;
+}
+
+.story-img-stack{
+height:350px;
+}
+
+.story-badge{
+width:90px;
+height:90px;
+font-size:1.5rem;
+padding:1rem;
+}
+
+.stats-band{
+padding:3rem 20px;
+grid-template-columns:1fr 1fr;
+}
+
+.values-grid{
+grid-template-columns:1fr;
+}
+
+.team-grid{
+grid-template-columns:1fr;
+}
+
+.gal-grid{
+grid-template-columns:1fr;
+grid-template-rows:auto;
+}
+
+.gal-item,
+.gal-item.wide,
+.gal-item.tall{
+grid-column:auto;
+grid-row:auto;
+aspect-ratio:4/3;
+}
+
+.timeline{
+padding:4rem 20px;
+}
+
+.tl-wrap::before{
+left:20px;
+}
+
+.tl-item,
+.tl-item:nth-child(even){
+flex-direction:column;
+padding-left:50px;
+gap:.5rem;
+}
+
+.tl-dot{
+left:20px;
+}
+
+.tl-year{
+width:auto;
+text-align:left;
+}
+
+/* WHAT WE OFFER SECTION */
+section[style*="background:var(--cream)"] > div{
+grid-template-columns:1fr !important;
+gap:2rem !important;
+}
+
+section[style*="background:var(--cream)"] img{
+height:280px !important;
+}
+
+/* CTA */
+section[style*="text-align:center"]{
+padding:4rem 20px !important;
+}
+
+/* FOOTER */
+footer > div:first-child{
+grid-template-columns:1fr !important;
+gap:2rem !important;
+text-align:center;
+}
+
+.footer-inner{
+flex-direction:column;
+text-align:center;
+}
+
+}
+
+/* MOBILE */
+@media (max-width:480px){
+
+nav{
+height:65px;
+padding:0 15px;
+}
+
+.nav-logo{
+font-size:1rem;
+}
+
+.nav-cart{
+display:none;
+}
+
+.hero{
+height:50vh;
+}
+
+.hero h1{
+font-size:1.6rem;
+}
+
+.hero p{
+font-size:.85rem;
+}
+
+.eyebrow{
+font-size:.65rem;
+}
+
+section{
+padding:3rem 20px;
+}
+
+.story-img-stack{
+height:280px;
+}
+
+.story-badge{
+width:70px;
+height:70px;
+font-size:1.2rem;
+padding:.7rem;
+}
+
+.stats-band{
+grid-template-columns:1fr;
+gap:2rem;
+}
+
+.stat-num{
+font-size:2rem;
+}
+
+.team-img{
+height:220px;
+}
+
+.breadcrumb{
+font-size:.7rem;
+padding:12px 20px;
+}
+
+}
+
+/* HAMBURGER ANIMATION */
+.hamburger.active span:nth-child(1){
+transform:translateY(7px) rotate(45deg);
+}
+
+.hamburger.active span:nth-child(2){
+opacity:0;
+}
+
+.hamburger.active span:nth-child(3){
+transform:translateY(-7px) rotate(-45deg);
+}
