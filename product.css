@@ -462,3 +462,6 @@
   .photo-divider { padding: 2rem 0; }
   .do-tabs { gap: 1.5rem; overflow-x: auto; }
 }
+@media(max-width: 480px) {
+  #cart-drawer { max-width: 100% !important; }
+}
