@@ -809,7 +809,6 @@ if(!proceed) return;
 
 submitOrder(total);
 }
-
 function submitOrder(total) {
 
 const name = document.getElementById('cust-name').value;
@@ -851,9 +850,12 @@ Quantity: ${item.quantity}
 Amount: ₹${item.price * item.quantity}
 
 `;
+
 });
 
-## message += `
+message +=
+`
+-
 
 ## TOTAL AMOUNT: ₹${total}
 
@@ -865,11 +867,11 @@ Please verify payment before processing the order.
 `;
 
 const whatsappURL =
-"https://wa.me/919891529423?text=" +
+"https://wa.me/message/7U2OIQW6LW6YC1" +
 encodeURIComponent(message);
 
 alert(
-"WhatsApp is opening now.\n\nIMPORTANT:\nAttach your payment screenshot before sending the message."
+"WhatsApp is opening now.\n\nAttach your payment screenshot before sending the message."
 );
 
 window.open(whatsappURL, "_blank");
