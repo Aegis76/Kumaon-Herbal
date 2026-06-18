@@ -698,7 +698,7 @@ async function sendOrder(total) {
   // Desktop / unsupported fallback: open chat with order text, attach manually.
   // REPLACE 91XXXXXXXXXX with your real WhatsApp number (country code, no + or spaces).
   alert("This device can't auto-attach the image. WhatsApp will open with your order — please attach the screenshot manually before sending.");
-window.open("https://wa.me/918938844897?text=" + encodeURIComponent(message), "_blank");
+window.open("https://wa.me/919761420066?text=" + encodeURIComponent(message), "_blank");
 }
 
 function closePaymentPopup() {
