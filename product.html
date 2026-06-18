@@ -6,6 +6,27 @@
   <title>Products – Kumaon Herbal</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
   <link href="product.css" rel="stylesheet">
+
+  <!-- ===== STOCK FEATURE STYLES (drop-in, scoped, loads after product.css so it wins on ties) ===== -->
+  <style id="stock-styles">
+    .stock-pill{
+      display:inline-flex;align-items:center;gap:.4em;
+      font-family:'Jost',sans-serif;font-size:.72rem;font-weight:600;letter-spacing:.02em;
+      padding:.24em .65em;border-radius:999px;line-height:1.4;
+      margin:.2rem 0 .45rem;
+    }
+    .stock-pill::before{content:'';width:.5em;height:.5em;border-radius:50%;background:currentColor;flex:0 0 auto}
+    .stock-pill.is-in {color:#2e7d32;background:#e8f3e9}
+    .stock-pill.is-low{color:#b26a00;background:#fbf0dd}
+    .stock-pill.is-out{color:#8a9099;background:#f0f1f2}
+    /* sold-out card state — higher specificity than a bare .add-btn, so no !important needed */
+    .card.is-out{opacity:.74}
+    .card.is-out .card-img-wrap img{filter:grayscale(.55)}
+    .card.is-out .add-btn{background:#dadada;color:#777;cursor:not-allowed;pointer-events:none;border-color:#dadada}
+    .card.is-out .wishlist-btn{opacity:.5}
+    /* sold-out state for the detail-overlay buy button */
+    .do-cart-btn:disabled{background:#dadada;color:#777;cursor:not-allowed;transform:none;box-shadow:none}
+  </style>
 </head>
 <body>
 
@@ -56,6 +77,10 @@
         <div id="do-why-specials"></div>
         <p class="do-tagline-end">Experience the purity of <strong>Kumaon</strong> in every serving.</p>
       </div>
+    </div>
+    <div class="do-tab-panel" id="tab-benefits">
+      <h2 class="do-section-title" id="do-benefits-title">Health Benefits</h2>
+      <ul class="do-benefits-list" id="do-benefits-list"></ul>
     </div>
     <div class="do-tab-panel" id="tab-reviews">
       <div style="text-align:center; padding:3rem; color:var(--text-light);">⭐ No reviews yet. Be the first to review this product!</div>
@@ -111,19 +136,19 @@
   <div><h2>🍹 Natural Juices <span class="tag">Cold Pressed</span></h2><div class="sec-divider"></div></div>
 </div>
 <div class="product-grid" id="grid-juice">
-  <div class="card" data-id="litchi" data-cat="juice">
-    <div class="card-img-wrap"><span class="badge badge-popular">Sale</span><button class="wishlist-btn">♡</button><img src="images\litchi squash.jpeg" alt="Litchi Juice"/></div>
+  <div class="card" data-id="litchi" data-cat="juice" data-stock="14">
+    <div class="card-img-wrap"><span class="badge badge-popular">Sale</span><button class="wishlist-btn">♡</button><img src="images/litchi squash.jpeg" alt="Litchi Juice"/></div>
     <div class="card-body"><p class="card-category">Natural Juice</p><h3 class="card-title">Litchi Squash</h3><p class="card-desc">Rich in Vitamin C, Natural Energy Booster, Balances Electrolytes.</p><div class="stars">★★★★★ <span style="color:var(--text-light);margin-left:.3rem">(84)</span></div><div class="card-footer"><div><span class="price">₹190</span><span class="price-old">₹200</span></div><button class="add-btn">Add to Cart</button></div></div>
   </div>
-  <div class="card" data-id="buransh" data-cat="juice">
+  <div class="card" data-id="buransh" data-cat="juice" data-stock="4">
     <div class="card-img-wrap"><span class="badge badge-organic">Sale</span><button class="wishlist-btn">♡</button><img src="images/buransh juice.jpeg" alt="Buransh Juice"/></div>
     <div class="card-body"><p class="card-category">Natural Juice</p><h3 class="card-title">Buransh Juice</h3><p class="card-desc">Rare rhododendron flower juice — floral, tangy & rich in antioxidants.</p><div class="stars">★★★★☆ <span style="color:var(--text-light);margin-left:.3rem">(61)</span></div><div class="card-footer"><div><span class="price">₹249</span><span class="price-old">₹320</span></div><button class="add-btn">Add to Cart</button></div></div>
   </div>
-  <div class="card" data-id="aam" data-cat="juice">
+  <div class="card" data-id="aam" data-cat="juice" data-stock="0">
     <div class="card-img-wrap"><span class="badge badge-new">Sale</span><button class="wishlist-btn">♡</button><img src="images/aam panna.jpeg" alt="Aam Panna"/></div>
     <div class="card-body"><p class="card-category">Natural Juice</p><h3 class="card-title">Aam Panna</h3><p class="card-desc">Classic raw mango summer cooler with cumin, black salt & fresh mint.</p><div class="stars">★★★★★ <span style="color:var(--text-light);margin-left:.3rem">(112)</span></div><div class="card-footer"><div><span class="price">₹199</span></div><button class="add-btn">Add to Cart</button></div></div>
   </div>
-  <div class="card" data-id="peach" data-cat="juice">
+  <div class="card" data-id="peach" data-cat="juice" data-stock="22">
     <div class="card-img-wrap"><span class="badge badge-popular">Sale</span><button class="wishlist-btn">♡</button><img src="https://github.com/Aegis76/Kumaon-Herbal/blob/main/WhatsApp%20Image%202026-06-17%20at%2011.44.05%20AM.jpeg?raw=true" alt="Peach Blend"/></div>
     <div class="card-body"><p class="card-category">Natural Juice</p><h3 class="card-title">Malta</h3><p class="card-desc">Kumaoni hill peach with rhododendron flower extract — sweet, floral & rich in iron.</p><div class="stars">★★★★☆ <span style="color:var(--text-light);margin-left:.3rem">(47)</span></div><div class="card-footer"><div><span class="price">₹329</span><span class="price-old">₹400</span></div><button class="add-btn">Add to Cart</button></div></div>
   </div>
@@ -140,19 +165,19 @@
   <div><h2>🫙 Traditional Pickles <span class="tag">Hand Made</span></h2><div class="sec-divider"></div></div>
 </div>
 <div class="product-grid" id="grid-pickle">
-  <div class="card" data-id="mango" data-cat="pickle">
-    <div class="card-img-wrap"><span class="badge badge-popular">Bestseller</span><button class="wishlist-btn">♡</button><img src="images\IMG_8487.jpeg" alt="Mango Achar"/></div>
+  <div class="card" data-id="mango" data-cat="pickle" data-stock="31">
+    <div class="card-img-wrap"><span class="badge badge-popular">Bestseller</span><button class="wishlist-btn">♡</button><img src="images/IMG_8487.jpeg" alt="Mango Achar"/></div>
     <div class="card-body"><p class="card-category">Pickles</p><h3 class="card-title">Raw Mango Aam Achar</h3><p class="card-desc">Sun-dried raw mango pieces in mustard oil with traditional Kumaoni spices.</p><div class="stars">★★★★★ <span style="color:var(--text-light);margin-left:.3rem">(203)</span></div><div class="card-footer"><div><span class="price">₹189</span><span class="price-old">₹240</span></div><button class="add-btn">Add to Cart</button></div></div>
   </div>
-  <div class="card" data-id="chilli" data-cat="pickle">
+  <div class="card" data-id="chilli" data-cat="pickle" data-stock="7">
     <div class="card-img-wrap"><span class="badge badge-organic">Organic</span><button class="wishlist-btn">♡</button><img src="Jackfruit Pickle FRUNT.jpg.jpeg" alt="Chilli Achar"/></div>
     <div class="card-body"><p class="card-category">Pickles</p><h3 class="card-title">Jackfruit Pickle</h3><p class="card-desc">Fiery, tangy, and irresistibly savory, this jackfruit pickle features tender, meaty chunks steeped in aromatic spices and oil, delivering a mouthwatering burst of flavor to any meal.</p><div class="stars">★★★★★ <span style="color:var(--text-light);margin-left:.3rem">(89)</span></div><div class="card-footer"><div><span class="price">₹169</span></div><button class="add-btn">Add to Cart</button></div></div>
   </div>
-  <div class="card" data-id="lahsun" data-cat="pickle">
-    <div class="card-img-wrap"><span class="badge badge-new">New</span><button class="wishlist-btn">♡</button><img src="images\IMG_8492.jpeg" alt="Ginger Achar"/></div>
+  <div class="card" data-id="lahsun" data-cat="pickle" data-stock="19">
+    <div class="card-img-wrap"><span class="badge badge-new">New</span><button class="wishlist-btn">♡</button><img src="images/IMG_8492.jpeg" alt="Ginger Achar"/></div>
     <div class="card-body"><p class="card-category">Pickles</p><h3 class="card-title">Pahadi Ginger Achar</h3><p class="card-desc">Mountain garlic fermented in cold-pressed mustard oil with Himalayan black salt.</p><div class="stars">★★★★☆ <span style="color:var(--text-light);margin-left:.3rem">(54)</span></div><div class="card-footer"><div><span class="price">₹219</span><span class="price-old">₹300</span></div><button class="add-btn">Add to Cart</button></div></div>
   </div>
-  <div class="card" data-id="nimbu" data-cat="pickle">
+  <div class="card" data-id="nimbu" data-cat="pickle" data-stock="5">
     <div class="card-img-wrap"><span class="badge badge-organic">Traditional</span><button class="wishlist-btn">♡</button><img src="https://images.unsplash.com/photo-1601066584547-a4f4e92b6c1b?w=500&q=80" alt="Lemon Achar"/></div>
     <div class="card-body"><p class="card-category">Pickles</p><h3 class="card-title">Nimbu Masala Achar</h3><p class="card-desc">Juicy hill lemons stuffed with cumin, fenugreek & turmeric — aged 3 months.</p><div class="stars">★★★★★ <span style="color:var(--text-light);margin-left:.3rem">(76)</span></div><div class="card-footer"><div><span class="price">₹159</span></div><button class="add-btn">Add to Cart</button></div></div>
   </div>
@@ -163,19 +188,19 @@
   <div><h2>🌿 Herbal Products <span class="tag">Wild Sourced</span></h2><div class="sec-divider"></div></div>
 </div>
 <div class="product-grid" id="grid-herbal" style="padding-bottom: 8rem;">
-  <div class="card" data-id="tulsi" data-cat="herbal">
+  <div class="card" data-id="tulsi" data-cat="herbal" data-stock="0">
     <div class="card-img-wrap"><span class="badge badge-popular">Popular</span><button class="wishlist-btn">♡</button><img src="https://images.unsplash.com/photo-1591857177580-dc82b9ac4e1e?w=500&q=80" alt="Tulsi Tea"/></div>
     <div class="card-body"><p class="card-category">Wellness</p><h3 class="card-title">Black Garlic</h3><p class="card-desc">Hand-picked tulsi leaves blended with first-flush Kumaon green tea.</p><div class="stars">★★★★★ <span style="color:var(--text-light);margin-left:.3rem">(132)</span></div><div class="card-footer"><div><span class="price">₹349</span><span class="price-old">₹420</span></div><button class="add-btn">Add to Cart</button></div></div>
   </div>
-  <div class="card" data-id="honey" data-cat="herbal">
+  <div class="card" data-id="honey" data-cat="herbal" data-stock="26">
     <div class="card-img-wrap"><span class="badge badge-organic">Organic</span><button class="wishlist-btn">♡</button><img src="https://images.unsplash.com/photo-1571745544682-143ea663cf2c?w=500&q=80" alt="Honey"/></div>
     <div class="card-body"><p class="card-category">Wellness</p><h3 class="card-title">Haldi Latte</h3><p class="card-desc">Haldi Latte - The Golden Wellness Drink from the Himalayas</p><div class="stars">★★★★★ <span style="color:var(--text-light);margin-left:.3rem">(410)</span></div><div class="card-footer"><div><span class="price">₹499</span><span class="price-old">₹620</span></div><button class="add-btn">Add to Cart</button></div></div>
   </div>
-  <div class="card" data-id="eucalyptus" data-cat="herbal">
+  <div class="card" data-id="eucalyptus" data-cat="herbal" data-stock="9">
     <div class="card-img-wrap"><span class="badge badge-popular">Top Pick</span><button class="wishlist-btn">♡</button><img src="https://images.unsplash.com/photo-1571745544682-143ea663cf2c?w=500&q=80" alt="Eucalyptus Oil"/></div>
     <div class="card-body"><p class="card-category">Wellness</p><h3 class="card-title">Jack Fruit Flour</h3><p class="card-desc">Steam-distilled from mountain eucalyptus — used for cold relief & massage.</p><div class="stars">★★★★☆ <span style="color:var(--text-light);margin-left:.3rem">(92)</span></div><div class="card-footer"><div><span class="price">₹379</span><span class="price-old">₹450</span></div><button class="add-btn">Add to Cart</button></div></div>
   </div>
-  <div class="card" data-id="facepack" data-cat="herbal">
+  <div class="card" data-id="facepack" data-cat="herbal" data-stock="12">
     <div class="card-img-wrap"><span class="badge badge-organic">Organic</span><button class="wishlist-btn">♡</button><img src="https://images.unsplash.com/photo-1571745544682-143ea663cf2c?w=500&q=80" alt="Face Pack"/></div>
     <div class="card-body"><p class="card-category">Wellness</p><h3 class="card-title">Moringa Powder</h3><p class="card-desc">Wild sandalwood & turmeric blend for clear, glowing skin — chemical free.</p><div class="stars">★★★★★ <span style="color:var(--text-light);margin-left:.3rem">(118)</span></div><div class="card-footer"><div><span class="price">₹229</span></div><button class="add-btn">Add to Cart</button></div></div>
   </div>
@@ -196,5 +221,57 @@
 </footer>
 
 <script src="script.js"></script>
+
+<!-- ===== STOCK FEATURE LOGIC (drop-in, isolated, runs after script.js) ===== -->
+<script>
+(function () {
+  // single source of truth = data-stock on each .card. Set 0 for sold out.
+  var LOW_THRESHOLD = 5;
+
+  function renderStock() {
+    document.querySelectorAll('.product-grid .card').forEach(function (card) {
+      var stock = parseInt(card.getAttribute('data-stock') || '0', 10);
+      var btn   = card.querySelector('.add-btn');
+      var cat   = card.querySelector('.card-category');
+      var body  = card.querySelector('.card-body');
+
+      // avoid duplicates if this runs more than once
+      var existing = card.querySelector('.stock-pill');
+      if (existing) existing.remove();
+      card.classList.remove('is-out');
+
+      var pill = document.createElement('span');
+      pill.className = 'stock-pill';
+
+      if (stock <= 0) {
+        pill.classList.add('is-out');
+        pill.textContent = 'Out of stock';
+        card.classList.add('is-out');
+        if (btn) { btn.disabled = true; btn.textContent = 'Sold Out'; }
+      } else if (stock <= LOW_THRESHOLD) {
+        pill.classList.add('is-low');
+        pill.textContent = 'Only ' + stock + ' left';
+      } else {
+        pill.classList.add('is-in');
+        pill.textContent = 'In stock';
+      }
+
+      if (cat && cat.parentNode) cat.insertAdjacentElement('afterend', pill);
+      else if (body) body.insertBefore(pill, body.firstChild);
+    });
+  }
+
+  if (document.readyState !== 'loading') renderStock();
+  else document.addEventListener('DOMContentLoaded', renderStock);
+
+  // expose so your cart code can flip stock and re-render:  setStock('aam', 0)
+  window.setStock = function (id, n) {
+    var card = document.querySelector('.card[data-id="' + id + '"]');
+    if (!card) return;
+    card.setAttribute('data-stock', String(n));
+    renderStock();
+  };
+})();
+</script>
 </body>
 </html>
