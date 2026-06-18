@@ -635,10 +635,10 @@ function showPaymentDetails() {
       <h3 style="color:green;text-align:center;">Total Amount: ₹${total}</h3>
       <hr>
       <h3>Customer Details</h3>
-      <input id="cust-name" type="text" placeholder="Full Name" style="width:100%;padding:10px;margin-bottom:10px;">
-      <input id="cust-phone" type="tel" placeholder="Mobile Number" style="width:100%;padding:10px;margin-bottom:10px;">
+      <input id="cust-name" type="text" placeholder="Full Name *" style="width:100%;padding:10px;margin-bottom:10px;">
+      <input id="cust-phone" type="tel" placeholder="Mobile Number *" style="width:100%;padding:10px;margin-bottom:10px;">
       <input id="cust-email" type="email" placeholder="Email Address" style="width:100%;padding:10px;margin-bottom:10px;">
-      <textarea id="cust-address" placeholder="Full Delivery Address" style="width:100%;padding:10px;height:90px;margin-bottom:10px;"></textarea>
+      <textarea id="cust-address" placeholder="Full Delivery Address *" style="width:100%;padding:10px;height:90px;margin-bottom:10px;"></textarea>
       <input id="cust-city" type="text" placeholder="City" style="width:100%;padding:10px;margin-bottom:10px;">
       <input id="cust-state" type="text" placeholder="State" style="width:100%;padding:10px;margin-bottom:10px;">
       <input id="cust-pincode" type="text" placeholder="PIN Code" style="width:100%;padding:10px;margin-bottom:20px;">
@@ -648,12 +648,15 @@ function showPaymentDetails() {
       <div style="text-align:center;margin-top:15px;font-size:26px;font-weight:700;color:#1a3a2a;">Pay ₹${total}</div>
       <p style="text-align:center;margin-top:10px;"><strong>UPI ID</strong><br>YOUR_UPI_ID</p>
       <button onclick="copyUPI()" style="width:100%;padding:10px;cursor:pointer;">Copy UPI ID</button>
-      <div style="margin-top:15px;padding:15px;background:#fff8e1;border-left:4px solid #ff9800;border-radius:8px;font-size:14px;">
-        📸 After making payment, WhatsApp will open. Attach your payment screenshot before sending the message.
+      <hr>
+      <h3>Upload Payment Screenshot *</h3>
+      <input id="cust-screenshot" type="file" accept="image/*" style="width:100%;padding:10px;margin-bottom:10px;">
+      <div style="margin-top:5px;padding:15px;background:#fff8e1;border-left:4px solid #ff9800;border-radius:8px;font-size:14px;">
+        📸 After payment, attach your screenshot above, then tap the button. WhatsApp will open with your order and screenshot ready to send.
       </div>
       <hr>
-      <button onclick="confirmPayment(${total})" style="width:100%;padding:14px;background:#25D366;color:white;border:none;border-radius:8px;cursor:pointer;font-size:16px;font-weight:600;">
-        ✅ I Have Paid ₹${total}
+      <button onclick="sendOrder(${total})" style="width:100%;padding:14px;background:#25D366;color:white;border:none;border-radius:8px;cursor:pointer;font-size:16px;font-weight:600;">
+        ✅ Send Order on WhatsApp
       </button>
     </div>
   </div>`;
@@ -661,47 +664,41 @@ function showPaymentDetails() {
   document.body.insertAdjacentHTML('beforeend', html);
 }
 
-function confirmPayment(total) {
-  const name = document.getElementById('cust-name').value;
-  const phone = document.getElementById('cust-phone').value;
-  const address = document.getElementById('cust-address').value;
-
-  if (!name || !phone || !address) {
-    alert("Please fill Name, Mobile Number and Address.");
-    return;
-  }
-
-  const proceed = confirm(
-    `Payment Amount: ₹${total}\n\nHave you completed the payment?\n\nIMPORTANT: You must attach the payment screenshot in WhatsApp before sending the order.`
-  );
-
-  if (!proceed) return;
-
-  submitOrder(total);
+function buildOrderMessage(total) {
+  const v = id => (document.getElementById(id)?.value || '');
+  let msg = `🛍️ NEW ORDER - KUMAON HERBAL\n\n👤 Name: ${v('cust-name')}\n📞 Phone: ${v('cust-phone')}\n📧 Email: ${v('cust-email')}\n\n📍 DELIVERY ADDRESS\n${v('cust-address')}\n${v('cust-city')}, ${v('cust-state')} - ${v('cust-pincode')}\n\nORDER ITEMS`;
+  cart.forEach(item => {
+    msg += `\n• ${item.title} x${item.quantity} = ₹${item.price * item.quantity}`;
+  });
+  msg += `\n\nTOTAL: ₹${total}\n✅ Payment done — screenshot attached.`;
+  return msg;
 }
 
-function submitOrder(total) {
+async function sendOrder(total) {
   const name = document.getElementById('cust-name').value;
   const phone = document.getElementById('cust-phone').value;
-  const email = document.getElementById('cust-email').value;
   const address = document.getElementById('cust-address').value;
-  const city = document.getElementById('cust-city').value;
-  const state = document.getElementById('cust-state').value;
-  const pincode = document.getElementById('cust-pincode').value;
+  if (!name || !phone || !address) { alert("Please fill Name, Mobile Number and Address."); return; }
 
-  let message = `🛍️ NEW ORDER - KUMAON HERBAL\n\n👤 Name: ${name}\n📞 Phone: ${phone}\n📧 Email: ${email}\n\n📍 DELIVERY ADDRESS\n${address}\nCity: ${city}\nState: ${state}\nPIN: ${pincode}\n\nORDER ITEMS\n`;
+  const file = document.getElementById('cust-screenshot')?.files[0];
+  if (!file) { alert("Please attach your payment screenshot first."); return; }
 
-  cart.forEach(item => {
-    message += `\n${item.title}\nQuantity: ${item.quantity}\nAmount: ₹${item.price * item.quantity}\n`;
-  });
+  const message = buildOrderMessage(total);
 
-  message += `\nTOTAL AMOUNT: ₹${total}\n\n✅ Payment Completed\n📸 Payment screenshot attached below.`;
+  // Mobile: share screenshot + order text via the share sheet (customer taps WhatsApp)
+  if (navigator.canShare && navigator.canShare({ files: [file] })) {
+    try {
+      await navigator.share({ files: [file], text: message, title: 'Kumaon Herbal Order' });
+      return;
+    } catch (err) {
+      if (err.name === 'AbortError') return; // customer cancelled the share sheet
+    }
+  }
 
-  // REPLACE 91XXXXXXXXXX with your real WhatsApp number (country code, no + or spaces)
-  const whatsappURL = "https://wa.me/91XXXXXXXXXX?text=" + encodeURIComponent(message);
-
-  alert("WhatsApp is opening. Attach your payment screenshot before sending.");
-  window.open(whatsappURL, "_blank");
+  // Desktop / unsupported fallback: open chat with order text, attach manually.
+  // REPLACE 91XXXXXXXXXX with your real WhatsApp number (country code, no + or spaces).
+  alert("This device can't auto-attach the image. WhatsApp will open with your order — please attach the screenshot manually before sending.");
+window.open("https://wa.me/918938844897?text=" + encodeURIComponent(message), "_blank");
 }
 
 function closePaymentPopup() {
