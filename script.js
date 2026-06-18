@@ -1,4 +1,14 @@
 let cart = JSON.parse(localStorage.getItem('kumaon_cart')) || [];
+let activeStock = Infinity; // stock of the product currently open in the detail overlay
+
+// Read live stock straight off the card's data-stock (single source of truth).
+// Products in productsDB that have no card on the page are treated as unlimited.
+function getStock(id) {
+  if (typeof id !== 'string') return Infinity;
+  const card = document.querySelector('.card[data-id="' + id + '"]');
+  if (!card || !card.hasAttribute('data-stock')) return Infinity;
+  return parseInt(card.getAttribute('data-stock') || '0', 10);
+}
 
 document.addEventListener('DOMContentLoaded', () => {
   // NAVBAR SCROLL EFFECT
@@ -53,8 +63,9 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       if (pId) {
-        addToCart(pId);
-        
+        const added = addToCart(pId);
+        if (!added) return; // out of stock — skip the "Added!" animation
+
         // Visual feedback
         const orig = btn.textContent;
         btn.textContent = '✓ Added!';
@@ -136,19 +147,19 @@ function createCartHTML() {
     <div id="cart-overlay" style="position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:3000; display:none; justify-content:flex-end;">
       <div id="cart-drawer" style="width:100%; max-width:400px; background:#fff; height:100%; display:flex; flex-direction:column; box-shadow:-10px 0 30px rgba(0,0,0,0.1); animation:slideInRight 0.4s ease;">
         <div style="padding:1.5rem; border-bottom:1px solid #eee; display:flex; justify-content:space-between; align-items:center;">
-          <h3 style="font-family:'Playfair Display',serif; color:var(--gd); margin:0;">Your Shopping Bag</h3>
-          <button onclick="toggleCart()" style="background:none; border:none; font-size:1.5rem; cursor:pointer; color:var(--td);">&times;</button>
+          <h3 style="font-family:'Playfair Display',serif; color:var(--green-deep); margin:0;">Your Shopping Bag</h3>
+          <button onclick="toggleCart()" style="background:none; border:none; font-size:1.5rem; cursor:pointer; color:var(--text-dark);">&times;</button>
         </div>
         <div id="cart-items" style="flex:1; overflow-y:auto; padding:1.5rem;"></div>
         <div id="cart-footer" style="padding:1.5rem; border-top:1px solid #eee; background:#fdfaf4;">
-          <div style="display:flex; justify-content:space-between; margin-bottom:1rem; font-weight:600; color:var(--gd);">
+          <div style="display:flex; justify-content:space-between; margin-bottom:1rem; font-weight:600; color:var(--green-deep);">
             <span>Subtotal</span>
             <span id="cart-total">₹0</span>
           </div>
        <button class="btn-primary" style="width:100%; padding: 1rem;" onclick="showPaymentDetails()">
   Proceed to Checkout
 </button>
-          <p style="text-align:center; font-size:0.75rem; color:var(--tl); margin-top:0.8rem;">Shipping and taxes calculated at checkout.</p>
+          <p style="text-align:center; font-size:0.75rem; color:var(--text-light); margin-top:0.8rem;">Shipping and taxes calculated at checkout.</p>
         </div>
       </div>
     </div>
@@ -157,15 +168,15 @@ function createCartHTML() {
       .cart-item { display: flex; gap: 1rem; margin-bottom: 1.5rem; align-items: center; }
       .cart-item img { width: 70px; height: 70px; object-fit: cover; border-radius: 8px; }
       .cart-item-info { flex: 1; }
-      .cart-item-info h4 { margin: 0 0 0.3rem; font-size: 0.95rem; color: var(--gd); }
-      .cart-item-info p { margin: 0; font-size: 0.85rem; color: var(--tm); }
+      .cart-item-info h4 { margin: 0 0 0.3rem; font-size: 0.95rem; color: var(--green-deep); }
+      .cart-item-info p { margin: 0; font-size: 0.85rem; color: var(--text-mid); }
       .qty-control { display: flex; align-items: center; gap: 0.8rem; margin-top: 0.5rem; }
       .qty-control button { width: 24px; height: 24px; border-radius: 50%; border: 1px solid #ddd; background: #fff; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; }
       .remove-item { background: none; border: none; color: #e05a5a; font-size: 0.75rem; cursor: pointer; padding: 0; margin-top: 0.5rem; text-decoration: underline; }
     </style>
   `;
   document.body.insertAdjacentHTML('beforeend', html);
-  
+
   // Close when clicking overlay
   document.getElementById('cart-overlay').addEventListener('click', (e) => {
     if (e.target.id === 'cart-overlay') toggleCart();
@@ -174,11 +185,27 @@ function createCartHTML() {
 
 function addToCart(pId) {
   const product = productsDB[pId];
-  if (!product) return;
+  if (!product) return false;
 
+  const stock = getStock(pId);
   const existingItem = cart.find(item => item.id === pId);
+  const inCart = existingItem ? existingItem.quantity : 0;
   const qtyInput = document.getElementById('do-qty');
-  const addedQty = qtyInput ? parseInt(qtyInput.value) || 1 : 1;
+  let addedQty = qtyInput ? parseInt(qtyInput.value) || 1 : 1;
+
+  // Stock guard (client-side UX only — the server must still verify on checkout)
+  if (stock <= 0) {
+    alert(product.title + ' is currently out of stock.');
+    return false;
+  }
+  if (inCart >= stock) {
+    alert('You already have all ' + stock + ' available of ' + product.title + ' in your bag.');
+    return false;
+  }
+  if (inCart + addedQty > stock) {
+    addedQty = stock - inCart;
+    alert('Only ' + stock + ' of ' + product.title + ' in stock — adding ' + addedQty + ' to your bag.');
+  }
 
   if (existingItem) {
     existingItem.quantity += addedQty;
@@ -191,12 +218,13 @@ function addToCart(pId) {
       quantity: addedQty
     });
   }
-  
+
   // Reset qty input if on detail page
-  if(qtyInput) qtyInput.value = 1;
-  
+  if (qtyInput) qtyInput.value = 1;
+
   saveCart();
   updateCartUI();
+  return true;
 }
 
 function removeFromCart(pId) {
@@ -208,6 +236,14 @@ function removeFromCart(pId) {
 function updateQuantity(pId, delta) {
   const item = cart.find(item => item.id === pId);
   if (item) {
+    // don't let + push past available stock
+    if (delta > 0) {
+      const stock = getStock(pId);
+      if (item.quantity >= stock) {
+        alert('Only ' + stock + ' in stock.');
+        return;
+      }
+    }
     item.quantity += delta;
     if (item.quantity <= 0) {
       removeFromCart(pId);
@@ -229,7 +265,7 @@ function updateCartUI() {
 
   let total = 0;
   let count = 0;
-  
+
   cart.forEach(item => {
     total += item.price * item.quantity;
     count += item.quantity;
@@ -242,7 +278,7 @@ function updateCartUI() {
   if (!itemsContainer) return;
 
   if (cart.length === 0) {
-    itemsContainer.innerHTML = `<div style="text-align:center; padding:3rem 0; color:var(--tl);">Your bag is empty.</div>`;
+    itemsContainer.innerHTML = `<div style="text-align:center; padding:3rem 0; color:var(--text-light);">Your bag is empty.</div>`;
     totalEl.textContent = '₹0';
     return;
   }
@@ -260,7 +296,7 @@ function updateCartUI() {
         </div>
         <button class="remove-item" onclick="removeFromCart('${item.id}')">Remove</button>
       </div>
-      <div style="font-weight:600; color:var(--gd);">₹${item.price * item.quantity}</div>
+      <div style="font-weight:600; color:var(--green-deep);">₹${item.price * item.quantity}</div>
     </div>
   `).join('');
 
@@ -315,27 +351,27 @@ function submitForm() {
   const e = document.getElementById('email');
   const m = document.getElementById('message');
   const s = document.getElementById('subject');
-  
+
   if (!f || !e || !m || !s || !f.value || !e.value || !m.value || !s.value) {
     alert('Please fill in all required fields (*).');
     return;
   }
-  
+
   if (!e.value.includes('@')) {
     alert('Please enter a valid email address.');
     return;
   }
-  
+
   const btn = document.querySelector('.submit-btn');
   btn.textContent = 'Sending…';
   btn.disabled = true;
-  
+
   setTimeout(() => {
     const successMsg = document.getElementById('successMsg');
     if (successMsg) successMsg.style.display = 'block';
     btn.textContent = '✓ Message Sent!';
     btn.style.background = 'var(--green-light)';
-    
+
     [f, e, m, s, document.getElementById('lname'), document.getElementById('phone')].forEach(el => {
       if (el) el.value = '';
     });
@@ -529,11 +565,11 @@ function openDetail(pId) {
   const p = typeof pId === 'string' ? productsDB[pId] : pId;
   if (!p) return;
 
-  const setText = (id, text) => { 
-    const el = document.getElementById(id); 
-    if(el) el.textContent = text || ''; 
+  const setText = (id, text) => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = text || '';
   };
-  
+
   setText('do-title', p.title);
   setText('do-breadcrumb', p.breadcrumb);
   setText('do-price-now', p.priceNow);
@@ -543,19 +579,19 @@ function openDetail(pId) {
   setText('do-desc-para2', p.descPara2);
 
   const oldPriceEl = document.getElementById('do-price-old');
-  if(oldPriceEl) {
+  if (oldPriceEl) {
     oldPriceEl.textContent = p.priceOld || '';
     oldPriceEl.style.display = p.priceOld ? 'inline-block' : 'none';
   }
 
   const badgeEl = document.getElementById('do-badge');
-  if(badgeEl) {
+  if (badgeEl) {
     badgeEl.textContent = p.badge || '';
     badgeEl.style.display = p.badge ? 'inline-block' : 'none';
   }
 
   const imgEl = document.getElementById('do-main-img');
-  if(imgEl && p.img) {
+  if (imgEl && p.img) {
     imgEl.src = p.img;
     imgEl.alt = p.title;
   }
@@ -565,7 +601,7 @@ function openDetail(pId) {
   if (benefitsList && benefitsTitle) {
     if (p.benefits && p.benefits.length > 0) {
       benefitsTitle.style.display = 'block';
-      benefitsList.style.display = 'block';
+      benefitsList.style.display = 'grid';
       benefitsList.innerHTML = p.benefits.map((b, i) => `<li><div class="do-benefit-num">${i + 1}</div><div>${b}</div></li>`).join('');
     } else {
       benefitsTitle.style.display = 'none';
@@ -580,6 +616,26 @@ function openDetail(pId) {
 
   const specialsDiv = document.getElementById('do-why-specials');
   if (specialsDiv) specialsDiv.innerHTML = (p.specials || []).map(x => `<div class="do-special-item">✨ ${x}</div>`).join('');
+
+  // ---- STOCK: gate the detail-overlay buy button ----
+  const sid = typeof pId === 'string' ? pId : null;
+  activeStock = sid ? getStock(sid) : Infinity;
+  const buyBtn = document.querySelector('.do-cart-btn');
+  if (buyBtn) {
+    if (activeStock <= 0) {
+      buyBtn.disabled = true;
+      buyBtn.textContent = 'Sold Out';
+    } else {
+      buyBtn.disabled = false;
+      buyBtn.textContent = 'Add to Bag';
+    }
+  }
+  const qtyReset = document.getElementById('do-qty');
+  if (qtyReset) qtyReset.value = 1;
+
+  // reset to Description tab each time a product opens
+  document.querySelectorAll('.do-tab').forEach((b, i) => b.classList.toggle('active', i === 0));
+  document.querySelectorAll('.do-tab-panel').forEach(panel => panel.classList.toggle('active', panel.id === 'tab-desc'));
 
   const ov = document.getElementById('detail-overlay');
   if (ov) {
@@ -601,6 +657,10 @@ function changeQty(delta) {
     let val = parseInt(input.value) || 1;
     val += delta;
     if (val < 1) val = 1;
+    if (activeStock && val > activeStock) {
+      val = activeStock;
+      alert('Only ' + activeStock + ' in stock.');
+    }
     input.value = val;
   }
 }
@@ -610,13 +670,13 @@ function switchTab(btn, tabId) {
   document.querySelectorAll('.do-tab-panel').forEach(p => p.classList.remove('active'));
   btn.classList.add('active');
   const panel = document.getElementById(tabId);
-  if(panel) panel.classList.add('active');
+  if (panel) panel.classList.add('active');
 }
 
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape') {
     closeDetail();
-    if(document.getElementById('cart-overlay')?.style.display === 'flex') toggleCart();
+    if (document.getElementById('cart-overlay')?.style.display === 'flex') toggleCart();
   }
 });
 // ================= PAYMENT & ORDER FUNCTIONS =================
@@ -698,7 +758,7 @@ async function sendOrder(total) {
   // Desktop / unsupported fallback: open chat with order text, attach manually.
   // REPLACE 91XXXXXXXXXX with your real WhatsApp number (country code, no + or spaces).
   alert("This device can't auto-attach the image. WhatsApp will open with your order — please attach the screenshot manually before sending.");
-window.open("https://wa.me/919761420066?text=" + encodeURIComponent(message), "_blank");
+  window.open("https://wa.me/919761420066?text=" + encodeURIComponent(message), "_blank");
 }
 
 function closePaymentPopup() {
