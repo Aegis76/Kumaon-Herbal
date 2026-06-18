@@ -719,7 +719,7 @@ function showPaymentDetails() {
       <h3>Scan & Pay</h3>
 
       <img
-        src="/images/upi-qr.png"
+        src="https://github.com/Aegis76/Kumaon-Herbal/blob/main/WhatsApp%20Image%202026-06-18%20at%202.13.04%20PM.jpeg?raw=true"
         alt="UPI QR"
         style="
         width:250px;
