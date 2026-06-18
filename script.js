@@ -623,18 +623,19 @@ document.addEventListener('keydown', e => {
 
 function showPaymentDetails() {
 
-  if (cart.length === 0) {
-    alert("Your cart is empty.");
-    return;
-  }
+if (cart.length === 0) {
+alert("Your cart is empty.");
+return;
+}
 
-  let total = 0;
+let total = 0;
 
-  cart.forEach(item => {
-    total += item.price * item.quantity;
-  });
+cart.forEach(item => {
+total += item.price * item.quantity;
+});
 
-  const html = `
+const html = `
+
   <div id="payment-popup"
     style="
     position:fixed;
@@ -645,215 +646,241 @@ function showPaymentDetails() {
     justify-content:center;
     align-items:center;">
 
-    <div
-      style="
-      background:#fff;
-      width:95%;
-      max-width:650px;
-      max-height:90vh;
-      overflow:auto;
-      padding:25px;
-      border-radius:15px;
-      position:relative;">
+```
+<div
+  style="
+  background:#fff;
+  width:95%;
+  max-width:650px;
+  max-height:90vh;
+  overflow:auto;
+  padding:25px;
+  border-radius:15px;
+  position:relative;">
 
-      <button
-        onclick="closePaymentPopup()"
-        style="
-        position:absolute;
-        top:10px;
-        right:15px;
-        border:none;
-        background:none;
-        font-size:28px;
-        cursor:pointer;">
-        ×
-      </button>
+  <button
+    onclick="closePaymentPopup()"
+    style="
+    position:absolute;
+    top:10px;
+    right:15px;
+    border:none;
+    background:none;
+    font-size:28px;
+    cursor:pointer;">
+    ×
+  </button>
 
-      <h2>Checkout</h2>
+  <h2>Checkout</h2>
 
-      <h3 style="color:green;">
-        Total Amount: ₹${total}
-      </h3>
+  <h3 style="color:green;text-align:center;">
+    Total Amount: ₹${total}
+  </h3>
 
-      <hr>
+  <hr>
 
-      <h3>Customer Details</h3>
+  <h3>Customer Details</h3>
 
-      <input id="cust-name"
-        type="text"
-        placeholder="Full Name"
-        style="width:100%;padding:10px;margin-bottom:10px;">
+  <input id="cust-name"
+    type="text"
+    placeholder="Full Name"
+    style="width:100%;padding:10px;margin-bottom:10px;">
 
-      <input id="cust-phone"
-        type="tel"
-        placeholder="Mobile Number"
-        style="width:100%;padding:10px;margin-bottom:10px;">
+  <input id="cust-phone"
+    type="tel"
+    placeholder="Mobile Number"
+    style="width:100%;padding:10px;margin-bottom:10px;">
 
-      <input id="cust-email"
-        type="email"
-        placeholder="Email Address"
-        style="width:100%;padding:10px;margin-bottom:10px;">
+  <input id="cust-email"
+    type="email"
+    placeholder="Email Address"
+    style="width:100%;padding:10px;margin-bottom:10px;">
 
-      <textarea
-        id="cust-address"
-        placeholder="Full Delivery Address"
-        style="width:100%;padding:10px;height:90px;margin-bottom:10px;"></textarea>
+  <textarea
+    id="cust-address"
+    placeholder="Full Delivery Address"
+    style="width:100%;padding:10px;height:90px;margin-bottom:10px;"></textarea>
 
-      <input id="cust-city"
-        type="text"
-        placeholder="City"
-        style="width:100%;padding:10px;margin-bottom:10px;">
+  <input id="cust-city"
+    type="text"
+    placeholder="City"
+    style="width:100%;padding:10px;margin-bottom:10px;">
 
-      <input id="cust-state"
-        type="text"
-        placeholder="State"
-        style="width:100%;padding:10px;margin-bottom:10px;">
+  <input id="cust-state"
+    type="text"
+    placeholder="State"
+    style="width:100%;padding:10px;margin-bottom:10px;">
 
-      <input id="cust-pincode"
-        type="text"
-        placeholder="PIN Code"
-        style="width:100%;padding:10px;margin-bottom:20px;">
+  <input id="cust-pincode"
+    type="text"
+    placeholder="PIN Code"
+    style="width:100%;padding:10px;margin-bottom:20px;">
 
-      <hr>
+  <hr>
 
-      <h3>Scan & Pay</h3>
+  <h3>Scan & Pay</h3>
 
-      <img
-        src="https://github.com/Aegis76/Kumaon-Herbal/blob/main/WhatsApp%20Image%202026-06-18%20at%202.13.04%20PM.jpeg?raw=true"
-        alt="UPI QR"
-        style="
-        width:250px;
-        display:block;
-        margin:auto;
-        border:1px solid #ddd;
-        border-radius:10px;">
+  <img
+    src="https://github.com/Aegis76/Kumaon-Herbal/blob/main/WhatsApp%20Image%202026-06-18%20at%202.13.04%20PM.jpeg?raw=true"
+    alt="UPI QR"
+    style="
+    width:250px;
+    display:block;
+    margin:auto;
+    border:1px solid #ddd;
+    border-radius:10px;">
 
-      <p style="text-align:center;margin-top:15px;">
-        <strong>UPI ID</strong><br>
-        YOUR_UPI_ID
-      </p>
+  <div style="
+    text-align:center;
+    margin-top:15px;
+    font-size:26px;
+    font-weight:700;
+    color:#1a3a2a;">
+    Pay ₹${total}
+  </div>
 
-      <button
-        onclick="copyUPI()"
-        style="
-        width:100%;
-        padding:10px;
-        cursor:pointer;">
-        Copy UPI ID
-      </button>
+  <p style="text-align:center;margin-top:10px;">
+    <strong>UPI ID</strong><br>
+    YOUR_UPI_ID
+  </p>
 
-      <hr>
+  <button
+    onclick="copyUPI()"
+    style="
+    width:100%;
+    padding:10px;
+    cursor:pointer;">
+    Copy UPI ID
+  </button>
 
-      <h3>Bank Transfer Details</h3>
+  <div style="
+    margin-top:15px;
+    padding:15px;
+    background:#fff8e1;
+    border-left:4px solid #ff9800;
+    border-radius:8px;
+    font-size:14px;">
+    📸 After making payment, WhatsApp will open automatically.
+    Please attach your payment screenshot before sending the message.
+  </div>
 
-      <p>
-        <strong>Account Name:</strong> Kumaon Herbal<br>
-        <strong>Bank:</strong> YOUR_BANK_NAME<br>
-        <strong>Account Number:</strong> YOUR_ACCOUNT_NUMBER<br>
-        <strong>IFSC:</strong> YOUR_IFSC_CODE
-      </p>
+  <hr>
 
-      <hr>
+  <button
+    onclick="confirmPayment(${total})"
+    style="
+    width:100%;
+    padding:14px;
+    background:#25D366;
+    color:white;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    font-size:16px;
+    font-weight:600;">
+    ✅ I Have Paid ₹${total}
+  </button>
 
-      <button
-        onclick="submitOrder(${total})"
-        style="
-        width:100%;
-        padding:14px;
-        background:#25D366;
-        color:white;
-        border:none;
-        border-radius:8px;
-        cursor:pointer;
-        font-size:16px;">
-        Submit Order & Open WhatsApp
-      </button>
+</div>
+```
 
-      <br><br>
-
-      <a
-        href="mailto:YOUR_GMAIL@gmail.com"
-        style="
-        display:block;
-        text-align:center;
-        text-decoration:none;
-        font-weight:bold;">
-        📧 Contact via Email
-      </a>
-
-    </div>
   </div>
   `;
 
-  document.body.insertAdjacentHTML('beforeend', html);
+document.body.insertAdjacentHTML('beforeend', html);
+}
+
+function confirmPayment(total){
+
+const name = document.getElementById('cust-name').value;
+const phone = document.getElementById('cust-phone').value;
+const address = document.getElementById('cust-address').value;
+
+if (!name || !phone || !address) {
+alert("Please fill Name, Mobile Number and Address.");
+return;
+}
+
+const proceed = confirm(
+`Payment Amount: ₹${total}\n\nHave you completed the payment?\n\nIMPORTANT: You must attach the payment screenshot in WhatsApp before sending the order.`
+);
+
+if(!proceed) return;
+
+submitOrder(total);
 }
 
 function submitOrder(total) {
 
-  const name = document.getElementById('cust-name').value;
-  const phone = document.getElementById('cust-phone').value;
-  const email = document.getElementById('cust-email').value;
-  const address = document.getElementById('cust-address').value;
-  const city = document.getElementById('cust-city').value;
-  const state = document.getElementById('cust-state').value;
-  const pincode = document.getElementById('cust-pincode').value;
+const name = document.getElementById('cust-name').value;
+const phone = document.getElementById('cust-phone').value;
+const email = document.getElementById('cust-email').value;
+const address = document.getElementById('cust-address').value;
+const city = document.getElementById('cust-city').value;
+const state = document.getElementById('cust-state').value;
+const pincode = document.getElementById('cust-pincode').value;
 
-  if (!name || !phone || !address) {
-    alert("Please fill Name, Mobile Number and Address.");
-    return;
-  }
-
-  let message =
+let message =
 `🛍️ NEW ORDER - KUMAON HERBAL
 
-Name: ${name}
-Phone: ${phone}
-Email: ${email}
+👤 Name: ${name}
+📞 Phone: ${phone}
+📧 Email: ${email}
 
-Delivery Address:
+📍 DELIVERY ADDRESS
 ${address}
 
 City: ${city}
 State: ${state}
 PIN: ${pincode}
 
------------------------
-ORDER ITEMS
------------------------
+---
+
+## ORDER ITEMS
 
 `;
 
-  cart.forEach(item => {
+cart.forEach(item => {
 
-    message +=
+```
+message +=
+```
+
 `${item.title}
 Quantity: ${item.quantity}
 Amount: ₹${item.price * item.quantity}
 
 `;
-  });
+});
 
-  message += `
------------------------
-TOTAL: ₹${total}
------------------------
+## message += `
 
-Payment completed. Screenshot attached.
+## TOTAL AMOUNT: ₹${total}
+
+✅ Payment Completed
+
+📸 PAYMENT SCREENSHOT WILL BE ATTACHED BELOW THIS MESSAGE.
+
+Please verify payment before processing the order.
 `;
 
-  const whatsappURL =
-    "https://wa.me/91XXXXXXXXXX?text=" +
-    encodeURIComponent(message);
+const whatsappURL =
+"https://wa.me/919891529423?text=" +
+encodeURIComponent(message);
 
-  window.open(whatsappURL, "_blank");
+alert(
+"WhatsApp is opening now.\n\nIMPORTANT:\nAttach your payment screenshot before sending the message."
+);
+
+window.open(whatsappURL, "_blank");
 }
 
 function closePaymentPopup() {
-  const popup = document.getElementById('payment-popup');
-  if (popup) popup.remove();
+const popup = document.getElementById('payment-popup');
+if (popup) popup.remove();
 }
 
 function copyUPI() {
-  navigator.clipboard.writeText("YOUR_UPI_ID");
-  alert("UPI ID copied successfully.");
+navigator.clipboard.writeText("YOUR_UPI_ID");
+alert("UPI ID copied successfully.");
 }
