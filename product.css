@@ -471,3 +471,20 @@ nav { position: sticky; top: 0; z-index: 100; display: flex; align-items: center
   /* cart drawer goes full-width (overrides the inline max-width set in JS) */
   #cart-drawer { max-width: 100% !important; }
 }
+/* Payment popup — mobile fix */
+#payment-popup > div { box-sizing: border-box; }
+#payment-popup input,
+#payment-popup textarea,
+#payment-popup button { box-sizing: border-box; max-width: 100%; }
+
+@media (max-width: 600px) {
+  #payment-popup { padding: 12px; }
+  #payment-popup > div { padding: 18px 16px !important; border-radius: 12px; }
+  #payment-popup img { width: 200px !important; }
+  #payment-popup h2 { font-size: 1.4rem; }
+}
+
+/* Stop any accidental sideways scroll on phones */
+@media (max-width: 600px) {
+  html, body { max-width: 100%; overflow-x: hidden; }
+}
