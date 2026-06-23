@@ -488,3 +488,21 @@ nav { position: sticky; top: 0; z-index: 100; display: flex; align-items: center
 @media (max-width: 600px) {
   html, body { max-width: 100%; overflow-x: hidden; }
 }
+/* ===== DESKTOP GRID REPAIR (added) ===== */
+
+/* Cards fill their row evenly instead of staggering by content height */
+.product-grid { align-items: stretch; }
+.product-grid > .card { height: 100%; }
+
+/* If the footer / banner / section header got placed INSIDE .product-grid,
+   force them to span the full width instead of sitting in one skinny column */
+.product-grid > .footer-strip,
+.product-grid > footer,
+.product-grid > .banner-strip,
+.product-grid > .section-header,
+.product-grid > .photo-divider {
+  grid-column: 1 / -1;
+}
+
+/* Keep a card from stretching tall+empty when it's missing its price row */
+.product-grid > .card .card-body { min-height: 0; }
