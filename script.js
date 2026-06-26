@@ -643,6 +643,27 @@ document.addEventListener('keydown', e => {
 });
 
 // ============================================================
+// ORDER DESTINATION CONFIG  ← edit these
+// ============================================================
+const ORDER_CONFIG = {
+  // WhatsApp number that receives orders (country code + number, no +, spaces or dashes)
+  WHATSAPP_NUMBER: "919761420066",
+
+  // Email that receives orders. NOTE: with Web3Forms, orders are delivered to the
+  // inbox your ACCESS KEY is registered to — so register the key below using this email.
+  ORDER_EMAIL: "Kumaonherbal@gmail.com",
+
+  // Get this from https://web3forms.com (sign up with the ORDER_EMAIL above).
+  // Until you paste a real key, the email step is skipped and only WhatsApp is used.
+  WEB3FORMS_ACCESS_KEY: "YOUR_WEB3FORMS_ACCESS_KEY",
+
+  // Attach the payment screenshot to the EMAIL too.
+  // Leave false on the free plan (attachments are a Web3Forms Pro feature).
+  // The screenshot always goes via WhatsApp regardless of this setting.
+  ATTACH_SCREENSHOT_TO_EMAIL: false,
+};
+
+// ============================================================
 // PAYMENT & ORDER FUNCTIONS
 // ============================================================
 function showPaymentDetails() {
@@ -695,6 +716,49 @@ function buildOrderMessage(total) {
   return msg;
 }
 
+// Emails the order to ORDER_EMAIL via Web3Forms. Fails silently so it never
+// blocks the WhatsApp flow. Skipped until a real access key is set.
+async function sendEmailOrder(total) {
+  if (!ORDER_CONFIG.WEB3FORMS_ACCESS_KEY ||
+      ORDER_CONFIG.WEB3FORMS_ACCESS_KEY === "YOUR_WEB3FORMS_ACCESS_KEY") {
+    return; // not configured yet
+  }
+  const v = id => (document.getElementById(id)?.value || '');
+
+  const formData = new FormData();
+  formData.append("access_key", ORDER_CONFIG.WEB3FORMS_ACCESS_KEY);
+  formData.append("subject", `🛍️ New Order - Kumaon Herbal - ₹${total}`);
+  formData.append("from_name", v('cust-name') || "Kumaon Herbal Website");
+  // Web3Forms uses "email" as the reply-to so you can reply straight to the customer.
+  formData.append("email", v('cust-email') || ORDER_CONFIG.ORDER_EMAIL);
+
+  // Human-readable body (same content as the WhatsApp message).
+  formData.append("message", buildOrderMessage(total));
+
+  // Structured fields (show up as labelled rows in the email).
+  formData.append("Customer Name", v('cust-name'));
+  formData.append("Phone", v('cust-phone'));
+  formData.append("Customer Email", v('cust-email'));
+  formData.append("Address", v('cust-address'));
+  formData.append("City", v('cust-city'));
+  formData.append("State", v('cust-state'));
+  formData.append("PIN Code", v('cust-pincode'));
+  formData.append("Order Total", `₹${total}`);
+
+  // Attach screenshot only if you're on a Web3Forms Pro plan.
+  if (ORDER_CONFIG.ATTACH_SCREENSHOT_TO_EMAIL) {
+    const file = document.getElementById('cust-screenshot')?.files[0];
+    if (file) formData.append("attachment", file);
+  }
+
+  try {
+    // Do NOT set Content-Type — the browser sets it (with boundary) for FormData.
+    await fetch("https://api.web3forms.com/submit", { method: "POST", body: formData });
+  } catch (err) {
+    console.error("Email order failed (WhatsApp still works):", err);
+  }
+}
+
 async function sendOrder(total) {
   const name = document.getElementById('cust-name').value;
   const phone = document.getElementById('cust-phone').value;
@@ -702,7 +766,13 @@ async function sendOrder(total) {
   if (!name || !phone || !address) { alert("Please fill Name, Mobile Number and Address."); return; }
   const file = document.getElementById('cust-screenshot')?.files[0];
   if (!file) { alert("Please attach your payment screenshot first."); return; }
+
   const message = buildOrderMessage(total);
+
+  // Fire the email in the background. We DON'T await it here, so the user
+  // gesture stays "fresh" for navigator.share / window.open below.
+  sendEmailOrder(total);
+
   if (navigator.canShare && navigator.canShare({ files: [file] })) {
     try {
       await navigator.share({ files: [file], text: message, title: 'Kumaon Herbal Order' });
@@ -712,7 +782,7 @@ async function sendOrder(total) {
     }
   }
   alert("This device can't auto-attach the image. WhatsApp will open with your order — please attach the screenshot manually before sending.");
-  window.open("https://wa.me/919761420066?text=" + encodeURIComponent(message), "_blank");
+  window.open("https://wa.me/" + ORDER_CONFIG.WHATSAPP_NUMBER + "?text=" + encodeURIComponent(message), "_blank");
 }
 
 function closePaymentPopup() {
