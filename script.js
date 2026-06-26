@@ -712,7 +712,7 @@ function buildOrderMessage(total) {
   cart.forEach(item => {
     msg += `\n• ${item.title} x${item.quantity} = ₹${item.price * item.quantity}`;
   });
-  msg += `\n\nTOTAL: ₹${total}\n✅ Payment done — screenshot attached.`;
+  msg += `\n\nTOTAL: ₹${total}\n✅ Payment done — screenshot emailed / attached in chat.`;
   return msg;
 }
 
@@ -759,7 +759,7 @@ async function sendEmailOrder(total) {
   }
 }
 
-async function sendOrder(total) {
+function sendOrder(total) {
   const name = document.getElementById('cust-name').value;
   const phone = document.getElementById('cust-phone').value;
   const address = document.getElementById('cust-address').value;
@@ -769,20 +769,25 @@ async function sendOrder(total) {
 
   const message = buildOrderMessage(total);
 
-  // Fire the email in the background. We DON'T await it here, so the user
-  // gesture stays "fresh" for navigator.share / window.open below.
+  // 1) Email the full order (+ screenshot on Web3Forms Pro) to ORDER_EMAIL.
+  //    Runs in the background; never blocks the WhatsApp step.
   sendEmailOrder(total);
 
-  if (navigator.canShare && navigator.canShare({ files: [file] })) {
-    try {
-      await navigator.share({ files: [file], text: message, title: 'Kumaon Herbal Order' });
-      return;
-    } catch (err) {
-      if (err.name === 'AbortError') return;
-    }
-  }
-  alert("This device can't auto-attach the image. WhatsApp will open with your order — please attach the screenshot manually before sending.");
-  window.open("https://wa.me/" + ORDER_CONFIG.WHATSAPP_NUMBER + "?text=" + encodeURIComponent(message), "_blank");
+  // 2) Open WhatsApp DIRECTLY to the business number with the order pre-filled.
+  //    wa.me reliably routes the chat to ORDER_CONFIG.WHATSAPP_NUMBER and the
+  //    customer just taps Send.
+  //
+  //    Why not navigator.share()? That opened a generic share sheet where the
+  //    customer could pick ANY app/contact — it did NOT guarantee the order
+  //    reached your number. That was the bug. (Trade-off: a wa.me link can't
+  //    pre-attach the screenshot — WhatsApp blocks that — so the screenshot
+  //    rides along via the email above, and the customer can also attach it in
+  //    the open chat.)
+  const waUrl = "https://wa.me/" + ORDER_CONFIG.WHATSAPP_NUMBER +
+                "?text=" + encodeURIComponent(message);
+  window.open(waUrl, "_blank");
+
+  alert("WhatsApp is opening with your order to Kumaon Herbal.\n\nTap SEND, then attach your payment screenshot in the chat. A copy has also been emailed.");
 }
 
 function closePaymentPopup() {
