@@ -198,6 +198,64 @@ const productsDB = {
 };
 
 // ============================================================
+// ADVANCED SEO (dynamic, JS-side)
+// Updates title/description/OG + injects per-product Product
+// JSON-LD when a product detail is opened (virtual page view).
+// ============================================================
+const __SEO_DEFAULTS = {
+  title: document.title,
+  desc: document.querySelector('meta[name="description"]') ?
+        document.querySelector('meta[name="description"]').content : ''
+};
+function __setMeta(name, content) {
+  let m = document.querySelector('meta[name="' + name + '"]');
+  if (!m) { m = document.createElement('meta'); m.setAttribute('name', name); document.head.appendChild(m); }
+  m.setAttribute('content', content);
+}
+function __setOG(prop, content) {
+  let m = document.querySelector('meta[property="' + prop + '"]');
+  if (!m) { m = document.createElement('meta'); m.setAttribute('property', prop); document.head.appendChild(m); }
+  m.setAttribute('content', content);
+}
+function __injectJSONLD(id, obj) {
+  let s = document.getElementById(id);
+  if (!s) { s = document.createElement('script'); s.type = 'application/ld+json'; s.id = id; document.head.appendChild(s); }
+  s.textContent = JSON.stringify(obj);
+}
+function __priceNum(str) { return parseInt(String(str || '').replace(/[^\d]/g, ''), 10) || 0; }
+function __absUrl(u) { try { return new URL(u, location.origin).href; } catch (e) { return u; } }
+
+function updateSEOForProduct(p, id) {
+  if (!p) return;
+  document.title = p.title + ' – Buy Online | Kumaon Herbal';
+  __setMeta('description', p.shortDesc || __SEO_DEFAULTS.desc);
+  __setOG('og:type', 'product');
+  __setOG('og:title', p.title + ' | Kumaon Herbal');
+  __setOG('og:description', p.shortDesc || '');
+  if (p.img) __setOG('og:image', __absUrl(p.img));
+  __injectJSONLD('jsonld-active-product', {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": p.title,
+    "description": p.descPara1 || p.shortDesc || "",
+    "image": p.img ? __absUrl(p.img) : undefined,
+    "brand": { "@type": "Brand", "name": "Kumaon Herbal" },
+    "offers": {
+      "@type": "Offer",
+      "price": String(__priceNum(p.priceNow)),
+      "priceCurrency": "INR",
+      "availability": (getStock(id) > 0 ? "https://schema.org/InStock" : "https://schema.org/OutOfStock")
+    }
+  });
+}
+function resetSEO() {
+  document.title = __SEO_DEFAULTS.title;
+  __setMeta('description', __SEO_DEFAULTS.desc);
+  const s = document.getElementById('jsonld-active-product');
+  if (s) s.remove();
+}
+
+// ============================================================
 // DOMContentLoaded — ALL INITIALIZATION MERGED HERE
 // ============================================================
 document.addEventListener('DOMContentLoaded', function() {
@@ -292,7 +350,6 @@ document.addEventListener('DOMContentLoaded', function() {
   const blogCards = document.querySelectorAll('.blog-grid .blog-card');
   const featuredPost = document.querySelector('.featured-post');
 
-  // Category mapping: filter button text → matching emojis in category tags
   const categoryMap = {
     '🌿 Herbs & Plants': ['🌿', '🌸'],
     '🍹 Juices & Drinks': ['🍹'],
@@ -301,18 +358,15 @@ document.addEventListener('DOMContentLoaded', function() {
     '🏔️ Kumaon Stories': ['🏔️']
   };
 
-  // Default: show all cards
   blogCards.forEach(card => card.style.display = 'block');
 
   filterButtons.forEach(button => {
     button.addEventListener('click', function() {
-      // Update active class
       filterButtons.forEach(btn => btn.classList.remove('active'));
       this.classList.add('active');
 
       const filterText = this.textContent.trim();
 
-      // Filter grid cards
       blogCards.forEach(card => {
         const tagElement = card.querySelector('.bc-cat-tag');
         if (!tagElement) {
@@ -330,7 +384,6 @@ document.addEventListener('DOMContentLoaded', function() {
         card.style.display = show ? 'block' : 'none';
       });
 
-      // Filter featured post
       if (featuredPost) {
         const featuredTag = featuredPost.querySelector('.fp-cat');
         if (featuredTag) {
@@ -599,6 +652,9 @@ function openDetail(pId) {
   document.querySelectorAll('.do-tab').forEach((b, i) => b.classList.toggle('active', i === 0));
   document.querySelectorAll('.do-tab-panel').forEach(panel => panel.classList.toggle('active', panel.id === 'tab-desc'));
 
+  // ---- ADVANCED SEO: reflect this product as a virtual page view ----
+  updateSEOForProduct(p, sid);
+
   const ov = document.getElementById('detail-overlay');
   if (ov) {
     ov.style.display = 'block';
@@ -611,6 +667,7 @@ function closeDetail() {
   const ov = document.getElementById('detail-overlay');
   if (ov) ov.style.display = 'none';
   document.body.style.overflow = '';
+  resetSEO();
 }
 
 function changeQty(delta) {
@@ -646,64 +703,252 @@ document.addEventListener('keydown', e => {
 // ORDER DESTINATION CONFIG  ← edit these
 // ============================================================
 const ORDER_CONFIG = {
+  // Business name shown on the checkout.
+  BUSINESS_NAME: "Kumaon Herbal",
+
   // WhatsApp number that receives orders (country code + number, no +, spaces or dashes)
   WHATSAPP_NUMBER: "919761420066",
 
-  // Email that receives orders. NOTE: with Web3Forms, orders are delivered to the
-  // inbox your ACCESS KEY is registered to — so register the key below using this email.
+  // Your UPI ID and the QR image shown on the checkout.
+  UPI_ID: "YOUR_UPI_ID@bank",
+  QR_IMAGE_URL: "https://github.com/Aegis76/Kumaon-Herbal/blob/main/WhatsApp%20Image%202026-06-18%20at%202.13.04%20PM.jpeg?raw=true",
+
+  // Email that receives orders (Web3Forms delivers to the inbox your ACCESS KEY is registered to).
   ORDER_EMAIL: "Kumaonherbal@gmail.com",
 
   // Get this from https://web3forms.com (sign up with the ORDER_EMAIL above).
-  // Until you paste a real key, the email step is skipped and only WhatsApp is used.
   WEB3FORMS_ACCESS_KEY: "YOUR_WEB3FORMS_ACCESS_KEY",
 
-  // Attach the payment screenshot to the EMAIL too.
-  // Leave false on the free plan (attachments are a Web3Forms Pro feature).
-  // The screenshot always goes via WhatsApp regardless of this setting.
+  // Attach the payment screenshot to the EMAIL too (Web3Forms Pro feature).
   ATTACH_SCREENSHOT_TO_EMAIL: false,
 };
 
 // ============================================================
+// PAYMENT SCREENSHOT VERIFICATION (on-device OCR)
+// Reads the uploaded image and checks for payment markers.
+// If it doesn't look like a payment screenshot → shows a BEWARE
+// warning and requires explicit confirmation before sending.
+// ============================================================
+let __shotState = '';          // '' | 'checking' | 'valid' | 'beware' | 'unverified'
+let __payTotal = 0;
+let __ocrLoading = false;
+
+const PAY_KEYWORDS = [
+  'paid', 'payment', 'upi', 'transaction', 'txn', 'successful', 'success',
+  'completed', 'sent', 'received', 'debited', 'credited', 'transferred',
+  'ref no', 'ref:', 'reference', 'utr', 'gpay', 'google pay', 'phonepe',
+  'phone pe', 'paytm', 'bhim', 'amazon pay', 'banking', 'inr', 'rupee', '₹'
+];
+
+function loadTesseract() {
+  return new Promise((resolve) => {
+    if (window.Tesseract) { resolve(true); return; }
+    if (__ocrLoading) {
+      const t = setInterval(() => {
+        if (window.Tesseract) { clearInterval(t); resolve(true); }
+      }, 300);
+      setTimeout(() => { clearInterval(t); resolve(!!window.Tesseract); }, 9000);
+      return;
+    }
+    __ocrLoading = true;
+    const s = document.createElement('script');
+    s.src = 'https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js';
+    s.onload = () => resolve(true);
+    s.onerror = () => resolve(false);
+    document.head.appendChild(s);
+  });
+}
+
+function setShotState(state) {
+  __shotState = state;
+  const st = document.getElementById('kh-shot-status');
+  const cw = document.getElementById('kh-shot-confirm-wrap');
+  if (st) {
+    const map = {
+      checking:   '⏳ Verifying your screenshot…',
+      valid:      '✓ Looks like a valid payment screenshot.',
+      beware:     '⚠️ Beware — this doesn’t look like a payment screenshot. Please upload your correct UPI / payment confirmation.',
+      unverified: 'ℹ️ Couldn’t auto-verify this image. Please confirm it is your payment screenshot below.'
+    };
+    st.textContent = map[state] || '';
+    st.className = 'kh-shot-status kh-' + (state || 'none');
+    st.style.display = state ? 'block' : 'none';
+  }
+  if (cw) cw.style.display = (state === 'beware' || state === 'unverified') ? 'flex' : 'none';
+  const c = document.getElementById('kh-shot-confirm');
+  if (c && (state === 'valid' || state === 'checking' || state === '')) c.checked = false;
+}
+
+async function validateScreenshot(file) {
+  setShotState('checking');
+  const ok = await loadTesseract();
+  if (!ok || !window.Tesseract) { setShotState('unverified'); return; }
+  try {
+    const result = await window.Tesseract.recognize(file, 'eng');
+    const text = ((result && result.data && result.data.text) || '').toLowerCase();
+    const hasKeyword = PAY_KEYWORDS.some(k => text.includes(k));
+    const compact = text.replace(/[,\s]/g, '');
+    const hasAmount = __payTotal > 0 && compact.includes(String(__payTotal));
+    setShotState((hasKeyword || hasAmount) ? 'valid' : 'beware');
+  } catch (err) {
+    console.warn('OCR failed:', err);
+    setShotState('unverified');
+  }
+}
+
+function screenshotApproved() {
+  const file = document.getElementById('cust-screenshot')?.files[0];
+  if (!file) return false;
+  if (__shotState === 'valid') return true;
+  if (__shotState === 'beware' || __shotState === 'unverified') {
+    const c = document.getElementById('kh-shot-confirm');
+    return !!(c && c.checked);
+  }
+  return false; // 'checking' or unset
+}
+
+// ============================================================
 // PAYMENT & ORDER FUNCTIONS
 // ============================================================
+function ensurePayStyles() {
+  if (document.getElementById('kh-pay-styles')) return;
+  const css = `
+  #payment-popup{position:fixed;inset:0;background:rgba(12,28,20,.72);backdrop-filter:blur(3px);z-index:99999;display:flex;justify-content:center;align-items:flex-start;padding:28px 14px;overflow-y:auto;font-family:'Jost',system-ui,sans-serif;}
+  .kh-pay{background:#fff;width:100%;max-width:860px;border-radius:20px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.4);animation:khPop .3s ease;}
+  @keyframes khPop{from{opacity:0;transform:translateY(14px) scale(.98)}to{opacity:1;transform:none}}
+  .kh-head{background:linear-gradient(135deg,#14432e,#1f5e3a);color:#fff;padding:20px 26px;display:flex;justify-content:space-between;align-items:center;}
+  .kh-head h2{font-family:'Playfair Display',serif;font-size:1.5rem;margin:0;font-weight:700;}
+  .kh-head .kh-sub{font-size:.78rem;letter-spacing:.04em;opacity:.85;margin-top:2px;display:flex;align-items:center;gap:6px;}
+  .kh-close{background:rgba(255,255,255,.15);border:none;color:#fff;width:34px;height:34px;border-radius:50%;font-size:1.4rem;line-height:1;cursor:pointer;flex:0 0 auto;}
+  .kh-body{display:grid;grid-template-columns:1fr 1fr;gap:0;}
+  .kh-col{padding:24px 26px;}
+  .kh-col.left{border-right:1px solid #eee;}
+  .kh-step{font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#2e7d32;margin:0 0 12px;display:flex;align-items:center;gap:8px;}
+  .kh-step b{background:#2e7d32;color:#fff;width:20px;height:20px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:.72rem;}
+  .kh-field{margin-bottom:11px;}
+  .kh-field input,.kh-field textarea{width:100%;padding:11px 13px;border:1px solid #dcdcd2;border-radius:10px;font-size:.92rem;font-family:inherit;box-sizing:border-box;background:#fcfcf9;}
+  .kh-field input:focus,.kh-field textarea:focus{outline:none;border-color:#2e7d32;background:#fff;}
+  .kh-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+  .kh-summary{background:#f6f8f3;border:1px solid #e6ece1;border-radius:12px;padding:14px 16px;margin-bottom:16px;}
+  .kh-summary .kh-line{display:flex;justify-content:space-between;font-size:.86rem;color:#3a4a3f;padding:3px 0;}
+  .kh-summary .kh-tot{display:flex;justify-content:space-between;align-items:center;margin-top:8px;padding-top:10px;border-top:1px dashed #cdd8c8;}
+  .kh-summary .kh-tot b{font-family:'Playfair Display',serif;font-size:1.5rem;color:#14432e;}
+  .kh-qr-wrap{text-align:center;background:#f6f8f3;border:1px solid #e6ece1;border-radius:14px;padding:16px;margin-bottom:14px;}
+  .kh-qr-wrap img{width:190px;max-width:100%;border-radius:10px;background:#fff;border:1px solid #e0e0d6;}
+  .kh-pay-amt{font-family:'Playfair Display',serif;font-size:1.7rem;font-weight:700;color:#14432e;margin:10px 0 4px;}
+  .kh-upi{display:flex;gap:8px;align-items:center;justify-content:center;margin-top:8px;}
+  .kh-upi code{background:#fff;border:1px dashed #2e7d32;border-radius:8px;padding:7px 10px;font-size:.85rem;color:#14432e;}
+  .kh-upi button{background:#14432e;color:#fff;border:none;border-radius:8px;padding:8px 12px;font-size:.78rem;font-weight:600;cursor:pointer;}
+  .kh-shot-box{border:1.5px dashed #cdd8c8;border-radius:12px;padding:14px;margin-top:6px;}
+  .kh-shot-box input[type=file]{width:100%;font-size:.85rem;}
+  .kh-shot-preview{display:none;width:100%;max-height:160px;object-fit:contain;border-radius:10px;margin-top:10px;background:#f3f3ec;}
+  .kh-shot-status{display:none;margin-top:10px;padding:10px 12px;border-radius:9px;font-size:.82rem;font-weight:600;line-height:1.5;}
+  .kh-shot-status.kh-checking{background:#eef3ee;color:#3a4a3f;}
+  .kh-shot-status.kh-valid{background:#e8f3e9;color:#2e7d32;}
+  .kh-shot-status.kh-beware{background:#fde8e6;color:#b3261e;border:1px solid #f3b6af;}
+  .kh-shot-status.kh-unverified{background:#fbf0dd;color:#9a6a00;}
+  .kh-confirm{display:none;align-items:flex-start;gap:8px;margin-top:10px;font-size:.82rem;color:#555;cursor:pointer;}
+  .kh-confirm input{margin-top:3px;}
+  .kh-send{width:100%;margin-top:16px;padding:14px;background:#25D366;color:#fff;border:none;border-radius:12px;font-size:1rem;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:background .2s;}
+  .kh-send:hover{background:#1faa53;}
+  .kh-note{font-size:.74rem;color:#7a857d;text-align:center;margin-top:9px;line-height:1.5;}
+  @media (max-width:760px){.kh-body{grid-template-columns:1fr;}.kh-col.left{border-right:none;border-bottom:1px solid #eee;}}
+  `;
+  const tag = document.createElement('style');
+  tag.id = 'kh-pay-styles';
+  tag.textContent = css;
+  document.head.appendChild(tag);
+}
+
 function showPaymentDetails() {
   if (cart.length === 0) { alert("Your cart is empty."); return; }
+  ensurePayStyles();
   let total = 0;
   cart.forEach(item => { total += item.price * item.quantity; });
+  __payTotal = total;
+  __shotState = '';
+
+  const itemsHTML = cart.map(it =>
+    `<div class="kh-line"><span>${it.title} × ${it.quantity}</span><span>₹${it.price * it.quantity}</span></div>`
+  ).join('');
+
   const html = `
-  <div id="payment-popup" style="position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:99999;display:flex;justify-content:center;align-items:center;">
-    <div style="background:#fff;width:95%;max-width:650px;max-height:90vh;overflow:auto;padding:25px;border-radius:15px;position:relative;">
-      <button onclick="closePaymentPopup()" style="position:absolute;top:10px;right:15px;border:none;background:none;font-size:28px;cursor:pointer;">×</button>
-      <h2>Checkout</h2>
-      <h3 style="color:green;text-align:center;">Total Amount: ₹${total}</h3>
-      <hr>
-      <h3>Customer Details</h3>
-      <input id="cust-name" type="text" placeholder="Full Name *" style="width:100%;padding:10px;margin-bottom:10px;">
-      <input id="cust-phone" type="tel" placeholder="Mobile Number *" style="width:100%;padding:10px;margin-bottom:10px;">
-      <input id="cust-email" type="email" placeholder="Email Address" style="width:100%;padding:10px;margin-bottom:10px;">
-      <textarea id="cust-address" placeholder="Full Delivery Address *" style="width:100%;padding:10px;height:90px;margin-bottom:10px;"></textarea>
-      <input id="cust-city" type="text" placeholder="City" style="width:100%;padding:10px;margin-bottom:10px;">
-      <input id="cust-state" type="text" placeholder="State" style="width:100%;padding:10px;margin-bottom:10px;">
-      <input id="cust-pincode" type="text" placeholder="PIN Code" style="width:100%;padding:10px;margin-bottom:20px;">
-      <hr>
-      <h3>Scan & Pay</h3>
-      <img src="https://github.com/Aegis76/Kumaon-Herbal/blob/main/WhatsApp%20Image%202026-06-18%20at%202.13.04%20PM.jpeg?raw=true" alt="UPI QR" style="width:250px;display:block;margin:auto;border:1px solid #ddd;border-radius:10px;">
-      <div style="text-align:center;margin-top:15px;font-size:26px;font-weight:700;color:#1a3a2a;">Pay ₹${total}</div>
-      <p style="text-align:center;margin-top:10px;"><strong>UPI ID</strong><br>YOUR_UPI_ID</p>
-      <button onclick="copyUPI()" style="width:100%;padding:10px;cursor:pointer;">Copy UPI ID</button>
-      <hr>
-      <h3>Upload Payment Screenshot *</h3>
-      <input id="cust-screenshot" type="file" accept="image/*" style="width:100%;padding:10px;margin-bottom:10px;">
-      <div style="margin-top:5px;padding:15px;background:#fff8e1;border-left:4px solid #ff9800;border-radius:8px;font-size:14px;">
-        📸 After payment, attach your screenshot above, then tap the button. WhatsApp will open with your order and screenshot ready to send.
+  <div id="payment-popup">
+    <div class="kh-pay">
+      <div class="kh-head">
+        <div>
+          <h2>Secure Checkout</h2>
+          <div class="kh-sub">🔒 ${ORDER_CONFIG.BUSINESS_NAME} · Pay by UPI</div>
+        </div>
+        <button class="kh-close" onclick="closePaymentPopup()" aria-label="Close">×</button>
       </div>
-      <hr>
-      <button onclick="sendOrder(${total})" style="width:100%;padding:14px;background:#25D366;color:white;border:none;border-radius:8px;cursor:pointer;font-size:16px;font-weight:600;">
-        ✅ Send Order on WhatsApp
-      </button>
+
+      <div class="kh-body">
+        <!-- LEFT: details + summary -->
+        <div class="kh-col left">
+          <p class="kh-step"><b>1</b> Your details</p>
+          <div class="kh-field"><input id="cust-name" type="text" placeholder="Full name *"></div>
+          <div class="kh-field"><input id="cust-phone" type="tel" placeholder="Mobile number *"></div>
+          <div class="kh-field"><input id="cust-email" type="email" placeholder="Email address"></div>
+          <div class="kh-field"><textarea id="cust-address" placeholder="Full delivery address *" style="height:74px;"></textarea></div>
+          <div class="kh-row">
+            <div class="kh-field"><input id="cust-city" type="text" placeholder="City"></div>
+            <div class="kh-field"><input id="cust-state" type="text" placeholder="State"></div>
+          </div>
+          <div class="kh-field"><input id="cust-pincode" type="text" placeholder="PIN code"></div>
+
+          <div class="kh-summary">
+            ${itemsHTML}
+            <div class="kh-tot"><span>Total payable</span><b>₹${total}</b></div>
+          </div>
+        </div>
+
+        <!-- RIGHT: pay + screenshot -->
+        <div class="kh-col right">
+          <p class="kh-step"><b>2</b> Scan &amp; pay</p>
+          <div class="kh-qr-wrap">
+            <img src="${ORDER_CONFIG.QR_IMAGE_URL}" alt="UPI QR code for ${ORDER_CONFIG.BUSINESS_NAME}">
+            <div class="kh-pay-amt">Pay ₹${total}</div>
+            <div class="kh-upi">
+              <code id="kh-upi-id">${ORDER_CONFIG.UPI_ID}</code>
+              <button onclick="copyUPI()">Copy</button>
+            </div>
+          </div>
+
+          <p class="kh-step" style="margin-top:18px;"><b>3</b> Upload payment screenshot *</p>
+          <div class="kh-shot-box">
+            <input id="cust-screenshot" type="file" accept="image/*">
+            <img id="kh-shot-preview" class="kh-shot-preview" alt="Payment screenshot preview">
+            <div id="kh-shot-status" class="kh-shot-status"></div>
+            <label id="kh-shot-confirm-wrap" class="kh-confirm">
+              <input type="checkbox" id="kh-shot-confirm">
+              <span>I confirm this is my genuine payment screenshot for this order.</span>
+            </label>
+          </div>
+
+          <button class="kh-send" id="kh-send-btn" onclick="sendOrder(${total})">
+            ✅ Send order on WhatsApp
+          </button>
+          <p class="kh-note">Your screenshot &amp; details are shared straight to our WhatsApp. A copy is also emailed to us.</p>
+        </div>
+      </div>
     </div>
   </div>`;
+
   document.body.insertAdjacentHTML('beforeend', html);
+  document.body.style.overflow = 'hidden';
+
+  // Bind screenshot input → live OCR verification
+  const fileInput = document.getElementById('cust-screenshot');
+  if (fileInput) {
+    fileInput.addEventListener('change', function () {
+      const f = this.files && this.files[0];
+      const prev = document.getElementById('kh-shot-preview');
+      if (!f) { setShotState(''); if (prev) prev.style.display = 'none'; return; }
+      if (prev) { prev.src = URL.createObjectURL(f); prev.style.display = 'block'; }
+      validateScreenshot(f);
+    });
+  }
 }
 
 function buildOrderMessage(total) {
@@ -712,7 +957,7 @@ function buildOrderMessage(total) {
   cart.forEach(item => {
     msg += `\n• ${item.title} x${item.quantity} = ₹${item.price * item.quantity}`;
   });
-  msg += `\n\nTOTAL: ₹${total}\n✅ Payment done — screenshot emailed / attached in chat.`;
+  msg += `\n\nTOTAL: ₹${total}\n✅ Payment done — screenshot attached.`;
   return msg;
 }
 
@@ -721,7 +966,7 @@ function buildOrderMessage(total) {
 async function sendEmailOrder(total) {
   if (!ORDER_CONFIG.WEB3FORMS_ACCESS_KEY ||
       ORDER_CONFIG.WEB3FORMS_ACCESS_KEY === "YOUR_WEB3FORMS_ACCESS_KEY") {
-    return; // not configured yet
+    return;
   }
   const v = id => (document.getElementById(id)?.value || '');
 
@@ -729,13 +974,8 @@ async function sendEmailOrder(total) {
   formData.append("access_key", ORDER_CONFIG.WEB3FORMS_ACCESS_KEY);
   formData.append("subject", `🛍️ New Order - Kumaon Herbal - ₹${total}`);
   formData.append("from_name", v('cust-name') || "Kumaon Herbal Website");
-  // Web3Forms uses "email" as the reply-to so you can reply straight to the customer.
   formData.append("email", v('cust-email') || ORDER_CONFIG.ORDER_EMAIL);
-
-  // Human-readable body (same content as the WhatsApp message).
   formData.append("message", buildOrderMessage(total));
-
-  // Structured fields (show up as labelled rows in the email).
   formData.append("Customer Name", v('cust-name'));
   formData.append("Phone", v('cust-phone'));
   formData.append("Customer Email", v('cust-email'));
@@ -745,57 +985,106 @@ async function sendEmailOrder(total) {
   formData.append("PIN Code", v('cust-pincode'));
   formData.append("Order Total", `₹${total}`);
 
-  // Attach screenshot only if you're on a Web3Forms Pro plan.
   if (ORDER_CONFIG.ATTACH_SCREENSHOT_TO_EMAIL) {
     const file = document.getElementById('cust-screenshot')?.files[0];
     if (file) formData.append("attachment", file);
   }
 
   try {
-    // Do NOT set Content-Type — the browser sets it (with boundary) for FormData.
     await fetch("https://api.web3forms.com/submit", { method: "POST", body: formData });
   } catch (err) {
     console.error("Email order failed (WhatsApp still works):", err);
   }
 }
 
-function sendOrder(total) {
-  const name = document.getElementById('cust-name').value;
-  const phone = document.getElementById('cust-phone').value;
-  const address = document.getElementById('cust-address').value;
-  if (!name || !phone || !address) { alert("Please fill Name, Mobile Number and Address."); return; }
+async function sendOrder(total) {
+  const v = id => (document.getElementById(id)?.value || '');
+  if (!v('cust-name') || !v('cust-phone') || !v('cust-address')) {
+    alert("Please fill Name, Mobile Number and Address.");
+    return;
+  }
   const file = document.getElementById('cust-screenshot')?.files[0];
   if (!file) { alert("Please attach your payment screenshot first."); return; }
 
+  if (__shotState === 'checking') {
+    alert("Still verifying your screenshot — please wait a moment, then tap Send again.");
+    return;
+  }
+
+  // Screenshot gate: only a genuine payment screenshot passes automatically.
+  // Anything else triggers the BEWARE warning + must be explicitly confirmed.
+  if (!screenshotApproved()) {
+    alert("⚠️ BEWARE: This doesn’t look like a payment screenshot.\n\nPlease upload your correct UPI / payment confirmation. If you are sure it is correct, tick the confirmation box and try again.");
+    return;
+  }
+
   const message = buildOrderMessage(total);
 
-  // 1) Email the full order (+ screenshot on Web3Forms Pro) to ORDER_EMAIL.
-  //    Runs in the background; never blocks the WhatsApp step.
+  // 1) Email the full order (+ screenshot on Web3Forms Pro) in the background.
   sendEmailOrder(total);
 
-  // 2) Open WhatsApp DIRECTLY to the business number with the order pre-filled.
-  //    wa.me reliably routes the chat to ORDER_CONFIG.WHATSAPP_NUMBER and the
-  //    customer just taps Send.
-  //
-  //    Why not navigator.share()? That opened a generic share sheet where the
-  //    customer could pick ANY app/contact — it did NOT guarantee the order
-  //    reached your number. That was the bug. (Trade-off: a wa.me link can't
-  //    pre-attach the screenshot — WhatsApp blocks that — so the screenshot
-  //    rides along via the email above, and the customer can also attach it in
-  //    the open chat.)
-  const waUrl = "https://wa.me/" + ORDER_CONFIG.WHATSAPP_NUMBER +
-                "?text=" + encodeURIComponent(message);
-  window.open(waUrl, "_blank");
+  // 2) Try to SHARE the screenshot + details straight to WhatsApp.
+  //    The Web Share API is the only browser API that can push the image file
+  //    INTO WhatsApp (wa.me links cannot pre-attach files). The customer picks
+  //    your chat from the share sheet.
+  const canFiles = navigator.canShare && navigator.canShare({ files: [file] });
+  if (canFiles) {
+    try {
+      await navigator.share({
+        files: [file],
+        text: message,
+        title: ORDER_CONFIG.BUSINESS_NAME + ' Order'
+      });
+      orderSuccessUI(message);
+      return;
+    } catch (err) {
+      if (err && err.name === 'AbortError') return; // user cancelled the share sheet
+      // otherwise fall through to the wa.me fallback below
+    }
+  }
 
-  alert("WhatsApp is opening with your order to Kumaon Herbal.\n\nTap SEND, then attach your payment screenshot in the chat. A copy has also been emailed.");
+  // 3) Fallback (mostly desktop): open the chat to your number with the order
+  //    pre-filled as text. Customer attaches the screenshot manually; the email
+  //    copy already carries everything.
+  const waUrl = "https://wa.me/" + ORDER_CONFIG.WHATSAPP_NUMBER +
+                "?text=" + encodeURIComponent(message + "\n\n(Please attach the payment screenshot in this chat.)");
+  window.open(waUrl, "_blank");
+  alert("WhatsApp is opening with your order. Tap SEND, then attach your payment screenshot in the chat. A copy has also been emailed to us.");
+}
+
+// Success screen after a share, with a guaranteed link to the business number.
+function orderSuccessUI(message) {
+  const popup = document.getElementById('payment-popup');
+  if (!popup) return;
+  const waUrl = "https://wa.me/" + ORDER_CONFIG.WHATSAPP_NUMBER + "?text=" + encodeURIComponent(message);
+  popup.querySelector('.kh-pay').innerHTML = `
+    <div class="kh-head"><div><h2>Order Sent 🎉</h2><div class="kh-sub">Thank you for shopping with ${ORDER_CONFIG.BUSINESS_NAME}</div></div>
+      <button class="kh-close" onclick="closePaymentPopup()">×</button></div>
+    <div style="padding:30px 26px;text-align:center;">
+      <div style="font-size:2.6rem;margin-bottom:8px;">✅</div>
+      <p style="color:#3a4a3f;line-height:1.7;font-size:.95rem;max-width:42ch;margin:0 auto 18px;">
+        Your order and payment screenshot have been shared. If you didn’t send it to our official chat,
+        use the button below to reach us directly.</p>
+      <a href="${waUrl}" target="_blank" rel="noopener"
+         style="display:inline-flex;gap:8px;align-items:center;background:#25D366;color:#fff;text-decoration:none;font-weight:700;padding:13px 22px;border-radius:12px;">💬 Message us on WhatsApp</a>
+    </div>`;
 }
 
 function closePaymentPopup() {
   const popup = document.getElementById('payment-popup');
   if (popup) popup.remove();
+  document.body.style.overflow = '';
+  __shotState = '';
 }
 
 function copyUPI() {
-  navigator.clipboard.writeText("YOUR_UPI_ID");
-  alert("UPI ID copied successfully.");
-}
+  const id = ORDER_CONFIG.UPI_ID;
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(id).then(
+      () => alert("UPI ID copied: " + id),
+      () => alert("UPI ID: " + id)
+    );
+  } else {
+    alert("UPI ID: " + id);
+  }
+    }
