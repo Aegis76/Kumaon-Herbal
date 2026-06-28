@@ -1,9 +1,44 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-IN">
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Products – Kumaon Herbal</title>
+
+  <!-- ============================================================
+       PRIMARY SEO META
+       NOTE: replace https://www.kumaonherbal.com with your real
+       domain everywhere it appears (canonical, OG, JSON-LD).
+  ============================================================= -->
+  <title>Buy Natural Himalayan Herbal Products Online | Kumaon Herbal</title>
+  <meta name="description" content="Shop 100% natural Kumaoni herbal products — cold-pressed juices, traditional handmade pickles & Himalayan wellness powders. Wild-sourced from Uttarakhand, no additives. Free shipping over ₹2000."/>
+  <meta name="keywords" content="Kumaon Herbal, Himalayan herbal products, natural juices online, Buransh juice, Aam Panna, Amla juice, Malta juice, traditional Kumaoni pickles, jackfruit pickle, black garlic, jamun guthli powder, haldi latte, organic products Uttarakhand"/>
+  <meta name="author" content="Kumaon Herbal"/>
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1"/>
+  <link rel="canonical" href="https://www.kumaonherbal.com/product.html"/>
+
+  <!-- Local / geo targeting (India · Uttarakhand · Kumaon) -->
+  <meta name="geo.region" content="IN-UT"/>
+  <meta name="geo.placename" content="Kumaon, Uttarakhand"/>
+  <meta name="language" content="English"/>
+
+  <!-- Open Graph (Facebook / WhatsApp / LinkedIn) -->
+  <meta property="og:type" content="website"/>
+  <meta property="og:site_name" content="Kumaon Herbal"/>
+  <meta property="og:title" content="Buy Natural Himalayan Herbal Products Online | Kumaon Herbal"/>
+  <meta property="og:description" content="Cold-pressed juices, handmade pickles & Himalayan wellness powders — 100% natural, wild-sourced from Kumaon, Uttarakhand."/>
+  <meta property="og:url" content="https://www.kumaonherbal.com/product.html"/>
+  <meta property="og:image" content="https://github.com/Aegis76/Kumaon-Herbal/blob/main/WhatsApp%20Image%202026-03-16%20at%208.49.56%20PM.jpeg?raw=true"/>
+  <meta property="og:locale" content="en_IN"/>
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="Buy Natural Himalayan Herbal Products Online | Kumaon Herbal"/>
+  <meta name="twitter:description" content="100% natural cold-pressed juices, traditional pickles & herbal wellness products from the hills of Uttarakhand."/>
+  <meta name="twitter:image" content="https://github.com/Aegis76/Kumaon-Herbal/blob/main/WhatsApp%20Image%202026-03-16%20at%208.49.56%20PM.jpeg?raw=true"/>
+
+  <!-- Fonts (preconnect for speed = better Core Web Vitals) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
   <link href="product.css" rel="stylesheet">
 
@@ -25,6 +60,202 @@
     .card.is-out .wishlist-btn{opacity:.5}
     .do-cart-btn:disabled{background:#dadada;color:#777;cursor:not-allowed;transform:none;box-shadow:none}
   </style>
+
+  <!-- ===== SEO INTRO + FAQ STYLES (scoped) ===== -->
+  <style id="seo-styles">
+    .seo-intro{max-width:920px;margin:2.6rem auto 0;padding:0 5vw;text-align:center}
+    .seo-intro h2{font-family:'Playfair Display',serif;font-size:clamp(1.5rem,3vw,2.1rem);font-weight:600;color:var(--text-mid,#2c3a2e);margin:0 0 .9rem}
+    .seo-intro p{font-family:'Jost',sans-serif;font-size:1rem;line-height:1.8;color:var(--text-light,#5a6660);margin:0 auto .8rem;max-width:70ch}
+    .seo-intro p strong{color:#2e7d32;font-weight:600}
+
+    .faq-section{max-width:880px;margin:1rem auto 0;padding:3.5rem 5vw 4.5rem}
+    .faq-head{text-align:center;margin-bottom:2rem}
+    .faq-head .eyebrow{font-family:'Jost',sans-serif;font-size:.78rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:#2e7d32;margin:0 0 .6rem}
+    .faq-head h2{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3.4vw,2.5rem);font-weight:700;color:var(--text-mid,#2c3a2e);margin:0}
+    .faq-item{border:1px solid var(--border,#e6e3dc);border-radius:14px;margin-bottom:.9rem;background:#fff;overflow:hidden;transition:box-shadow .2s ease}
+    .faq-item[open]{box-shadow:0 6px 20px rgba(46,125,50,.08)}
+    .faq-item summary{
+      list-style:none;cursor:pointer;padding:1.15rem 1.4rem;
+      font-family:'Jost',sans-serif;font-size:1.02rem;font-weight:600;color:var(--text-mid,#2c3a2e);
+      display:flex;justify-content:space-between;align-items:center;gap:1rem;
+    }
+    .faq-item summary::-webkit-details-marker{display:none}
+    .faq-item summary::after{content:'+';font-size:1.5rem;font-weight:400;color:#2e7d32;flex:0 0 auto;transition:transform .25s ease}
+    .faq-item[open] summary::after{transform:rotate(45deg)}
+    .faq-item .faq-a{padding:0 1.4rem 1.3rem;font-family:'Jost',sans-serif;font-size:.95rem;line-height:1.75;color:var(--text-light,#5a6660)}
+  </style>
+
+  <!-- ===== BULK / WHOLESALE SECTION STYLES (scoped) ===== -->
+  <style id="bulk-styles">
+    .bulk-section{position:relative;overflow:hidden;margin:0;padding:4.5rem 5vw;background:linear-gradient(135deg,#163d29 0%,#1f5e3a 60%,#2e7d32 100%);color:#fff}
+    .bulk-leaf{position:absolute;font-size:13rem;line-height:1;opacity:.08;pointer-events:none;top:-2rem;right:-1rem;transform:rotate(15deg)}
+    .bulk-inner{position:relative;z-index:1;max-width:1080px;margin:0 auto;display:grid;grid-template-columns:1.1fr .9fr;gap:3rem;align-items:center}
+    .bulk-eyebrow{font-family:'Jost',sans-serif;font-size:.78rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:#bfe3c6;margin:0 0 .9rem}
+    .bulk-title{font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,2.9rem);font-weight:700;line-height:1.12;margin:0 0 1rem}
+    .bulk-title em{font-style:italic;color:#ffe2a8}
+    .bulk-copy{font-family:'Jost',sans-serif;font-size:1rem;line-height:1.75;color:rgba(255,255,255,.88);margin:0 0 1.6rem;max-width:46ch}
+    .bulk-points{list-style:none;margin:0 0 2rem;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:.8rem 1.4rem;max-width:46ch}
+    .bulk-points li{font-family:'Jost',sans-serif;font-size:.9rem;font-weight:500;display:flex;align-items:flex-start;gap:.55rem;color:rgba(255,255,255,.92)}
+    .bulk-points li::before{content:'🌿';font-size:.95rem;flex:0 0 auto}
+    .bulk-cta-row{display:flex;flex-wrap:wrap;gap:.9rem;align-items:center}
+    .bulk-btn{display:inline-flex;align-items:center;gap:.5rem;font-family:'Jost',sans-serif;font-size:.95rem;font-weight:600;letter-spacing:.02em;padding:.85rem 1.7rem;border-radius:999px;text-decoration:none;cursor:pointer;transition:transform .2s ease,box-shadow .2s ease,background .2s ease}
+    .bulk-btn-primary{background:#ffe2a8;color:#163d29;box-shadow:0 8px 22px rgba(0,0,0,.18)}
+    .bulk-btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(0,0,0,.26)}
+    .bulk-btn-ghost{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.55)}
+    .bulk-btn-ghost:hover{background:rgba(255,255,255,.12);border-color:#fff}
+    .bulk-card{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);border-radius:20px;padding:2rem 2rem 1.6rem;backdrop-filter:blur(4px)}
+    .bulk-card h3{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:600;margin:0 0 .4rem}
+    .bulk-card p{font-family:'Jost',sans-serif;font-size:.9rem;line-height:1.65;color:rgba(255,255,255,.85);margin:0 0 1.3rem}
+    .bulk-stat-row{display:flex;gap:1.6rem;margin-top:.4rem;flex-wrap:wrap}
+    .bulk-stat b{font-family:'Playfair Display',serif;font-size:1.7rem;display:block;line-height:1}
+    .bulk-stat span{font-family:'Jost',sans-serif;font-size:.72rem;letter-spacing:.05em;color:#bfe3c6;text-transform:uppercase}
+    @media (max-width:820px){.bulk-inner{grid-template-columns:1fr;gap:2rem}.bulk-points{grid-template-columns:1fr}.bulk-section{padding:3.5rem 6vw}}
+  </style>
+
+  <!-- ============================================================
+       STRUCTURED DATA (JSON-LD) — rich results for Google
+  ============================================================= -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Kumaon Herbal",
+    "url": "https://www.kumaonherbal.com/",
+    "logo": "https://github.com/Aegis76/Kumaon-Herbal/blob/main/WhatsApp%20Image%202026-03-16%20at%208.49.56%20PM.jpeg?raw=true",
+    "description": "Kumaon Herbal makes 100% natural, wild-sourced cold-pressed juices, traditional handmade pickles and Himalayan wellness products from the hills of Uttarakhand, India.",
+    "address": {
+      "@type": "PostalAddress",
+      "addressRegion": "Uttarakhand",
+      "addressCountry": "IN"
+    }
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.kumaonherbal.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Products", "item": "https://www.kumaonherbal.com/product.html" }
+    ]
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": "Kumaon Herbal Products",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "item": {
+        "@type": "Product", "name": "Litchi Squash", "category": "Natural Juice",
+        "image": "https://www.kumaonherbal.com/images/litchi%20squash.jpeg",
+        "description": "Cold-pressed litchi squash rich in Vitamin C — a natural energy booster that helps balance electrolytes.",
+        "brand": { "@type": "Brand", "name": "Kumaon Herbal" },
+        "offers": { "@type": "Offer", "price": "250", "priceCurrency": "INR", "availability": "https://schema.org/InStock", "url": "https://www.kumaonherbal.com/product.html" },
+        "aggregateRating": { "@type": "AggregateRating", "ratingValue": "5", "reviewCount": "84" } } },
+      { "@type": "ListItem", "position": 2, "item": {
+        "@type": "Product", "name": "Buransh Juice", "category": "Natural Juice",
+        "image": "https://www.kumaonherbal.com/images/buransh%20juice.jpeg",
+        "description": "Rare rhododendron (buransh) flower juice — floral, tangy and rich in antioxidants.",
+        "brand": { "@type": "Brand", "name": "Kumaon Herbal" },
+        "offers": { "@type": "Offer", "price": "249", "priceCurrency": "INR", "availability": "https://schema.org/InStock", "url": "https://www.kumaonherbal.com/product.html" },
+        "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4", "reviewCount": "61" } } },
+      { "@type": "ListItem", "position": 3, "item": {
+        "@type": "Product", "name": "Aam Panna", "category": "Natural Juice",
+        "image": "https://www.kumaonherbal.com/images/aam%20panna.jpeg",
+        "description": "Classic raw mango summer cooler with cumin, black salt and fresh mint.",
+        "brand": { "@type": "Brand", "name": "Kumaon Herbal" },
+        "offers": { "@type": "Offer", "price": "199", "priceCurrency": "INR", "availability": "https://schema.org/InStock", "url": "https://www.kumaonherbal.com/product.html" },
+        "aggregateRating": { "@type": "AggregateRating", "ratingValue": "5", "reviewCount": "112" } } },
+      { "@type": "ListItem", "position": 4, "item": {
+        "@type": "Product", "name": "Malta Juice", "category": "Natural Juice",
+        "image": "https://www.kumaonherbal.com/images/IMG_8484.jpeg",
+        "description": "Refreshing juice from sweet, juicy Malta oranges — vibrant flavour and high in Vitamin C.",
+        "brand": { "@type": "Brand", "name": "Kumaon Herbal" },
+        "offers": { "@type": "Offer", "price": "200", "priceCurrency": "INR", "availability": "https://schema.org/InStock", "url": "https://www.kumaonherbal.com/product.html" },
+        "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4", "reviewCount": "47" } } },
+      { "@type": "ListItem", "position": 5, "item": {
+        "@type": "Product", "name": "Amla Juice", "category": "Natural Juice",
+        "image": "https://www.kumaonherbal.com/images/IMG_8485.jpg",
+        "description": "Potent, tangy health tonic from Indian gooseberries — exceptionally high in Vitamin C and antioxidants.",
+        "brand": { "@type": "Brand", "name": "Kumaon Herbal" },
+        "offers": { "@type": "Offer", "price": "200", "priceCurrency": "INR", "availability": "https://schema.org/InStock", "url": "https://www.kumaonherbal.com/product.html" },
+        "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4", "reviewCount": "47" } } },
+      { "@type": "ListItem", "position": 6, "item": {
+        "@type": "Product", "name": "Raw Mango Aam Achar", "category": "Pickle",
+        "image": "https://www.kumaonherbal.com/images/IMG_8487.jpeg",
+        "description": "Sun-dried raw mango pieces in mustard oil with traditional Kumaoni spices.",
+        "brand": { "@type": "Brand", "name": "Kumaon Herbal" },
+        "offers": { "@type": "Offer", "price": "189", "priceCurrency": "INR", "availability": "https://schema.org/InStock", "url": "https://www.kumaonherbal.com/product.html" },
+        "aggregateRating": { "@type": "AggregateRating", "ratingValue": "5", "reviewCount": "203" } } },
+      { "@type": "ListItem", "position": 7, "item": {
+        "@type": "Product", "name": "Jackfruit Pickle", "category": "Pickle",
+        "image": "https://www.kumaonherbal.com/Jackfruit%20Pickle%20FRUNT.jpg.jpeg",
+        "description": "Tangy, savoury jackfruit pickle with tender meaty chunks steeped in aromatic spices and oil.",
+        "brand": { "@type": "Brand", "name": "Kumaon Herbal" },
+        "offers": { "@type": "Offer", "price": "200", "priceCurrency": "INR", "availability": "https://schema.org/InStock", "url": "https://www.kumaonherbal.com/product.html" },
+        "aggregateRating": { "@type": "AggregateRating", "ratingValue": "5", "reviewCount": "89" } } },
+      { "@type": "ListItem", "position": 8, "item": {
+        "@type": "Product", "name": "Pahadi Ginger Achar", "category": "Pickle",
+        "image": "https://www.kumaonherbal.com/images/IMG_8492.jpeg",
+        "description": "Mountain garlic fermented in cold-pressed mustard oil with Himalayan black salt.",
+        "brand": { "@type": "Brand", "name": "Kumaon Herbal" },
+        "offers": { "@type": "Offer", "price": "219", "priceCurrency": "INR", "availability": "https://schema.org/InStock", "url": "https://www.kumaonherbal.com/product.html" },
+        "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4", "reviewCount": "54" } } },
+      { "@type": "ListItem", "position": 9, "item": {
+        "@type": "Product", "name": "Black Garlic", "category": "Herbal Wellness",
+        "image": "https://github.com/Aegis76/Kumaon-Herbal/blob/main/WhatsApp%20Image%202026-03-16%20at%208.49.56%20PM.jpeg?raw=true",
+        "description": "Fermented, aged garlic with a sweet, balsamic-like flavour, prized for enhanced antioxidant content.",
+        "brand": { "@type": "Brand", "name": "Kumaon Herbal" },
+        "offers": { "@type": "Offer", "price": "300", "priceCurrency": "INR", "availability": "https://schema.org/InStock", "url": "https://www.kumaonherbal.com/product.html" },
+        "aggregateRating": { "@type": "AggregateRating", "ratingValue": "5", "reviewCount": "132" } } },
+      { "@type": "ListItem", "position": 10, "item": {
+        "@type": "Product", "name": "Jamun Guthli Powder", "category": "Herbal Wellness",
+        "image": "https://www.kumaonherbal.com/images/IMG_8489.jpeg",
+        "description": "Traditional Ayurvedic powder from dried black plum seeds, valued for supporting healthy blood sugar levels.",
+        "brand": { "@type": "Brand", "name": "Kumaon Herbal" },
+        "offers": { "@type": "Offer", "price": "200", "priceCurrency": "INR", "availability": "https://schema.org/InStock", "url": "https://www.kumaonherbal.com/product.html" },
+        "aggregateRating": { "@type": "AggregateRating", "ratingValue": "5", "reviewCount": "132" } } },
+      { "@type": "ListItem", "position": 11, "item": {
+        "@type": "Product", "name": "Haldi Latte", "category": "Herbal Wellness",
+        "image": "https://www.kumaonherbal.com/images/haldi%20latte.jpeg",
+        "description": "The golden wellness drink from the Himalayas — a warming turmeric latte blend.",
+        "brand": { "@type": "Brand", "name": "Kumaon Herbal" },
+        "offers": { "@type": "Offer", "price": "200", "priceCurrency": "INR", "availability": "https://schema.org/InStock", "url": "https://www.kumaonherbal.com/product.html" },
+        "aggregateRating": { "@type": "AggregateRating", "ratingValue": "5", "reviewCount": "410" } } },
+      { "@type": "ListItem", "position": 12, "item": {
+        "@type": "Product", "name": "Jack Fruit Flour", "category": "Herbal Wellness",
+        "image": "https://www.kumaonherbal.com/images/WhatsApp%20Image%202026-06-24%20at%2012.10.02%20PM.jpeg",
+        "description": "Nutrient-dense Himalayan jackfruit flour — a wholesome, natural addition to everyday cooking.",
+        "brand": { "@type": "Brand", "name": "Kumaon Herbal" },
+        "offers": { "@type": "Offer", "price": "379", "priceCurrency": "INR", "availability": "https://schema.org/InStock", "url": "https://www.kumaonherbal.com/product.html" },
+        "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4", "reviewCount": "92" } } }
+    ]
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      { "@type": "Question", "name": "Are Kumaon Herbal products 100% natural?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. Every Kumaon Herbal juice, pickle and wellness product is made with 100% natural ingredients — wild Himalayan herbs and fruit, traditional recipes, and zero artificial colours, flavours or preservatives." } },
+      { "@type": "Question", "name": "Where are your products sourced from?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Our ingredients are wild-sourced and handcrafted in the Kumaon region of Uttarakhand, in the Indian Himalayas. From buransh flowers to mountain garlic, everything is gathered and prepared locally for maximum freshness and purity." } },
+      { "@type": "Question", "name": "Do you offer free shipping?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes — we offer free shipping on all orders above ₹2000 across India. Orders are dispatched fresh and shipped in eco-friendly packaging." } },
+      { "@type": "Question", "name": "What is Buransh juice and what are its benefits?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Buransh juice is made from the rare rhododendron flower that blooms in the Himalayas. It is floral and tangy, naturally rich in antioxidants, and traditionally enjoyed as a refreshing, heart-friendly summer drink." } },
+      { "@type": "Question", "name": "Can I place a bulk or wholesale order?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Absolutely. We offer discounted wholesale pricing, custom and gift packaging, and pan-India shipping for retailers, cafés, corporate gifting and events. Contact us with your product list and quantities and we'll send a custom quote within 24 hours." } },
+      { "@type": "Question", "name": "How are your pickles made and do they contain preservatives?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Our pickles are handmade in small batches using sun-dried produce, cold-pressed mustard oil and traditional Kumaoni spices. They are naturally preserved with no artificial preservatives." } }
+    ]
+  }
+  </script>
 </head>
 <body>
 
@@ -103,13 +334,25 @@
 </nav>
 
 <section class="hero-band">
-  <img class="hero-bg" src="./WhatsApp Image 2026-03-16 at 8.49.50 PM (1).jpeg" alt="Herbal products Kumaon"/>
+  <img class="hero-bg" src="./WhatsApp Image 2026-03-16 at 8.49.50 PM (1).jpeg" alt="Natural Himalayan herbal products from Kumaon, Uttarakhand"/>
   <div class="ov"></div><div class="fade-b"></div>
   <div class="hero-body">
     <p class="hero-eyebrow">From the Hills of Uttarakhand</p>
     <h1 class="hero-title">Our <em>Natural</em> Products</h1>
     <p class="hero-sub">Handcrafted with wild Himalayan herbs, traditional recipes, and zero artificial additives — straight from Kumaon to your home.</p>
   </div>
+</section>
+
+<!-- SEO INTRO (keyword-rich, human-first copy) -->
+<section class="seo-intro">
+  <h2>Authentic Himalayan Herbal Products, Straight from Kumaon</h2>
+  <p>
+    Explore our range of <strong>100% natural cold-pressed juices</strong>, <strong>traditional handmade pickles</strong>,
+    and <strong>Himalayan wellness products</strong> — each crafted in small batches in the hills of Uttarakhand.
+    From antioxidant-rich <strong>Buransh juice</strong> and tangy <strong>Amla</strong> to sun-dried
+    <strong>Kumaoni achar</strong> and aged <strong>black garlic</strong>, every product is wild-sourced,
+    additive-free, and made the way the mountains intended.
+  </p>
 </section>
 
 <!-- TRUST STRIP -->
@@ -134,31 +377,29 @@
   <div><h2>🍹 Natural Juices <span class="tag">Cold Pressed</span></h2><div class="sec-divider"></div></div>
 </div>
 <div class="product-grid" id="grid-juice">
-  <div class="card" data-id="litchi" data-cat="juice" data-stock="14">
-    <div class="card-img-wrap"><span class="badge badge-popular">Sale</span><button class="wishlist-btn">♡</button><img src="images/litchi squash.jpeg" alt="Litchi Juice"/></div>
+  <div class="card" data-id="litchi" data-cat="juice" data-stock="12">
+    <div class="card-img-wrap"><span class="badge badge-popular">Sale</span><button class="wishlist-btn">♡</button><img src="images/litchi squash.jpeg" alt="Kumaon Herbal Litchi Squash natural juice"/></div>
     <div class="card-body"><p class="card-category">Natural Juice</p><h3 class="card-title">Litchi Squash</h3><p class="card-desc">Rich in Vitamin C, Natural Energy Booster, Balances Electrolytes.</p><div class="stars">★★★★★ <span style="color:var(--text-light);margin-left:.3rem">(84)</span></div><div class="card-footer"><div><span class="price">₹250</span><span class="price-old">₹300</span></div><button class="add-btn">Add to Cart</button></div></div>
   </div>
-  <div class="card" data-id="buransh" data-cat="juice" data-stock="4">
-    <div class="card-img-wrap"><span class="badge badge-organic">Sale</span><button class="wishlist-btn">♡</button><img src="images/buransh juice.jpeg" alt="Buransh Juice"/></div>
+  <div class="card" data-id="buransh" data-cat="juice" data-stock="12">
+    <div class="card-img-wrap"><span class="badge badge-organic">Sale</span><button class="wishlist-btn">♡</button><img src="images/buransh juice.jpeg" alt="Kumaon Herbal Buransh rhododendron flower juice"/></div>
     <div class="card-body"><p class="card-category">Natural Juice</p><h3 class="card-title">Buransh Juice</h3><p class="card-desc">Rare rhododendron flower juice — floral, tangy & rich in antioxidants.</p><div class="stars">★★★★☆ <span style="color:var(--text-light);margin-left:.3rem">(61)</span></div><div class="card-footer"><div><span class="price">₹249</span><span class="price-old">₹320</span></div><button class="add-btn">Add to Cart</button></div></div>
   </div>
-  <div class="card" data-id="aam" data-cat="juice" data-stock="0">
-    <div class="card-img-wrap"><span class="badge badge-new">Sale</span><button class="wishlist-btn">♡</button><img src="images/aam panna.jpeg" alt="Aam Panna"/></div>
+  <div class="card" data-id="aam" data-cat="juice" data-stock="12">
+    <div class="card-img-wrap"><span class="badge badge-new">Sale</span><button class="wishlist-btn">♡</button><img src="images/aam panna.jpeg" alt="Kumaon Herbal Aam Panna raw mango cooler"/></div>
     <div class="card-body"><p class="card-category">Natural Juice</p><h3 class="card-title">Aam Panna</h3><p class="card-desc">Classic raw mango summer cooler with cumin, black salt & fresh mint.</p><div class="stars">★★★★★ <span style="color:var(--text-light);margin-left:.3rem">(112)</span></div><div class="card-footer"><div><span class="price">₹199</span></div><button class="add-btn">Add to Cart</button></div></div>
   </div>
-  <div class="card" data-id="malta" data-cat="juice" data-stock="22">
-    <div class="card-img-wrap"><span class="badge badge-popular">Sale</span><button class="wishlist-btn">♡</button><img src="images/IMG_8484.jpeg" alt="Malta Juice"/></div>
+  <div class="card" data-id="malta" data-cat="juice" data-stock="12">
+    <div class="card-img-wrap"><span class="badge badge-popular">Sale</span><button class="wishlist-btn">♡</button><img src="images/IMG_8484.jpeg" alt="Kumaon Herbal Malta orange juice"/></div>
     <div class="card-body"><p class="card-category">Natural Juice</p><h3 class="card-title">Malta Juice</h3>
-      <!-- UPDATED: 1-line description for Malta -->
       <p class="card-desc">Malta juice is a refreshing beverage made from the sweet, juicy Malta orange, known for its vibrant flavor and high vitamin C content.</p>
       <div class="stars">★★★★☆ <span style="color:var(--text-light);margin-left:.3rem">(47)</span></div>
       <div class="card-footer"><div><span class="price">₹200</span><span class="price-old">₹250</span></div><button class="add-btn">Add to Cart</button></div>
     </div>
   </div>
-  <div class="card" data-id="amla" data-cat="juice" data-stock="22">
-    <div class="card-img-wrap"><span class="badge badge-popular">Sale</span><button class="wishlist-btn">♡</button><img src="images/IMG_8485.jpg" alt="Amla Juice"/></div>
+  <div class="card" data-id="amla" data-cat="juice" data-stock="12">
+    <div class="card-img-wrap"><span class="badge badge-popular">Sale</span><button class="wishlist-btn">♡</button><img src="images/IMG_8485.jpg" alt="Kumaon Herbal Amla gooseberry juice"/></div>
     <div class="card-body"><p class="card-category">Natural Juice</p><h3 class="card-title">Amla Juice</h3>
-      <!-- UPDATED: 1-line description for Amla -->
       <p class="card-desc">Amla juice is a potent, tangy health tonic derived from Indian gooseberries, prized for its exceptionally high vitamin C content and powerful antioxidant properties.</p>
       <div class="stars">★★★★☆ <span style="color:var(--text-light);margin-left:.3rem">(47)</span></div>
       <div class="card-footer"><div><span class="price">₹200</span><span class="price-old">₹250</span></div><button class="add-btn">Add to Cart</button></div>
@@ -176,16 +417,16 @@
   <div><h2>🫙 Traditional Pickles <span class="tag">Hand Made</span></h2><div class="sec-divider"></div></div>
 </div>
 <div class="product-grid" id="grid-pickle">
-  <div class="card" data-id="mango" data-cat="pickle" data-stock="31">
-    <div class="card-img-wrap"><span class="badge badge-popular">Bestseller</span><button class="wishlist-btn">♡</button><img src="images/IMG_8487.jpeg" alt="Mango Achar"/></div>
+  <div class="card" data-id="mango" data-cat="pickle" data-stock="12">
+    <div class="card-img-wrap"><span class="badge badge-popular">Bestseller</span><button class="wishlist-btn">♡</button><img src="images/IMG_8487.jpeg" alt="Kumaon Herbal Raw Mango Aam Achar pickle"/></div>
     <div class="card-body"><p class="card-category">Pickles</p><h3 class="card-title">Raw Mango Aam Achar</h3><p class="card-desc">Sun-dried raw mango pieces in mustard oil with traditional Kumaoni spices.</p><div class="stars">★★★★★ <span style="color:var(--text-light);margin-left:.3rem">(203)</span></div><div class="card-footer"><div><span class="price">₹189</span><span class="price-old">₹240</span></div><button class="add-btn">Add to Cart</button></div></div>
   </div>
-  <div class="card" data-id="chilli" data-cat="pickle" data-stock="7">
-    <div class="card-img-wrap"><span class="badge badge-organic">Organic</span><button class="wishlist-btn">♡</button><img src="Jackfruit Pickle FRUNT.jpg.jpeg" alt="Chilli Achar"/></div>
+  <div class="card" data-id="chilli" data-cat="pickle" data-stock="12">
+    <div class="card-img-wrap"><span class="badge badge-organic">Organic</span><button class="wishlist-btn">♡</button><img src="Jackfruit Pickle FRUNT.jpg.jpeg" alt="Kumaon Herbal Jackfruit Pickle"/></div>
     <div class="card-body"><p class="card-category">Pickles</p><h3 class="card-title">Jackfruit Pickle</h3><p class="card-desc">Fiery, tangy, and irresistibly savory, this jackfruit pickle features tender, meaty chunks steeped in aromatic spices and oil, delivering a mouthwatering burst of flavor to any meal.</p><div class="stars">★★★★★ <span style="color:var(--text-light);margin-left:.3rem">(89)</span></div><div class="card-footer"><div><span class="price">₹200</span></div><button class="add-btn">Add to Cart</button></div></div>
   </div>
-  <div class="card" data-id="lahsun" data-cat="pickle" data-stock="19">
-    <div class="card-img-wrap"><span class="badge badge-new">New</span><button class="wishlist-btn">♡</button><img src="images/IMG_8492.jpeg" alt="Ginger Achar"/></div>
+  <div class="card" data-id="lahsun" data-cat="pickle" data-stock="12">
+    <div class="card-img-wrap"><span class="badge badge-new">New</span><button class="wishlist-btn">♡</button><img src="images/IMG_8492.jpeg" alt="Kumaon Herbal Pahadi Ginger Achar pickle"/></div>
     <div class="card-body"><p class="card-category">Pickles</p><h3 class="card-title">Pahadi Ginger Achar</h3><p class="card-desc">Mountain garlic fermented in cold-pressed mustard oil with Himalayan black salt.</p><div class="stars">★★★★☆ <span style="color:var(--text-light);margin-left:.3rem">(54)</span></div><div class="card-footer"><div><span class="price">₹219</span><span class="price-old">₹300</span></div><button class="add-btn">Add to Cart</button></div></div>
   </div>
 </div> <!-- end grid-pickle -->
@@ -196,10 +437,9 @@
 </div>
 <div class="product-grid" id="grid-herbal" style="padding-bottom: 8rem;">
   <!-- Black Garlic -->
-  <div class="card" data-id="Garlic" data-cat="herbal" data-stock="0">
-    <div class="card-img-wrap"><span class="badge badge-popular">Popular</span><button class="wishlist-btn">♡</button><img src="https://github.com/Aegis76/Kumaon-Herbal/blob/main/WhatsApp%20Image%202026-03-16%20at%208.49.56%20PM.jpeg?raw=true" alt="Black Garlic"/></div>
+  <div class="card" data-id="Garlic" data-cat="herbal" data-stock="12">
+    <div class="card-img-wrap"><span class="badge badge-popular">Popular</span><button class="wishlist-btn">♡</button><img src="https://github.com/Aegis76/Kumaon-Herbal/blob/main/WhatsApp%20Image%202026-03-16%20at%208.49.56%20PM.jpeg?raw=true" alt="Kumaon Herbal aged Black Garlic"/></div>
     <div class="card-body"><p class="card-category">Wellness</p><h3 class="card-title">Black Garlic</h3>
-      <!-- UPDATED: 1-line description for Black Garlic -->
       <p class="card-desc">Black Garlic is fermented, aged garlic with a sweet, balsamic-like flavor and a soft, chewy texture, prized for its enhanced antioxidant content and gentle, non-pungent health benefits.</p>
       <div class="stars">★★★★★ <span style="color:var(--text-light);margin-left:.3rem">(132)</span></div>
       <div class="card-footer"><div><span class="price">₹300</span><span class="price-old">₹350</span></div><button class="add-btn">Add to Cart</button></div>
@@ -207,10 +447,9 @@
   </div>
 
   <!-- Jamun Guthli Powder -->
-  <div class="card" data-id="Jamun" data-cat="herbal" data-stock="0">
-    <div class="card-img-wrap"><span class="badge badge-popular">Popular</span><button class="wishlist-btn">♡</button><img src="images/IMG_8489.jpeg" alt="Jamun Guthli Powder"/></div>
+  <div class="card" data-id="Jamun" data-cat="herbal" data-stock="12">
+    <div class="card-img-wrap"><span class="badge badge-popular">Popular</span><button class="wishlist-btn">♡</button><img src="images/IMG_8489.jpeg" alt="Kumaon Herbal Jamun Guthli Powder"/></div>
     <div class="card-body"><p class="card-category">Wellness</p><h3 class="card-title">Jamun Guthli Powder</h3>
-      <!-- UPDATED: 1-line description for Jamun -->
       <p class="card-desc">Jamun Guthli Powder is a traditional Ayurvedic supplement made from dried seeds of the black plum, widely valued for its natural ability to help regulate blood sugar levels and support overall metabolic health.</p>
       <div class="stars">★★★★★ <span style="color:var(--text-light);margin-left:.3rem">(132)</span></div>
       <div class="card-footer"><div><span class="price">₹200</span><span class="price-old">₹300</span></div><button class="add-btn">Add to Cart</button></div>
@@ -218,18 +457,93 @@
   </div>
 
   <!-- Haldi Latte -->
-  <div class="card" data-id="honey" data-cat="herbal" data-stock="26">
-    <div class="card-img-wrap"><span class="badge badge-organic">Organic</span><button class="wishlist-btn">♡</button><img src="images/haldi latte.jpeg" alt="Haldi Latte"/></div>
+  <div class="card" data-id="honey" data-cat="herbal" data-stock="12">
+    <div class="card-img-wrap"><span class="badge badge-organic">Organic</span><button class="wishlist-btn">♡</button><img src="images/haldi latte.jpeg" alt="Kumaon Herbal Haldi Latte turmeric wellness drink"/></div>
     <div class="card-body"><p class="card-category">Wellness</p><h3 class="card-title">Haldi Latte</h3><p class="card-desc">Haldi Latte - The Golden Wellness Drink from the Himalayas</p><div class="stars">★★★★★ <span style="color:var(--text-light);margin-left:.3rem">(410)</span></div><div class="card-footer"><div><span class="price">₹200</span><span class="price-old">₹250</span></div><button class="add-btn">Add to Cart</button></div></div>
   </div>
 
-  <!-- Jack Fruit Flour (formerly Eucalyptus) -->
-  <div class="card" data-id="eucalyptus" data-cat="herbal" data-stock="9">
-    <div class="card-img-wrap"><span class="badge badge-popular">Top Pick</span><button class="wishlist-btn">♡</button><img src="images/WhatsApp Image 2026-06-24 at 12.10.02 PM.jpeg" alt="Jack Fruit Flour"/></div>
+  <!-- Jack Fruit Flour -->
+  <div class="card" data-id="eucalyptus" data-cat="herbal" data-stock="12">
+    <div class="card-img-wrap"><span class="badge badge-popular">Top Pick</span><button class="wishlist-btn">♡</button><img src="images/WhatsApp Image 2026-06-24 at 12.10.02 PM.jpeg" alt="Kumaon Herbal Jack Fruit Flour"/></div>
     <div class="card-body"><p class="card-category">Wellness</p><h3 class="card-title">Jack Fruit Flour</h3><p class="card-desc">Steam-distilled from mountain eucalyptus — used for cold relief & massage.</p><div class="stars">★★★★☆ <span style="color:var(--text-light);margin-left:.3rem">(92)</span></div><div class="card-footer"><div><span class="price">₹379</span><span class="price-old">₹450</span></div><button class="add-btn">Add to Cart</button></div></div>
   </div>
 
 </div> <!-- end grid-herbal -->
+
+<!-- ===== BULK / WHOLESALE SECTION ===== -->
+<section class="bulk-section" id="bulk-orders">
+  <span class="bulk-leaf" aria-hidden="true">🌿</span>
+  <div class="bulk-inner">
+    <div class="bulk-text">
+      <p class="bulk-eyebrow">Wholesale &amp; Bulk Orders</p>
+      <h2 class="bulk-title">Buying in <em>bulk?</em><br/>Let's talk pricing.</h2>
+      <p class="bulk-copy">
+        Stocking a store, planning corporate gift hampers, catering an event, or ordering for your café?
+        We offer special wholesale rates on large quantities of our juices, pickles, and herbal wellness products —
+        straight from the hills of Kumaon.
+      </p>
+      <ul class="bulk-points">
+        <li>Discounted wholesale pricing</li>
+        <li>Custom &amp; gift packaging</li>
+        <li>Pan-India shipping</li>
+        <li>Dedicated order support</li>
+      </ul>
+      <div class="bulk-cta-row">
+        <a href="contact.html" class="bulk-btn bulk-btn-primary">Contact Us for Bulk Orders →</a>
+        <!-- EDIT: replace the number below with your WhatsApp business number (countrycode + number, no +) -->
+        <a href="https://wa.me/919XXXXXXXXX?text=Hi%20Kumaon%20Herbal,%20I'd%20like%20a%20bulk%20order%20quote."
+           target="_blank" rel="noopener" class="bulk-btn bulk-btn-ghost">💬 WhatsApp Us</a>
+      </div>
+    </div>
+    <div class="bulk-card">
+      <h3>Minimum order, maximum freshness.</h3>
+      <p>Bulk orders are made to order and dispatched fresh. Share your product list and quantities, and our team will send a custom quote within hours.</p>
+      <div class="bulk-stat-row">
+        <div class="bulk-stat"><b>25+</b><span>Units / item</span></div>
+        <div class="bulk-stat"><b>10–25%</b><span>Bulk savings</span></div>
+        <div class="bulk-stat"><b>24h</b><span>Quote time</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FAQ SECTION (content + FAQ rich-result schema above) ===== -->
+<section class="faq-section" id="faq">
+  <div class="faq-head">
+    <p class="eyebrow">Good to Know</p>
+    <h2>Frequently Asked Questions</h2>
+  </div>
+
+  <details class="faq-item" open>
+    <summary>Are Kumaon Herbal products 100% natural?</summary>
+    <div class="faq-a">Yes. Every Kumaon Herbal juice, pickle and wellness product is made with 100% natural ingredients — wild Himalayan herbs and fruit, traditional recipes, and zero artificial colours, flavours or preservatives.</div>
+  </details>
+
+  <details class="faq-item">
+    <summary>Where are your products sourced from?</summary>
+    <div class="faq-a">Our ingredients are wild-sourced and handcrafted in the Kumaon region of Uttarakhand, in the Indian Himalayas. From buransh flowers to mountain garlic, everything is gathered and prepared locally for maximum freshness and purity.</div>
+  </details>
+
+  <details class="faq-item">
+    <summary>Do you offer free shipping?</summary>
+    <div class="faq-a">Yes — we offer free shipping on all orders above ₹2000 across India. Orders are dispatched fresh and shipped in eco-friendly packaging.</div>
+  </details>
+
+  <details class="faq-item">
+    <summary>What is Buransh juice and what are its benefits?</summary>
+    <div class="faq-a">Buransh juice is made from the rare rhododendron flower that blooms in the Himalayas. It is floral and tangy, naturally rich in antioxidants, and traditionally enjoyed as a refreshing, heart-friendly summer drink.</div>
+  </details>
+
+  <details class="faq-item">
+    <summary>Can I place a bulk or wholesale order?</summary>
+    <div class="faq-a">Absolutely. We offer discounted wholesale pricing, custom and gift packaging, and pan-India shipping for retailers, cafés, corporate gifting and events. <a href="#bulk-orders" style="color:#2e7d32;font-weight:600">Contact us</a> with your product list and quantities and we'll send a custom quote within 24 hours.</div>
+  </details>
+
+  <details class="faq-item">
+    <summary>How are your pickles made and do they contain preservatives?</summary>
+    <div class="faq-a">Our pickles are handmade in small batches using sun-dried produce, cold-pressed mustard oil and traditional Kumaoni spices. They are naturally preserved with no artificial preservatives.</div>
+  </details>
+</section>
 
 <footer class="footer-strip">
   <div class="logo">Kumaon <span>Herbal</span></div>
@@ -297,4 +611,4 @@
 </script>
 
 </body>
-</html>
+  </html>
