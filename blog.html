@@ -1,943 +1,192 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Blog – Kumaon Herbal</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-    <style>
-        /* ── RESET & BASE ── */
-        *,
-        *::before,
-        *::after {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Jost', sans-serif;
-            background: #fbf8f4;
-            color: #2d2a24;
-            line-height: 1.6;
-        }
-
-        a {
-            text-decoration: none;
-            color: inherit;
-        }
-
-        img {
-            max-width: 100%;
-            display: block;
-        }
-
-        /* ── NAVBAR ── */
-        #navbar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            z-index: 1000;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 2rem;
-            height: 72px;
-            background: #fbf8f4;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
-            transition: background 0.3s;
-        }
-
-        .nav-logo {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.6rem;
-            font-weight: 700;
-            letter-spacing: -0.5px;
-            color: #2d2a24;
-        }
-        .nav-logo span {
-            color: #4a7c59;
-        }
-
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 2rem;
-            font-weight: 500;
-            font-size: 0.95rem;
-            letter-spacing: 0.3px;
-        }
-        .nav-links a {
-            color: #3d3a34;
-            transition: color 0.25s;
-            position: relative;
-        }
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -4px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: #4a7c59;
-            transition: width 0.3s;
-        }
-        .nav-links a:hover {
-            color: #4a7c59;
-        }
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-
-        .nav-actions {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .nav-cart {
-            background: #4a7c59;
-            color: #fff;
-            border: none;
-            padding: 0.45rem 1.1rem;
-            border-radius: 40px;
-            font-weight: 500;
-            font-size: 0.85rem;
-            cursor: pointer;
-            transition: background 0.25s;
-            font-family: 'Jost', sans-serif;
-        }
-        .nav-cart:hover {
-            background: #3a6447;
-        }
-
-        /* ── HAMBURGER ── */
-        .hamburger {
-            display: none;
-            flex-direction: column;
-            gap: 5px;
-            cursor: pointer;
-            padding: 4px;
-            background: transparent;
-            border: none;
-        }
-        .hamburger span {
-            display: block;
-            width: 26px;
-            height: 2.5px;
-            background: #2d2a24;
-            border-radius: 4px;
-            transition: all 0.3s ease;
-            transform-origin: center;
-        }
-        .hamburger.active span:nth-child(1) {
-            transform: translateY(7.5px) rotate(45deg);
-        }
-        .hamburger.active span:nth-child(2) {
-            opacity: 0;
-            transform: scaleX(0);
-        }
-        .hamburger.active span:nth-child(3) {
-            transform: translateY(-7.5px) rotate(-45deg);
-        }
-
-        /* ── MOBILE NAV OVERLAY ── */
-        .mobile-nav {
-            position: fixed;
-            top: 72px;
-            left: 0;
-            width: 100%;
-            height: 0;
-            background: #fbf8f4;
-            overflow: hidden;
-            transition: height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            z-index: 999;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.05);
-        }
-        .mobile-nav.open {
-            height: 340px;
-        }
-        .mobile-nav ul {
-            list-style: none;
-            padding: 1.5rem 2rem 2rem;
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-        .mobile-nav ul li a {
-            display: block;
-            padding: 0.7rem 0;
-            font-size: 1.1rem;
-            font-weight: 500;
-            color: #2d2a24;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.04);
-            transition: color 0.2s, padding-left 0.2s;
-        }
-        .mobile-nav ul li a:hover {
-            color: #4a7c59;
-            padding-left: 0.5rem;
-        }
-        .mobile-nav .mobile-cart {
-            display: inline-block;
-            margin-top: 0.8rem;
-            background: #4a7c59;
-            color: #fff;
-            border: none;
-            padding: 0.6rem 1.6rem;
-            border-radius: 40px;
-            font-weight: 600;
-            font-size: 0.95rem;
-            cursor: pointer;
-            font-family: 'Jost', sans-serif;
-            width: fit-content;
-        }
-        .mobile-nav .mobile-cart:hover {
-            background: #3a6447;
-        }
-
-        /* ── HERO ── */
-        .hero {
-            position: relative;
-            height: 420px;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-        }
-        .hero img {
-            position: absolute;
-            inset: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            filter: brightness(0.5) saturate(0.8);
-        }
-        .hero .ov {
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(145deg, rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.55));
-        }
-        .hero .fade-b {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 40%;
-            background: linear-gradient(to top, #fbf8f4, transparent);
-        }
-        .hero-body {
-            position: relative;
-            z-index: 2;
-            max-width: 780px;
-            padding: 0 1.5rem;
-        }
-        .hero-body .eyebrow {
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            color: rgba(255, 255, 255, 0.7);
-            margin-bottom: 0.5rem;
-            font-weight: 400;
-        }
-        .hero-body h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 3.2rem;
-            font-weight: 700;
-            color: #fff;
-            line-height: 1.15;
-            margin-bottom: 0.6rem;
-        }
-        .hero-body h1 em {
-            font-style: italic;
-            font-weight: 400;
-            color: #d4e9d0;
-        }
-        .hero-body p {
-            color: rgba(255, 255, 255, 0.85);
-            font-size: 1.15rem;
-            font-weight: 300;
-            max-width: 540px;
-            margin: 0 auto;
-        }
-
-        /* ── BREADCRUMB ── */
-        .breadcrumb {
-            max-width: 1200px;
-            margin: 1rem auto 0;
-            padding: 0 2rem;
-            font-size: 0.85rem;
-            color: #7a7268;
-        }
-        .breadcrumb a {
-            color: #4a7c59;
-        }
-        .breadcrumb a:hover {
-            text-decoration: underline;
-        }
-
-        /* ── FILTER BAR ── */
-        .filter-bar {
-            max-width: 1200px;
-            margin: 1.5rem auto 0;
-            padding: 0 2rem;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.6rem 0.8rem;
-        }
-        .f-btn {
-            padding: 0.4rem 1.2rem;
-            border-radius: 40px;
-            border: 1px solid #dad5cd;
-            background: transparent;
-            font-family: 'Jost', sans-serif;
-            font-size: 0.85rem;
-            font-weight: 500;
-            color: #4d4840;
-            cursor: pointer;
-            transition: all 0.25s;
-        }
-        .f-btn:hover {
-            background: #eae5dd;
-            border-color: #b5aea2;
-        }
-        .f-btn.active {
-            background: #4a7c59;
-            color: #fff;
-            border-color: #4a7c59;
-        }
-
-        /* ── FEATURED POST ── */
-        .featured-post {
-            max-width: 1200px;
-            margin: 2rem auto 0;
-            padding: 0 2rem;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
-            background: #fff;
-            border-radius: 20px;
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.04);
-            overflow: hidden;
-            border: 1px solid rgba(0, 0, 0, 0.04);
-        }
-        .fp-img {
-            position: relative;
-            min-height: 280px;
-        }
-        .fp-img img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        .fp-badge {
-            position: absolute;
-            top: 1rem;
-            left: 1rem;
-            background: #4a7c59;
-            color: #fff;
-            font-size: 0.7rem;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
-            padding: 0.25rem 1rem;
-            border-radius: 40px;
-        }
-        .fp-body {
-            padding: 2rem 2rem 2rem 0;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-        .fp-cat {
-            font-size: 0.8rem;
-            font-weight: 600;
-            color: #4a7c59;
-            margin-bottom: 0.3rem;
-        }
-        .fp-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.7rem;
-            font-weight: 700;
-            line-height: 1.2;
-            margin-bottom: 0.6rem;
-            color: #1f1c17;
-        }
-        .fp-excerpt {
-            color: #55504a;
-            font-size: 0.98rem;
-            margin-bottom: 0.8rem;
-            line-height: 1.7;
-        }
-        .fp-meta {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            gap: 0.3rem 0.8rem;
-            font-size: 0.8rem;
-            color: #7a7268;
-            margin-bottom: 1rem;
-        }
-        .fp-meta .dot {
-            width: 4px;
-            height: 4px;
-            border-radius: 50%;
-            background: #c5bdb2;
-            display: inline-block;
-        }
-        .bc-read-link {
-            display: inline-block;
-            font-weight: 600;
-            color: #4a7c59;
-            font-size: 0.95rem;
-            transition: color 0.2s;
-        }
-        .bc-read-link:hover {
-            color: #2b5a3a;
-        }
-
-        /* ── BLOG GRID ── */
-        .blog-grid {
-            max-width: 1200px;
-            margin: 2.5rem auto 0;
-            padding: 0 2rem 2rem;
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
-            gap: 2rem;
-        }
-
-        .blog-card {
-            background: #fff;
-            border-radius: 18px;
-            overflow: hidden;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
-            border: 1px solid rgba(0, 0, 0, 0.04);
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-        .blog-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.07);
-        }
-
-        .bc-img {
-            position: relative;
-            height: 200px;
-            overflow: hidden;
-            background: #eae5dd;
-        }
-        .bc-img img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        .bc-cat-tag {
-            position: absolute;
-            bottom: 0.8rem;
-            left: 0.8rem;
-            background: rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(6px);
-            color: #fff;
-            font-size: 0.7rem;
-            font-weight: 500;
-            padding: 0.2rem 1rem;
-            border-radius: 40px;
-            letter-spacing: 0.3px;
-        }
-
-        .bc-body {
-            padding: 1.2rem 1.4rem 1.4rem;
-        }
-        .bc-date {
-            font-size: 0.75rem;
-            color: #8a8278;
-            margin-bottom: 0.3rem;
-            letter-spacing: 0.2px;
-        }
-        .bc-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.2rem;
-            font-weight: 700;
-            line-height: 1.3;
-            margin-bottom: 0.4rem;
-            color: #1f1c17;
-        }
-        .bc-excerpt {
-            font-size: 0.9rem;
-            color: #55504a;
-            line-height: 1.6;
-            margin-bottom: 0.8rem;
-            display: -webkit-box;
-            -webkit-line-clamp: 3;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-        .bc-footer {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            padding-top: 0.6rem;
-            border-top: 1px solid #f0ebe4;
-        }
-        .bc-author {
-            display: flex;
-            align-items: center;
-            gap: 0.4rem;
-            font-size: 0.8rem;
-            font-weight: 500;
-            color: #3d3a34;
-        }
-        .bc-avatar {
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            background: #eae5dd;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.8rem;
-        }
-
-        /* ── NEWSLETTER ── */
-        .newsletter {
-            max-width: 640px;
-            margin: 1rem auto 3rem;
-            padding: 2.5rem 2rem;
-            text-align: center;
-            background: #fff;
-            border-radius: 24px;
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.04);
-            border: 1px solid rgba(0, 0, 0, 0.04);
-        }
-        .newsletter h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 2rem;
-            font-weight: 700;
-            color: #1f1c17;
-        }
-        .newsletter p {
-            color: #55504a;
-            margin: 0.4rem 0 1.2rem;
-            font-size: 1rem;
-        }
-        .nl-form {
-            display: flex;
-            gap: 0.6rem;
-            max-width: 420px;
-            margin: 0 auto;
-        }
-        .nl-form input {
-            flex: 1;
-            padding: 0.6rem 1.2rem;
-            border-radius: 40px;
-            border: 1px solid #dad5cd;
-            font-family: 'Jost', sans-serif;
-            font-size: 0.95rem;
-            background: #fbf8f4;
-            outline: none;
-            transition: border 0.25s;
-        }
-        .nl-form input:focus {
-            border-color: #4a7c59;
-        }
-        .nl-form button {
-            padding: 0.6rem 1.6rem;
-            border-radius: 40px;
-            border: none;
-            background: #4a7c59;
-            color: #fff;
-            font-weight: 600;
-            font-size: 0.95rem;
-            cursor: pointer;
-            transition: background 0.25s;
-            font-family: 'Jost', sans-serif;
-            white-space: nowrap;
-        }
-        .nl-form button:hover {
-            background: #3a6447;
-        }
-
-        /* ── FOOTER ── */
-        footer {
-            background: #f0ebe4;
-            padding: 2rem 2rem 1.8rem;
-            text-align: center;
-            color: #3d3a34;
-            border-top: 1px solid rgba(0, 0, 0, 0.04);
-        }
-        footer .fl {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.6rem;
-            font-weight: 700;
-            margin-bottom: 0.2rem;
-        }
-        footer .fl span {
-            color: #4a7c59;
-        }
-        footer p {
-            font-size: 0.85rem;
-            color: #6a645b;
-            margin-top: 0.2rem;
-        }
-
-        /* ── RESPONSIVE ── */
-        @media (max-width: 900px) {
-            .featured-post {
-                grid-template-columns: 1fr;
-            }
-            .fp-body {
-                padding: 1.5rem;
-            }
-            .fp-img {
-                min-height: 200px;
-            }
-            .hero-body h1 {
-                font-size: 2.4rem;
-            }
-        }
-
-        @media (max-width: 700px) {
-            .nav-links {
-                display: none;
-            }
-            .hamburger {
-                display: flex;
-            }
-            .nav-actions {
-                gap: 0.8rem;
-            }
-            .nav-cart {
-                padding: 0.35rem 0.9rem;
-                font-size: 0.75rem;
-            }
-            .hero {
-                height: 320px;
-            }
-            .hero-body h1 {
-                font-size: 2rem;
-            }
-            .hero-body p {
-                font-size: 0.95rem;
-            }
-            .filter-bar {
-                gap: 0.4rem 0.6rem;
-            }
-            .f-btn {
-                font-size: 0.75rem;
-                padding: 0.25rem 0.9rem;
-            }
-            .blog-grid {
-                grid-template-columns: 1fr;
-                padding: 0 1rem 1.5rem;
-            }
-            .fp-title {
-                font-size: 1.3rem;
-            }
-            .nl-form {
-                flex-direction: column;
-            }
-            .nl-form button {
-                width: 100%;
-            }
-            .breadcrumb {
-                padding: 0 1rem;
-            }
-            .filter-bar {
-                padding: 0 1rem;
-            }
-            .featured-post {
-                padding: 0;
-                margin: 1.5rem 1rem 0;
-            }
-            .fp-body {
-                padding: 1.2rem;
-            }
-            .newsletter {
-                margin: 1rem 1rem 2.5rem;
-                padding: 1.8rem 1.2rem;
-            }
-            .mobile-nav.open {
-                height: 340px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            #navbar {
-                padding: 0 1rem;
-            }
-            .nav-logo {
-                font-size: 1.2rem;
-            }
-            .hero-body h1 {
-                font-size: 1.6rem;
-            }
-            .hero {
-                height: 260px;
-            }
-            .mobile-nav ul {
-                padding: 1rem 1.2rem 1.5rem;
-            }
-            .mobile-nav.open {
-                height: 310px;
-            }
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog – Kumaon Herbal</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="blog.css" rel="stylesheet" />
 </head>
 <body>
 
-    <!-- ─── NAVBAR ─── -->
-    <nav id="navbar">
-        <div class="nav-logo">Kumaon <span>Herbal</span></div>
+  <!-- NAVBAR -->
+  <nav id="navbar">
+    <div class="nav-logo">Kumaon <span>Herbal</span></div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="product.html">Products</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="nav-cart">🛒 Cart (0)</button>
+      <div class="hamburger" id="hamburger">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </nav>
 
-        <ul class="nav-links">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="product.html">Products</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="blog.html">Blog</a></li>
-            <li><a href="contact.html">Contact</a></li>
-        </ul>
+  <div style="height:72px"></div>
 
-        <div class="nav-actions">
-            <button class="nav-cart">🛒 Cart (0)</button>
-            <!-- 🍔 BURGER BUTTON -->
-            <button class="hamburger" id="hamburger" aria-label="Toggle navigation menu">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
+  <!-- HERO -->
+  <section class="hero">
+    <img src="https://images.unsplash.com/photo-1591857177580-dc82b9ac4e1e?w=1600&q=80" alt="herbal tea blog" />
+    <div class="ov"></div>
+    <div class="fade-b"></div>
+    <div class="hero-body">
+      <p class="eyebrow">Knowledge from the Mountains</p>
+      <h1>The Kumaon Herbal <em>Journal</em></h1>
+      <p>Recipes, wellness guides, herb stories, and the latest from our Himalayan kitchen.</p>
+    </div>
+  </section>
+
+  <div class="breadcrumb"><a href="index.html">Home</a> &nbsp;/&nbsp; Blog</div>
+
+  <!-- FILTERS -->
+  <div class="filter-bar">
+    <button class="f-btn active">All Posts</button>
+    <button class="f-btn">🌿 Herbs & Plants</button>
+    <button class="f-btn">🍹 Juices & Drinks</button>
+    <button class="f-btn">🫙 Pickles & Recipes</button>
+    <button class="f-btn">💚 Wellness</button>
+    <button class="f-btn">🏔️ Kumaon Stories</button>
+  </div>
+
+  <!-- FEATURED POST -->
+  <div class="featured-post">
+    <div class="fp-img">
+      <span class="fp-badge">Featured</span>
+      <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=600&q=80" alt="Kumaon hills and tradition" />
+    </div>
+    <div class="fp-body">
+      <p class="fp-cat">🌿 Herbs & Plants</p>
+      <h2 class="fp-title">Why Kumaon Herbal Was Started</h2>
+      <p class="fp-excerpt">Some of my happiest childhood memories are connected to food. Growing up in Uttarakhand, fresh amla juice, homemade pickles, and herbal recipes were a normal part of life...</p>
+      <div class="fp-meta">
+        <span>🗓 June 10, 2026</span>
+        <span class="dot"></span>
+        <span>✍️ Gaurav Joshi</span>
+        <span class="dot"></span>
+        <span>📖 6 min read</span>
+      </div>
+      <a href="blog-why-kumaon-herbal.html" class="bc-read-link" target="_blank">Read More →</a>
+    </div>
+  </div>
+
+  <!-- BLOG GRID (8 cards: 6 existing + 2 new) -->
+  <div class="blog-grid">
+       
+       <div class="blog-card">
+            <div class="bc-img">
+                 <img src="https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=600&q=80" alt="farming in Uttarakhand" />
+                 <span class="bc-cat-tag">🏔️ Kumaon Stories</span>
+            </div>
+            <div class="bc-body">
+                 <p class="bc-date">June 24, 2026 · 7 min read</p>
+                 <h3 class="bc-title">From the Farms of Kotabagh to Homes Across India</h3>
+                 <p class="bc-excerpt">Whenever someone picks up a bottle of our juice or a jar of our pickle, they see the final product. What they don’t see is the journey behind it...</p>
+                 <div class="bc-footer">
+                      <div class="bc-author"><div class="bc-avatar">👨</div> Gaurav Joshi</div>
+                      <a href="blog-from-farms.html" class="bc-read-link" target="_blank">Read More →</a>
+                 </div>
+            </div>
+       </div>
+       
+
+    <!-- existing card 2 -->
+    <div class="blog-card">
+      <div class="bc-img">
+        <img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=600&q=80" alt="amla juice" />
+        <span class="bc-cat-tag">🍹 Juices</span>
+      </div>
+      <div class="bc-body">
+        <p class="bc-date">February 18, 2026 · 4 min read</p>
+        <h3 class="bc-title">5 Reasons to Start Your Morning with Amla Juice</h3>
+        <p class="bc-excerpt">Amla — the Indian gooseberry — is a nutritional powerhouse. One glass in the morning can transform your immunity, digestion, and skin.</p>
+        <div class="bc-footer">
+          <div class="bc-author"><div class="bc-avatar">👩</div> Priya Arora</div>
+          <a href="blog-amla-juice.html" class="bc-read-link" target="_blank">Read More →</a>
         </div>
-    </nav>
-
-    <!-- ─── MOBILE NAV OVERLAY ─── -->
-    <div class="mobile-nav" id="mobileNav">
-        <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="product.html">Products</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="blog.html">Blog</a></li>
-            <li><a href="contact.html">Contact</a></li>
-            <li style="list-style:none; margin-top:0.3rem;">
-                <button class="mobile-cart">🛒 Cart (0)</button>
-            </li>
-        </ul>
+      </div>
     </div>
 
-    <div style="height:72px"></div>
 
-    <!-- ─── HERO ─── -->
-    <section class="hero">
-        <img src="https://images.unsplash.com/photo-1591857177580-dc82b9ac4e1e?w=1600&q=80" alt="herbal tea blog" />
-        <div class="ov"></div>
-        <div class="fade-b"></div>
-        <div class="hero-body">
-            <p class="eyebrow">Knowledge from the Mountains</p>
-            <h1>The Kumaon Herbal <em>Journal</em></h1>
-            <p>Recipes, wellness guides, herb stories, and the latest from our Himalayan kitchen.</p>
+    <!-- existing card 4 -->
+    <div class="blog-card">
+      <div class="bc-img">
+        <img src="https://images.unsplash.com/photo-1500485035595-cbe6f645feb1?w=600&q=80" alt="buransh flower" />
+        <span class="bc-cat-tag">🌸 Herbs</span>
+      </div>
+      <div class="bc-body">
+        <p class="bc-date">January 22, 2026 · 5 min read</p>
+        <h3 class="bc-title">Buransh: The Rhododendron Flower That Heals Your Heart</h3>
+        <p class="bc-excerpt">The scarlet rhododendron (Buransh) blooms in Kumaon each spring and has been used medicinally for centuries. New research confirms what locals always knew.</p>
+        <div class="bc-footer">
+          <div class="bc-author"><div class="bc-avatar">👨</div> Dr. Vinod Tiwari</div>
+          <a href="#" class="bc-read-link">Read More →</a>
         </div>
-    </section>
-
-    <div class="breadcrumb"><a href="index.html">Home</a> &nbsp;/&nbsp; Blog</div>
-
-    <!-- ─── FILTERS ─── -->
-    <div class="filter-bar">
-        <button class="f-btn active">All Posts</button>
-        <button class="f-btn">🌿 Herbs & Plants</button>
-        <button class="f-btn">🍹 Juices & Drinks</button>
-        <button class="f-btn">🫙 Pickles & Recipes</button>
-        <button class="f-btn">💚 Wellness</button>
-        <button class="f-btn">🏔️ Kumaon Stories</button>
+      </div>
     </div>
 
-    <!-- ─── FEATURED POST ─── -->
-    <div class="featured-post">
-        <div class="fp-img">
-            <span class="fp-badge">Featured</span>
-            <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=600&q=80" alt="Kumaon hills and tradition" />
+    <!-- existing card 5 -->
+    <div class="blog-card">
+      <div class="bc-img">
+        <img src="https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=600&q=80" alt="ashwagandha" />
+        <span class="bc-cat-tag">💚 Wellness</span>
+      </div>
+      <div class="bc-body">
+        <p class="bc-date">January 10, 2026 · 6 min read</p>
+        <h3 class="bc-title">Ashwagandha from Kumaon: The Stress-Busting Root You Need</h3>
+        <p class="bc-excerpt">High-altitude ashwagandha has significantly higher withanolide content than plains-grown varieties. We explain why altitude matters and how to use it.</p>
+        <div class="bc-footer">
+          <div class="bc-author"><div class="bc-avatar">👩</div> Sunita Bisht</div>
+          <a href="#" class="bc-read-link">Read More →</a>
         </div>
-        <div class="fp-body">
-            <p class="fp-cat">🌿 Herbs & Plants</p>
-            <h2 class="fp-title">Why Kumaon Herbal Was Started</h2>
-            <p class="fp-excerpt">Some of my happiest childhood memories are connected to food. Growing up in Uttarakhand, fresh amla juice, homemade pickles, and herbal recipes were a normal part of life...</p>
-            <div class="fp-meta">
-                <span>🗓 June 10, 2026</span>
-                <span class="dot"></span>
-                <span>✍️ Gaurav Joshi</span>
-                <span class="dot"></span>
-                <span>📖 6 min read</span>
-            </div>
-            <a href="blog-why-kumaon-herbal.html" class="bc-read-link" target="_blank">Read More →</a>
-        </div>
+      </div>
     </div>
 
-    <!-- ─── BLOG GRID ─── -->
-    <div class="blog-grid">
-
-        <!-- Card 1 -->
-        <div class="blog-card">
-            <div class="bc-img">
-                <img src="https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=600&q=80" alt="farming in Uttarakhand" />
-                <span class="bc-cat-tag">🏔️ Kumaon Stories</span>
-            </div>
-            <div class="bc-body">
-                <p class="bc-date">June 24, 2026 · 7 min read</p>
-                <h3 class="bc-title">From the Farms of Kotabagh to Homes Across India</h3>
-                <p class="bc-excerpt">Whenever someone picks up a bottle of our juice or a jar of our pickle, they see the final product. What they don't see is the journey behind it...</p>
-                <div class="bc-footer">
-                    <div class="bc-author"><div class="bc-avatar">👨</div> Gaurav Joshi</div>
-                    <a href="blog-from-farms.html" class="bc-read-link" target="_blank">Read More →</a>
-                </div>
-            </div>
+    <!-- existing card 6 -->
+    <div class="blog-card">
+      <div class="bc-img">
+        <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80" alt="Kumaon hills" />
+        <span class="bc-cat-tag">🏔️ Kumaon Stories</span>
+      </div>
+      <div class="bc-body">
+        <p class="bc-date">December 28, 2025 · 8 min read</p>
+        <h3 class="bc-title">A Journey Through Almora — The Herb Capital of Uttarakhand</h3>
+        <p class="bc-excerpt">We trace our roots back to the bustling herb markets of Almora, where generations of Kumaoni families have traded spices, roots, and wild plants.</p>
+        <div class="bc-footer">
+          <div class="bc-author"><div class="bc-avatar">👨</div> Rakesh Mehta</div>
+          <a href="#" class="bc-read-link">Read More →</a>
         </div>
-
-        <!-- Card 2 -->
-        <div class="blog-card">
-            <div class="bc-img">
-                <img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=600&q=80" alt="amla juice" />
-                <span class="bc-cat-tag">🍹 Juices</span>
-            </div>
-            <div class="bc-body">
-                <p class="bc-date">February 18, 2026 · 4 min read</p>
-                <h3 class="bc-title">5 Reasons to Start Your Morning with Amla Juice</h3>
-                <p class="bc-excerpt">Amla — the Indian gooseberry — is a nutritional powerhouse. One glass in the morning can transform your immunity, digestion, and skin.</p>
-                <div class="bc-footer">
-                    <div class="bc-author"><div class="bc-avatar">👩</div> Priya Arora</div>
-                    <a href="blog-amla-juice.html" class="bc-read-link" target="_blank">Read More →</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- Card 3 -->
-        <div class="blog-card">
-            <div class="bc-img">
-                <img src="https://images.unsplash.com/photo-1500485035595-cbe6f645feb1?w=600&q=80" alt="buransh flower" />
-                <span class="bc-cat-tag">🌸 Herbs</span>
-            </div>
-            <div class="bc-body">
-                <p class="bc-date">January 22, 2026 · 5 min read</p>
-                <h3 class="bc-title">Buransh: The Rhododendron Flower That Heals Your Heart</h3>
-                <p class="bc-excerpt">The scarlet rhododendron (Buransh) blooms in Kumaon each spring and has been used medicinally for centuries. New research confirms what locals always knew.</p>
-                <div class="bc-footer">
-                    <div class="bc-author"><div class="bc-avatar">👨</div> Dr. Vinod Tiwari</div>
-                    <a href="#" class="bc-read-link">Read More →</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- Card 4 -->
-        <div class="blog-card">
-            <div class="bc-img">
-                <img src="https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=600&q=80" alt="ashwagandha" />
-                <span class="bc-cat-tag">💚 Wellness</span>
-            </div>
-            <div class="bc-body">
-                <p class="bc-date">January 10, 2026 · 6 min read</p>
-                <h3 class="bc-title">Ashwagandha from Kumaon: The Stress-Busting Root You Need</h3>
-                <p class="bc-excerpt">High-altitude ashwagandha has significantly higher withanolide content than plains-grown varieties. We explain why altitude matters and how to use it.</p>
-                <div class="bc-footer">
-                    <div class="bc-author"><div class="bc-avatar">👩</div> Sunita Bisht</div>
-                    <a href="#" class="bc-read-link">Read More →</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- Card 5 -->
-        <div class="blog-card">
-            <div class="bc-img">
-                <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80" alt="Kumaon hills" />
-                <span class="bc-cat-tag">🏔️ Kumaon Stories</span>
-            </div>
-            <div class="bc-body">
-                <p class="bc-date">December 28, 2025 · 8 min read</p>
-                <h3 class="bc-title">A Journey Through Almora — The Herb Capital of Uttarakhand</h3>
-                <p class="bc-excerpt">We trace our roots back to the bustling herb markets of Almora, where generations of Kumaoni families have traded spices, roots, and wild plants.</p>
-                <div class="bc-footer">
-                    <div class="bc-author"><div class="bc-avatar">👨</div> Rakesh Mehta</div>
-                    <a href="#" class="bc-read-link">Read More →</a>
-                </div>
-            </div>
-        </div>
-
+      </div>
     </div>
 
-    <!-- ─── NEWSLETTER ─── -->
-    <section class="newsletter">
-        <h2>Never Miss a Post</h2>
-        <p>Get our latest herb guides, recipes & wellness tips delivered to your inbox every week.</p>
-        <div class="nl-form">
-            <input type="email" placeholder="Your email address" />
-            <button>Subscribe</button>
-        </div>
-    </section>
+   
 
-    <!-- ─── FOOTER ─── -->
-    <footer>
-        <div class="fl">Kumaon <span>Herbal</span></div>
-        <p>© 2026 Kumaon Herbal. All rights reserved.</p>
-        <p>🌿 Pure · Natural · Himalayan</p>
-    </footer>
+  </div>
 
-    <!-- ─── JAVASCRIPT ─── -->
-    <script>
-        (function() {
-            'use strict';
+  <!-- NEWSLETTER -->
+  <section class="newsletter">
+    <h2>Never Miss a Post</h2>
+    <p>Get our latest herb guides, recipes & wellness tips delivered to your inbox every week.</p>
+    <div class="nl-form">
+      <input type="email" placeholder="Your email address" />
+      <button>Subscribe</button>
+    </div>
+  </section>
 
-            const hamburger = document.getElementById('hamburger');
-            const mobileNav = document.getElementById('mobileNav');
+  <footer>
+    <div class="fl">Kumaon <span>Herbal</span></div>
+    <p>© 2026 Kumaon Herbal. All rights reserved.</p>
+    <p>🌿 Pure · Natural · Himalayan</p>
+  </footer>
 
-            // Toggle menu on hamburger click
-            hamburger.addEventListener('click', function(e) {
-                e.stopPropagation();
-                const isOpen = mobileNav.classList.toggle('open');
-                hamburger.classList.toggle('active');
-                document.body.style.overflow = isOpen ? 'hidden' : '';
-            });
-
-            // Close menu when a link is clicked
-            mobileNav.querySelectorAll('a, .mobile-cart').forEach(function(el) {
-                el.addEventListener('click', function() {
-                    mobileNav.classList.remove('open');
-                    hamburger.classList.remove('active');
-                    document.body.style.overflow = '';
-                });
-            });
-
-            // Close menu when clicking outside
-            document.addEventListener('click', function(e) {
-                if (mobileNav.classList.contains('open')) {
-                    const isClickInsideNav = mobileNav.contains(e.target);
-                    const isClickOnHamburger = hamburger.contains(e.target);
-                    if (!isClickInsideNav && !isClickOnHamburger) {
-                        mobileNav.classList.remove('open');
-                        hamburger.classList.remove('active');
-                        document.body.style.overflow = '';
-                    }
-                }
-            });
-
-            // Close menu on Escape key
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape' && mobileNav.classList.contains('open')) {
-                    mobileNav.classList.remove('open');
-                    hamburger.classList.remove('active');
-                    document.body.style.overflow = '';
-                }
-            });
-
-            // Filter buttons (visual toggle)
-            document.querySelectorAll('.f-btn').forEach(function(btn) {
-                btn.addEventListener('click', function() {
-                    document.querySelectorAll('.f-btn').forEach(function(b) {
-                        b.classList.remove('active');
-                    });
-                    this.classList.add('active');
-                });
-            });
-
-        })();
-    </script>
-
+  <script src="script.js"></script>
 </body>
 </html>
+
+
+
+add burger navbar button
