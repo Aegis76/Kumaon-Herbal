@@ -24,7 +24,54 @@
 
     .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 5px; }
     .hamburger span { width: 25px; height: 2px; background: #fff; border-radius: 2px; transition: .3s; }
+/* Logo */
+.nav-logo{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    text-decoration:none;
+}
 
+.nav-logo img{
+    width:60px;
+    height:60px;
+    object-fit:contain;
+}
+
+.logo-text{
+    display:flex;
+    flex-direction:column;
+    line-height:1;
+}
+
+.logo-title{
+    font-size:1.7rem;
+    font-weight:700;
+    color:#1b5e20;
+    letter-spacing:0.5px;
+}
+
+.logo-sub{
+    font-size:1rem;
+    font-weight:600;
+    color:#4caf50;
+    margin-top:4px;
+}
+
+@media (max-width:768px){
+    .nav-logo img{
+        width:48px;
+        height:48px;
+    }
+
+    .logo-title{
+        font-size:1.3rem;
+    }
+
+    .logo-sub{
+        font-size:0.85rem;
+    }
+}
     /* RESPONSIVE NAV FOR MOBILE */
     @media(max-width: 1024px) {
       .nav-links { position: fixed; top: 0; right: -100%; width: 280px; height: 100vh; background: var(--green-deep); flex-direction: column; padding: 100px 40px; transition: .4s ease-in-out; box-shadow: -10px 0 30px rgba(0,0,0,0.2); }
