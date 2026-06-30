@@ -19,6 +19,56 @@ body {
   overflow-x: hidden;
 }
 
+/* ─── LOGO (updated) ─── */
+    .nav-logo {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        text-decoration: none;
+    }
+
+    .nav-logo img {
+        width: 80px;
+        height: 80px;
+        object-fit: contain;
+    }
+
+    .logo-text {
+        display: flex;
+        flex-direction: column;
+        line-height: 1;
+    }
+
+    .logo-title {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #1b5e20;
+        letter-spacing: 0.5px;
+    }
+
+    .logo-sub {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: #4caf50;
+        margin-top: 4px;
+    }
+
+    /* ─── MOBILE LOGO (max-width: 768px) ─── */
+    @media (max-width: 768px) {
+        .nav-logo img {
+            width: 60px;
+            height: 60px;
+        }
+
+        .logo-title {
+            font-size: 1.5rem;
+        }
+
+        .logo-sub {
+            font-size: 1rem;
+        }
+    }
+
 /* ============================================================
    NAV
    ============================================================ */
