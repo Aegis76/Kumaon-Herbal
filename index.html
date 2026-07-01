@@ -8,12 +8,13 @@
     <link href="home.css" rel="stylesheet" />
     <link href="blog.css" rel="stylesheet" />
     <style>
-        /* NAVBAR LOGO: Kumaon = white, Herbal = golden + italic */
+        /* ===== NAVBAR STYLES (copied from blog.html) ===== */
         .nav-logo {
             display: flex;
             align-items: center;
             gap: 0.6rem;
             text-decoration: none;
+            color: #fff;
             font-family: 'Playfair Display', serif;
             font-size: 1.45rem;
             letter-spacing: .03em;
@@ -24,19 +25,21 @@
             width: auto;
             display: block;
         }
-        /* Outer span: "Kumaon" — white */
-        .nav-logo>span {
-            color: #fff;
+        .nav-logo span {
+            color: #d4a373;   /* golden */
+            font-style: italic;
         }
-        /* Inner span: "Herbal" — golden + italic */
+        /* outer span (Kumaon) is white via color on .nav-logo */
+        .nav-logo>span {
+            color: #fff;      /* overrides inner span */
+        }
         .nav-logo>span>span {
-            color: #d4a373;
+            color: #d4a373;   /* golden for Herbal */
             font-style: italic;
         }
 
-        /* ensure navbar background stays dark */
+        /* navbar container – no dark background */
         #navbar {
-            background: #0f1a17;
             padding: 0.8rem 2rem;
             display: flex;
             align-items: center;
@@ -45,6 +48,7 @@
             position: sticky;
             top: 0;
             z-index: 1000;
+            background: transparent; /* or inherit */
         }
         .nav-links {
             display: flex;
@@ -118,7 +122,7 @@
 </head>
 <body>
 
-    <!-- ====== NAVBAR WITH IMAGE + TEXT LOGO ====== -->
+    <!-- ====== NAVBAR (transparent background) ====== -->
     <nav id="navbar">
         <a href="index.html" class="nav-logo">
             <img src="file_000000009f0c720bbfdfcab31197dc01.png" alt="Kumaon Herbal Logo" />
