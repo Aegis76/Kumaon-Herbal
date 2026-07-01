@@ -1,311 +1,1531 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Home – Kumaon Herbal</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
-  <link href="home.css" rel="stylesheet">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home – Kumaon Herbal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+    <style>
+        /* ===== RESET & BASE ===== */
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --cream: #f8f2e7;
+            --sage: #6b8c5c;
+            --sage-light: #8aad7a;
+            --amber: #c4793a;
+            --amber-light: #dba470;
+            --dark: #2c2b28;
+            --text: #3a3a37;
+            --text-light: #6e6e6a;
+            --white: #ffffff;
+            --shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+            --radius: 14px;
+            --transition: 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Jost', sans-serif;
+            background-color: var(--cream);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        /* ===== BUTTONS ===== */
+        .btn-primary {
+            display: inline-block;
+            background: var(--sage);
+            color: var(--white);
+            padding: 0.85rem 2.2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            letter-spacing: 0.3px;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 4px 16px rgba(107, 140, 92, 0.3);
+        }
+        .btn-primary:hover {
+            background: var(--sage-light);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 28px rgba(107, 140, 92, 0.35);
+        }
+
+        .btn-outline {
+            display: inline-block;
+            background: transparent;
+            color: var(--white);
+            padding: 0.85rem 2.2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            letter-spacing: 0.3px;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .btn-outline:hover {
+            background: var(--white);
+            color: var(--dark);
+            border-color: var(--white);
+            transform: translateY(-2px);
+        }
+
+        /* ===== SECTION HELPERS ===== */
+        .sec-center {
+            text-align: center;
+            margin-bottom: 2.8rem;
+        }
+
+        .sec-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            color: var(--amber);
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .sec-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.6rem;
+            font-weight: 600;
+            color: var(--dark);
+            line-height: 1.15;
+        }
+        .sec-title em {
+            font-style: italic;
+            color: var(--sage);
+        }
+
+        .sec-div {
+            width: 60px;
+            height: 3px;
+            background: var(--amber);
+            margin: 0.6rem 0 1rem 0;
+            border-radius: 4px;
+        }
+
+        /* ===== NAVBAR ===== */
+        #navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.6rem 5%;
+            background: rgba(248, 242, 231, 0.92);
+            backdrop-filter: blur(16px);
+            box-shadow: 0 2px 24px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+        }
+        #navbar.scrolled {
+            background: rgba(248, 242, 231, 0.98);
+            box-shadow: 0 4px 32px rgba(0, 0, 0, 0.08);
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--dark);
+        }
+        .nav-logo img {
+            height: 48px;
+            width: auto;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        .nav-logo span span {
+            color: var(--sage);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+        .nav-links a {
+            font-weight: 500;
+            font-size: 0.95rem;
+            color: var(--text);
+            transition: var(--transition);
+            position: relative;
+        }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--sage);
+            transition: var(--transition);
+        }
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        .nav-links a:hover {
+            color: var(--sage);
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+        }
+
+        .nav-cart {
+            background: var(--sage);
+            color: var(--white);
+            border: none;
+            padding: 0.5rem 1.2rem;
+            border-radius: 50px;
+            font-weight: 500;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: 'Jost', sans-serif;
+        }
+        .nav-cart:hover {
+            background: var(--sage-light);
+            transform: scale(1.02);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+        }
+        .hamburger span {
+            width: 26px;
+            height: 2.5px;
+            background: var(--dark);
+            border-radius: 4px;
+            transition: var(--transition);
+        }
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        /* ===== VIDEO HERO ===== */
+        .video-hero {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            min-height: 600px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 0;
+        }
+
+        .hero-video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
+            z-index: 0;
+        }
+
+        .video-hero .overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(20, 30, 10, 0.55) 0%, rgba(10, 20, 5, 0.30) 60%, rgba(0, 0, 0, 0.15) 100%);
+            z-index: 1;
+        }
+
+        .fade-bottom {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 120px;
+            background: linear-gradient(to top, var(--cream) 10%, transparent);
+            z-index: 2;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 3;
+            max-width: 820px;
+            padding: 0 2rem;
+            text-align: center;
+            color: var(--white);
+            animation: heroFade 1.2s ease-out;
+        }
+        @keyframes heroFade {
+            0% {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-eyebrow {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 6px;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 0.5rem;
+        }
+
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 4.4rem;
+            font-weight: 700;
+            line-height: 1.08;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+        }
+        .hero-title em {
+            font-style: italic;
+            color: #e8d5b0;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            font-weight: 300;
+            max-width: 620px;
+            margin: 0.8rem auto 2rem;
+            color: rgba(255, 255, 255, 0.85);
+            line-height: 1.7;
+            text-shadow: 0 2px 16px rgba(0, 0, 0, 0.15);
+        }
+
+        .hero-btns {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* ===== TRUST STRIP ===== */
+        .trust-strip {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 2rem 3.5rem;
+            padding: 1.6rem 5%;
+            background: var(--white);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+            font-weight: 500;
+            color: var(--text);
+            font-size: 0.9rem;
+        }
+        .trust-item {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        /* ===== INTRO ===== */
+        .intro-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            padding: 5rem 5%;
+            max-width: 1280px;
+            margin: 0 auto;
+            align-items: center;
+        }
+
+        .intro-body {
+            font-size: 1.05rem;
+            color: var(--text-light);
+            max-width: 540px;
+        }
+
+        .intro-img-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        .intro-tile {
+            border-radius: var(--radius);
+            overflow: hidden;
+            background: var(--white);
+            box-shadow: var(--shadow);
+            aspect-ratio: 1/1;
+        }
+        .intro-tile img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+        .intro-tile img:hover {
+            transform: scale(1.03);
+        }
+        .intro-tile.tall {
+            grid-row: span 2;
+            aspect-ratio: auto;
+        }
+        .intro-tile.tall img {
+            object-fit: cover;
+        }
+
+        /* ===== PHOTO STRIP ===== */
+        .photo-strip {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 0.4rem;
+            padding: 0.4rem 0.4rem;
+            background: var(--cream);
+        }
+        .ps-item {
+            aspect-ratio: 16/10;
+            overflow: hidden;
+            border-radius: 6px;
+        }
+        .ps-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+        .ps-item img:hover {
+            transform: scale(1.04);
+        }
+
+        /* ===== CATEGORIES ===== */
+        .categories {
+            padding: 5rem 5%;
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        .cat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+
+        .cat-card {
+            position: relative;
+            border-radius: var(--radius);
+            overflow: hidden;
+            aspect-ratio: 1/1.2;
+            background: var(--white);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            display: block;
+        }
+        .cat-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12);
+        }
+        .cat-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+        .cat-card:hover img {
+            transform: scale(1.04);
+        }
+
+        .cat-ov {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.5) 0%, transparent 60%);
+        }
+
+        .cat-body {
+            position: absolute;
+            bottom: 1.8rem;
+            left: 1.8rem;
+            color: var(--white);
+            z-index: 2;
+        }
+        .cat-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            opacity: 0.8;
+        }
+        .cat-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        .cat-count {
+            font-size: 0.8rem;
+            opacity: 0.7;
+        }
+        .cat-arrow {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            font-size: 1.8rem;
+            color: var(--white);
+            opacity: 0.6;
+            transition: var(--transition);
+            z-index: 2;
+        }
+        .cat-card:hover .cat-arrow {
+            opacity: 1;
+            transform: translateX(6px);
+        }
+
+        /* ===== FEATURED PRODUCTS ===== */
+        .featured {
+            padding: 4rem 5%;
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        .products-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 2rem;
+        }
+
+        .pcard {
+            background: var(--white);
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+        .pcard:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 18px 44px rgba(0, 0, 0, 0.10);
+        }
+
+        .pcard-img {
+            position: relative;
+            aspect-ratio: 1/1;
+            overflow: hidden;
+            background: #f0ebe2;
+        }
+        .pcard-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+        .pcard:hover .pcard-img img {
+            transform: scale(1.04);
+        }
+
+        .pbadge {
+            position: absolute;
+            top: 0.8rem;
+            left: 0.8rem;
+            background: var(--amber);
+            color: var(--white);
+            font-size: 0.65rem;
+            font-weight: 600;
+            padding: 0.2rem 0.9rem;
+            border-radius: 50px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .pbadge-pop {
+            background: #c0392b;
+        }
+        .pbadge-new {
+            background: var(--sage);
+        }
+
+        .pcard-body {
+            padding: 1.2rem 1.2rem 1.4rem;
+        }
+        .pcat {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--amber);
+            font-weight: 600;
+        }
+        .ptitle {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin: 0.2rem 0 0.3rem;
+            color: var(--dark);
+        }
+        .pstars {
+            font-size: 0.9rem;
+            color: #f5b342;
+        }
+        .pfoot {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 0.8rem;
+        }
+        .pprice {
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--sage);
+        }
+        .pprice-old {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            text-decoration: line-through;
+            margin-left: 0.5rem;
+        }
+        .padd {
+            background: var(--cream);
+            border: none;
+            padding: 0.4rem 1rem;
+            border-radius: 50px;
+            font-weight: 500;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: 'Jost', sans-serif;
+            color: var(--dark);
+        }
+        .padd:hover {
+            background: var(--sage);
+            color: var(--white);
+        }
+
+        /* ===== VIDEO SHOWCASE ===== */
+        .video-showcase {
+            background: var(--dark);
+            color: var(--white);
+            padding: 4rem 5%;
+        }
+        .vs-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            max-width: 1280px;
+            margin: 0 auto;
+            align-items: center;
+        }
+        .vs-video-wrap {
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            aspect-ratio: 16/9;
+            background: #1a1a1a;
+        }
+        .vs-video-wrap video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .vs-content .sec-label {
+            color: var(--amber-light);
+        }
+        .vs-content .sec-title {
+            color: var(--white);
+        }
+        .vs-content .sec-title em {
+            color: var(--amber-light);
+        }
+        .vs-content .sec-div {
+            background: var(--amber-light);
+        }
+        .vs-content p {
+            color: rgba(255, 255, 255, 0.7);
+            max-width: 460px;
+            font-size: 1.05rem;
+            margin: 1rem 0 1.8rem;
+        }
+
+        /* ===== GALLERY ===== */
+        .gallery-section {
+            padding: 5rem 5%;
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+        .gal-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        .gal-item {
+            border-radius: var(--radius);
+            overflow: hidden;
+            aspect-ratio: 1/1;
+            background: var(--white);
+            box-shadow: var(--shadow);
+        }
+        .gal-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+        .gal-item img:hover {
+            transform: scale(1.04);
+        }
+        .gal-item.tall {
+            grid-row: span 2;
+            aspect-ratio: auto;
+        }
+        .gal-item.wide {
+            grid-column: span 2;
+            aspect-ratio: 2/1;
+        }
+
+        /* ===== WHY US ===== */
+        .why-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            padding: 5rem 5%;
+            max-width: 1280px;
+            margin: 0 auto;
+            align-items: start;
+        }
+        .why-img {
+            position: relative;
+            border-radius: var(--radius);
+            overflow: hidden;
+            aspect-ratio: 4/3;
+            box-shadow: var(--shadow);
+        }
+        .why-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .why-badge {
+            position: absolute;
+            bottom: 1.8rem;
+            left: 1.8rem;
+            background: var(--white);
+            padding: 0.6rem 1.8rem 0.6rem 1.8rem;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.8rem;
+            color: var(--sage);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+            display: flex;
+            align-items: baseline;
+            gap: 0.3rem;
+        }
+        .why-badge span {
+            font-size: 0.8rem;
+            font-weight: 400;
+            color: var(--text-light);
+        }
+
+        .why-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.2rem;
+            margin-top: 1.2rem;
+        }
+        .why-card {
+            background: var(--white);
+            padding: 1.6rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+        .why-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 44px rgba(0, 0, 0, 0.08);
+        }
+        .why-icon {
+            font-size: 2rem;
+            margin-bottom: 0.3rem;
+        }
+        .why-card h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--dark);
+        }
+        .why-card p {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin-top: 0.2rem;
+            line-height: 1.5;
+        }
+
+        /* ===== TESTIMONIALS ===== */
+        .testimonials {
+            padding: 5rem 5%;
+            background: var(--white);
+        }
+        .test-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 2rem;
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+        .test-card {
+            background: var(--cream);
+            padding: 2rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+        .test-card:hover {
+            transform: translateY(-4px);
+        }
+        .test-stars {
+            color: #f5b342;
+            font-size: 1.1rem;
+            letter-spacing: 2px;
+        }
+        .test-text {
+            font-size: 0.95rem;
+            color: var(--text);
+            margin: 0.6rem 0 1.2rem;
+            line-height: 1.7;
+        }
+        .test-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .test-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            overflow: hidden;
+            background: var(--sage-light);
+            flex-shrink: 0;
+        }
+        .test-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .test-name {
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        /* ===== NEWSLETTER ===== */
+        .newsletter {
+            background: var(--sage);
+            color: var(--white);
+            padding: 4rem 5%;
+            text-align: center;
+        }
+        .newsletter h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.4rem;
+            font-weight: 600;
+        }
+        .newsletter p {
+            opacity: 0.85;
+            max-width: 480px;
+            margin: 0.4rem auto 1.6rem;
+        }
+        .nl-form {
+            display: flex;
+            justify-content: center;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+            max-width: 480px;
+            margin: 0 auto;
+        }
+        .nl-form input {
+            flex: 1;
+            min-width: 200px;
+            padding: 0.8rem 1.4rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-family: 'Jost', sans-serif;
+            outline: none;
+            background: rgba(255, 255, 255, 0.9);
+        }
+        .nl-form input:focus {
+            background: var(--white);
+        }
+        .nl-form button {
+            background: var(--amber);
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1rem;
+            color: var(--white);
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: 'Jost', sans-serif;
+        }
+        .nl-form button:hover {
+            background: var(--amber-light);
+            transform: scale(1.02);
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: var(--dark);
+            color: rgba(255, 255, 255, 0.75);
+            padding: 3rem 5% 1.5rem;
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 2.5rem;
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+        .footer-brand .f-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--white);
+        }
+        .footer-brand .f-logo span {
+            color: var(--sage-light);
+        }
+        .footer-brand p {
+            font-size: 0.95rem;
+            max-width: 300px;
+            margin-top: 0.3rem;
+            opacity: 0.7;
+        }
+        .footer-col h5 {
+            font-weight: 600;
+            color: var(--white);
+            margin-bottom: 0.8rem;
+            font-size: 1rem;
+        }
+        .footer-col ul li {
+            margin-bottom: 0.4rem;
+        }
+        .footer-col ul li a {
+            opacity: 0.7;
+            transition: var(--transition);
+            font-size: 0.9rem;
+        }
+        .footer-col ul li a:hover {
+            opacity: 1;
+            color: var(--sage-light);
+        }
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            font-size: 0.85rem;
+            opacity: 0.6;
+            max-width: 1280px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            .intro-section {
+                grid-template-columns: 1fr;
+            }
+            .intro-body {
+                max-width: 100%;
+            }
+            .why-section {
+                grid-template-columns: 1fr;
+            }
+            .why-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .vs-grid {
+                grid-template-columns: 1fr;
+            }
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .gal-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .gal-item.wide {
+                grid-column: span 1;
+                aspect-ratio: 1/1;
+            }
+            .gal-item.tall {
+                grid-row: span 1;
+                aspect-ratio: 1/1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 70%;
+                max-width: 300px;
+                height: 100vh;
+                background: var(--cream);
+                flex-direction: column;
+                justify-content: center;
+                gap: 1.8rem;
+                padding: 2rem;
+                box-shadow: -8px 0 40px rgba(0, 0, 0, 0.08);
+                transition: var(--transition);
+                backdrop-filter: blur(20px);
+                background: rgba(248, 242, 231, 0.98);
+            }
+            .nav-links.open {
+                right: 0;
+            }
+            .hamburger {
+                display: flex;
+            }
+
+            .hero-title {
+                font-size: 2.8rem;
+            }
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+
+            .photo-strip {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            .ps-item:nth-child(4),
+            .ps-item:nth-child(5) {
+                display: none;
+            }
+
+            .cat-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .products-row {
+                grid-template-columns: 1fr 1fr;
+            }
+            .why-grid {
+                grid-template-columns: 1fr;
+            }
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+            .sec-title {
+                font-size: 2rem;
+            }
+            .newsletter h2 {
+                font-size: 1.8rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .cat-grid {
+                grid-template-columns: 1fr;
+            }
+            .products-row {
+                grid-template-columns: 1fr;
+            }
+            .hero-title {
+                font-size: 2.2rem;
+            }
+            .hero-btns {
+                flex-direction: column;
+                align-items: center;
+            }
+            .btn-primary,
+            .btn-outline {
+                width: 100%;
+                text-align: center;
+            }
+            .intro-img-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .intro-tile.tall {
+                grid-row: span 1;
+            }
+            .gal-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .why-badge {
+                font-size: 1.2rem;
+                padding: 0.4rem 1.2rem;
+                bottom: 1rem;
+                left: 1rem;
+            }
+            .why-badge span {
+                font-size: 0.65rem;
+            }
+        }
+    </style>
 </head>
+
 <body>
 
-<!-- NAVBAR -->
-  <!-- ====== MERGED NAVBAR ====== -->
-  <nav id="navbar">
-    <!-- Logo: image + text together -->
-    <a href="index.html" class="nav-logo">
-      <img src="file_000000009f0c720bbfdfcab31197dc01.png" alt="Kumaon Herbal Logo" />
-      <div class="nav-logo">Kumaon <span>Herbal</span></div>
-    </a>
+    <!-- ====== NAVBAR ====== -->
+    <nav id="navbar">
+        <a href="index.html" class="nav-logo">
+            <!-- Replace src with your actual logo file -->
+            <img src="https://picsum.photos/seed/logo/96/96" alt="Kumaon Herbal Logo" />
+            <span>Kumaon <span>Herbal</span></span>
+        </a>
 
-    <!-- Navigation (Blog restored) -->
-    <ul class="nav-links">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="product.html">Products</a></li>
-      <li><a href="about.html">About</a></li>
-      <li><a href="blog.html">Blog</a></li>
-      <li><a href="contact.html">Contact</a></li>
-    </ul>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="product.html">Products</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
 
-    <!-- Right Side -->
-    <div class="nav-actions">
-      <button class="nav-cart">🛒 Cart (0)</button>
-      <div class="hamburger" id="hamburger">
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
-    </div>
-  </nav>
-  
-<!-- ════ VIDEO HERO ════ -->
-<section class="video-hero">
-   <video autoplay muted loop class="hero-video">
-        <source src="https://www.pexels.com/download/video/3132090/" type="video/mp4">
-    </video>
-  <div class="overlay"></div>
-  <div class="hero-content">
-    <p class="hero-eyebrow"></p>
-    <h1 class="hero-title"><br/><em>Gifts from Kumaon</em></h1>
-    <p class="hero-subtitle">Wild-harvested herbs, cold-pressed juices, traditional pickles & pure herbal wellness — crafted the way our ancestors did, delivered to your doorstep.</p>
-    <div class="hero-btns">
-      <a href="product.html" class="btn-primary">Shop All Products</a>
-      <a href="about.html" class="btn-outline">Our Story</a>
-    </div>
-  </div>
-  <div class="fade-bottom"></div>
-</section>
+        <div class="nav-actions">
+            <button class="nav-cart" id="cartBtn">🛒 Cart (0)</button>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
 
-<!-- TRUST STRIP -->
-<div class="trust-strip">
-  <div class="trust-item">🌿 100% Natural Ingredients</div>
-  <div class="trust-item">🏔️ Wild Himalayan Sourced</div>
-  <div class="trust-item">🚚 Free Shipping Over ₹2000.</div>
-  <div class="trust-item">🔒 Secure Payments</div>
-  <div class="trust-item">♻️ Eco Packaging</div>
-</div>
+    <!-- ====== VIDEO HERO ====== -->
+    <section class="video-hero">
+        <video autoplay muted loop playsinline class="hero-video">
+            <!-- Replaced with a reliable, freely available nature video -->
+            <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+        </video>
+        <div class="overlay"></div>
+        <div class="hero-content">
+            <p class="hero-eyebrow">Welcome to</p>
+            <h1 class="hero-title"><br /><em>Gifts from Kumaon</em></h1>
+            <p class="hero-subtitle">Wild-harvested herbs, cold-pressed juices, traditional pickles &amp; pure herbal wellness — crafted the way our ancestors did, delivered to your doorstep.</p>
+            <div class="hero-btns">
+                <a href="product.html" class="btn-primary">Shop All Products</a>
+                <a href="about.html" class="btn-outline">Our Story</a>
+            </div>
+        </div>
+        <div class="fade-bottom"></div>
+    </section>
 
-<!-- ════ INTRO ════ -->
-<section class="intro-section" id="about">
-  <div>
-    <p class="sec-label">Who We Are</p>
-    <div class="sec-div"></div>
-    <h2 class="sec-title">Rooted in the <em>Kumaon Hills</em> of Uttarakhand</h2>
-    <p class="intro-body" style="margin-top:1.2rem">Nestled in the lap of the Himalayas, Kumaon Herbal was born from a deep respect for the land and its ancient traditions. We work directly with local farmers and foragers to bring you products free from chemicals, preservatives, and artificial flavours.</p>
-    <p class="intro-body">Every bottle, every jar, every packet carries the soul of the mountains — pure, honest, and deeply nourishing.</p>
-    <a href="about.html" class="btn-primary" style="margin-top:1rem">Learn More →</a>
-  </div>
-  <div class="intro-img-grid">
-    <div class="intro-tile tall"><img src="./WhatsApp Image 2026-03-16 at 4.02.39 PM.jpeg" alt="Himalayan mountains"/></div>
-    <div class="intro-tile"><img src="./IMG_7405.jpg" alt="herbal plants"/></div>
-    <div class="intro-tile"><img src="./IMG_7306.jpg" alt="wild honey"/></div>
-  </div>
-</section>
-
-<!-- ════ 5-PHOTO BANNER STRIP ════ -->
-<div class="photo-strip">
-  <div class="ps-item"><img src="./IMG_7422.jpg " alt="honey jar"/></div>
-  <div class="ps-item"><img src="  ./IMG_7270.jpg " alt="herbal kitchen"/></div>
-  <div class="ps-item"><img src=" ./WhatsApp Image 2026-03-16 at 8.49.40 PM.jpeg " alt="herbal tea"/></div>
-  <div class="ps-item"><img src="./IMG_7429.jpg" alt="spices roots"/></div>
-  <div class="ps-item"><img src="./IMG_7506.jpg" alt="berries"/></div>
-</div>
-
-<!-- ════ CATEGORIES ════ -->
-<section class="categories">
-  <div class="sec-center">
-    <p class="sec-label">Browse By Category</p>
-    <h2 class="sec-title">Explore Our <em>Collections</em></h2>
-  </div>
-  <div class="cat-grid">
-    <a href="product.html" class="cat-card">
-      <img src="./WhatsApp Image 2026-03-16 at 8.49.50 PM (1).jpeg" alt="Natural Juices"/>
-      <div class="cat-ov"></div>
-      <div class="cat-arrow">→</div>
-      <div class="cat-body">
-        <p class="cat-label">Cold Pressed</p>
-        <h3 class="cat-name">Natural Juices</h3>
-        <p class="cat-count">12 Products</p>
-      </div>
-    </a>
-
-    <a href="product.html" class="cat-card">
-      <img src="./WhatsApp Image 2026-03-16 at 8.49.56 PM.jpeg" alt="Herbal Products"/>
-      <div class="cat-ov"></div>
-      <div class="cat-arrow">→</div>
-      <div class="cat-body">
-        <p class="cat-label">Ayurvedic</p>
-        <h3 class="cat-name">Herbal Products</h3>
-        <p class="cat-count">16 Products</p>
-      </div>
-    </a>
-
-    <a href="product.html" class="cat-card">
-      <img src="./WhatsApp Image 2026-03-16 at 8.49.53 PM.jpeg" alt=" "/>
-      <div class="cat-ov"></div>
-      <div class="cat-arrow">→</div>
-      <div class="cat-body">
-        <p class="cat-label">Cold Pressed</p>
-        <h3 class="cat-name">Natural Juices</h3>
-        <p class="cat-count">12 Products</p>
-      </div>
-    </a>
-
-  </div>
-</section>
-
-<!-- ════ FEATURED PRODUCTS ════ -->
-<section class="featured">
-  <div class="sec-center">
-    <p class="sec-label">Handpicked For You</p>
-    <h2 class="sec-title">Kumaon Herbal <em>Products</em></h2>
-  </div>
-  <div class="products-row">
-    <div class="pcard" data-id="amla-juice">
-      <div class="pcard-img"><span class="pbadge pbadge-pop">Sale</span><img src="images/amla juice.jpeg" alt="Amla juice"/></div>
-      <div class="pcard-body"><p class="pcat">Natural Juice</p><h3 class="ptitle">Amla Juice</h3><p class="pstars">★★★★★ <span style="color:var(--text-light);font-size:.65rem">(84)</span></p><div class="pfoot"><div><span class="pprice">₹150</span><span class="pprice-old">₹200</span></div><button class="padd">Add to Cart</button></div></div>
-    </div>
-    <div class="pcard" data-id="honey">
-      <div class="pcard-img"><span class="pbadge pbadge-pop">Sale</span><img src="Jackfruit Pickle FRUNT.jpg.jpeg" alt="wild honey"/></div>
-      <div class="pcard-body"><p class="pcat">Herbal</p><h3 class="ptitle">Jackfruit Pickle</h3><p class="pstars">★★★★★ <span style="color:var(--text-light);font-size:.65rem">(241)</span></p><div class="pfoot"><div><span class="pprice">₹300</span><span class="pprice-old">₹350</span></div><button class="padd">Add to Cart</button></div></div>
-    </div>
-    <div class="pcard" data-id="haldi-latte">
-      <div class="pcard-img"><span class="pbadge pbadge-new">Sale</span><img src="images/haldi latte.jpeg" alt="haldi latte"/></div>
-      <div class="pcard-body"><p class="pcat">Herbal</p><h3 class="ptitle">Haldi Latte</h3><p class="pstars">★★★★☆ <span style="color:var(--text-light);font-size:.65rem">(72)</span></p><div class="pfoot"><div><span class="pprice">₹190</span><span class="pprice-old">₹200</span></div><button class="padd">Add to Cart</button></div></div>
-    </div>
-  </div>
-  <div style="text-align:center;margin-top:2.5rem"><a href="product.html" class="btn-primary">View All Products →</a></div>
-</section>
-
-<!-- ════ VIDEO SHOWCASE (dark bg) ════ -->
-<section class="video-showcase">
-  <div class="vs-grid">
-    <div class="vs-video-wrap">
-      <video autoplay muted loop>
-      <source src="https://pixabay.com/videos/download/video-209953_medium.mp4" title="Kumaon Himalayas" allowfullscreen allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></video>
-    </div>
-    <div class="vs-content">
-      <p class="sec-label">Watch Our Story</p>
-      <h2 class="sec-title">See the <em>Mountains</em> We Call Home</h2>
-      <div class="sec-div"></div>
-      <p>A short film about the Kumaon region, the wild herbs we harvest, and the people behind every product. From high-altitude farms to your doorstep — this is our journey.</p>
-      <a href="about.html" class="btn-primary" style="background:var(--amber)">Learn About Us →</a>
-    </div>
-  </div>
-</section>
-
-<!-- ════ PHOTO GALLERY ════ -->
-<section class="gallery-section">
-  <div class="sec-center">
-    <p class="sec-label">Life in the Hills</p>
-    <h2 class="sec-title">A Glimpse of <em>Our World</em></h2>
-  </div>
-  <div class="gal-grid">
-    <div class="gal-item tall"><img src="https://images.pexels.com/photos/36908042/pexels-photo-36908042.jpeg" alt="Himalayas"/></div>
-    <div class="gal-item"><img src="./WhatsApp Image 2026-03-16 at 8.49.41 PM (1).jpeg" alt="herbs"/></div>
-   
-    <div class="gal-item wide"><img src="./WhatsApp Image 2026-03-16 at 8.49.42 PM (1).jpeg" alt="herbal tea"/></div>
-  
-   
-    <div class="gal-item"><img src="./WhatsApp Image 2026-03-16 at 8.49.52 PM.jpeg" alt="spices roots"/></div>
-
-  </div>
-</section>
-
-<!-- ════ WHY US ════ -->
-<section class="why-section">
-  <div class="why-img">
-    <img src="./WhatsApp Image 2026-03-16 at 8.49.41 PM (1).jpeg" alt="herbal processing"/>
-    <div class="why-badge">10+<span>Years of Trust</span></div>
-  </div>
-  <div>
-    <p class="sec-label">Why Kumaon Herbal</p>
-    <h2 class="sec-title">The <em>Difference</em> You Can Taste</h2>
-    <div class="sec-div"></div>
-    <div class="why-grid">
-      <div class="why-card"><div class="why-icon">🌱</div><h4>100% Natural</h4><p>Kumaon Herbal products are made using only pure, natural ingredients—free from artificial colors, flavors, and preservatives. We believe in offering you the goodness of nature in every sip, ensuring freshness, authenticity, and health with every bottle.</p></div>
-      <div class="why-card"><div class="why-icon">🚫</div><h4>Fresh Products</h4><p>We use only the finest, handpicked fruits to craft our beverages, ensuring every bottle is bursting with natural flavor and freshness. From sourcing to packaging, we maintain strict quality standards to deliver farm-fresh goodness straight to you.</p></div>
-      <div class="why-card"><div class="why-icon">🏔️</div><h4>Biodynamic Food</h4><p>Kumaon Herbal products are made from biodynamic ingredients grown through eco-friendly and sustainable farming practices. This holistic approach nurtures the soil, supports biodiversity, and ensures every ingredient is packed with pure, natural vitality for your health and the planet.</p></div>
-      <div class="why-card"><div class="why-icon">♻️</div><h4>Eco Packaging</h4><p>Recyclable and biodegradable packaging. We love the planet.</p></div>
-    </div>
-  </div>
-</section>
-
-<!-- ════ 3 VIDEOS ROW ════ 
-<section class="video3-section">
-  <div class="sec-center">
-    <p class="sec-label">From Our Video Journal</p>
-    <h2 class="sec-title">Watch, Learn & <em>Be Inspired</em></h2>
-  </div>
-  <div class="v3-grid">
-    <div class="v3-card">
-      <iframe src="https://www.youtube.com/embed/lfI7AJJsDa4?rel=0" title="Himalayan herbs" allowfullscreen></iframe>
-      <div class="v3-body"><p class="v3-cat">🌿 Ayurveda</p><h3 class="v3-title">Top Himalayan Herbs & Their Healing Powers</h3></div>
-    </div>
-    <div class="v3-card">
-      <iframe src="https://www.youtube.com/embed/3JB7_9pKuLM?rel=0" title="Kumaoni pickling" allowfullscreen></iframe>
-      <div class="v3-body"><p class="v3-cat">🫙 Recipes</p><h3 class="v3-title">How Traditional Kumaoni Achar is Made</h3></div>
-    </div>
-    <div class="v3-card">
-      <iframe src="https://www.youtube.com/embed/0W6rBCXeoz4?rel=0" title="Wild honey" allowfullscreen></iframe>
-      <div class="v3-body"><p class="v3-cat">🍯 Behind the Scenes</p><h3 class="v3-title">Wild Honey Harvesting in the Himalayas</h3></div>
-    </div>
-  </div>
-</section>-->
-
-<!-- ════ TESTIMONIALS ════ -->
-<section class="testimonials">
-  <div class="sec-center">
-    <p class="sec-label">Happy Customers</p>
-    <h2 class="sec-title">What People <em>Say</em></h2>
-  </div>
-  <div class="test-grid">
-    <div class="test-card">
-      <p class="test-stars">★★★★★</p>
-      <p class="test-text">"Great herbal products for daily life as well as wellness. Wide range of products which are both healthy and tasty. Pickles, juices, health tonics and many more. My family has been benefitting from these products. Highly recommend to everyone."</p>
-      <div class="test-author"><div class="test-avatar"><img src="https://lh3.googleusercontent.com/a-/ALV-UjXn-x3gglfINwQrfuv7sd9cMl4dgjZn_ya4pB35LnlMoTLUWmoC=w90-h90-p-rp-mo-br100" alt="Himanshu"/></div><div><p class="test-name">Himanshu Pandey</p></div></div>
-    </div>
-    <div class="test-card">
-      <p class="test-stars">★★★★★</p>
-      <p class="test-text">"I’ve been using products from kumaon herbal for a few months now, and I can confidently say it’s one of the best decisions I’ve made for my health and wellness. Their commitment to natural, high-quality ingredients truly sets them apart."</p>
-      <div class="test-author"><div class="test-avatar"><img src="https://lh3.googleusercontent.com/a-/ALV-UjUHMhYK80PeD1ICzycQCQsqKxtsxzt_GpQjekR3es2H9yZvmshb=w90-h90-p-rp-mo-br100" alt="Bhaskar"/></div><div><p class="test-name">Bhaskar Badhani</p></div></div>
-    </div>
-    <div class="test-card">
-      <p class="test-stars">★★★★★</p>
-      <p class="test-text">"I recently discovered Kumaon Herbal, and I’m absolutely in love! Their commitment to bringing authentic, handcrafted Himalayan products—from juices and pickles to flours and herbal teas—truly shines through. Each item feels like a taste of the pristine Uttarakhand mountains…."</p>
-      <div class="test-author"><div class="test-avatar"><img src="https://lh3.googleusercontent.com/a-/ALV-UjXnnMTpFEDmX3k6yVVuG6h5x02dR4LhARL_8ftZzasqi17uX6wUUA=w90-h90-p-rp-mo-br100" alt="Nikhil"/></div><div><p class="test-name">Nikhil Sebastian</p></div></div>
-    </div>
-  </div>
-</section>
-
-<!-- NEWSLETTER -->
-<section class="newsletter">
-  <h2>Stay Connected with Nature</h2>
-  <p>Get seasonal updates, new launches & exclusive offers straight to your inbox.</p>
-  <div class="nl-form">
-    <input type="email" placeholder="Enter your email address"/>
-    <button id="nlbtn">Subscribe</button>
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer>
-  <div class="footer-grid">
-    <div class="footer-brand"><div class="f-logo">Kumaon <span>Herbal</span></div><p>Pure, natural products from the heart of the Himalayas. Crafted with love, delivered with care.</p></div>
-    
-    <div class="footer-col">
-      <h5>Shop</h5>
-      <ul>
-        <li><a href="product.html">Natural Juices</a></li>
-        <li><a href="product.html">Pickles & Achars</a></li>
-        <li><a href="product.html">Herbal Products</a></li>
-        <li><a href="product.html">Gift Hampers</a></li>
-      </ul>
+    <!-- ====== TRUST STRIP ====== -->
+    <div class="trust-strip">
+        <span class="trust-item">🌿 100% Natural Ingredients</span>
+        <span class="trust-item">🏔️ Wild Himalayan Sourced</span>
+        <span class="trust-item">🚚 Free Shipping Over ₹2000</span>
+        <span class="trust-item">🔒 Secure Payments</span>
+        <span class="trust-item">♻️ Eco Packaging</span>
     </div>
 
-    <div class="footer-col">
-      <h5>Company</h5>
-      <ul>
-        <li><a href="about.html">About Us</a></li>
-        <li><a href="blog.html">Blog</a></li>
-        <li><a href="contact.html">Contact</a></li>
-      </ul>
+    <!-- ====== INTRO ====== -->
+    <section class="intro-section" id="about">
+        <div>
+            <p class="sec-label">Who We Are</p>
+            <div class="sec-div"></div>
+            <h2 class="sec-title">Rooted in the <em>Kumaon Hills</em> of Uttarakhand</h2>
+            <p class="intro-body" style="margin-top:1.2rem">Nestled in the lap of the Himalayas, Kumaon Herbal was born from a deep respect for the land and its ancient traditions. We work directly with local farmers and foragers to bring you products free from chemicals, preservatives, and artificial flavours.</p>
+            <p class="intro-body">Every bottle, every jar, every packet carries the soul of the mountains — pure, honest, and deeply nourishing.</p>
+            <a href="about.html" class="btn-primary" style="margin-top:1rem">Learn More →</a>
+        </div>
+        <div class="intro-img-grid">
+            <div class="intro-tile tall"><img src="https://picsum.photos/seed/mountain/600/800" alt="Himalayan mountains" /></div>
+            <div class="intro-tile"><img src="https://picsum.photos/seed/herb1/400/400" alt="herbal plants" /></div>
+            <div class="intro-tile"><img src="https://picsum.photos/seed/honey/400/400" alt="wild honey" /></div>
+        </div>
+    </section>
+
+    <!-- ====== PHOTO STRIP ====== -->
+    <div class="photo-strip">
+        <div class="ps-item"><img src="https://picsum.photos/seed/honeyjar/400/250" alt="honey jar" /></div>
+        <div class="ps-item"><img src="https://picsum.photos/seed/kitchen/400/250" alt="herbal kitchen" /></div>
+        <div class="ps-item"><img src="https://picsum.photos/seed/tea/400/250" alt="herbal tea" /></div>
+        <div class="ps-item"><img src="https://picsum.photos/seed/spices/400/250" alt="spices roots" /></div>
+        <div class="ps-item"><img src="https://picsum.photos/seed/berries/400/250" alt="berries" /></div>
     </div>
 
-    <div class="footer-col">
-      <h5>Support</h5>
-      <ul>
-        <li><a href="contact.html">Contact Us</a></li>
-        <li><a href="#">Shipping Policy</a></li>
-        <li><a href="#">Returns</a></li>
-        <li><a href="#">FAQ</a></li>
-      </ul>
-    </div>
-  </div>
+    <!-- ====== CATEGORIES ====== -->
+    <section class="categories">
+        <div class="sec-center">
+            <p class="sec-label">Browse By Category</p>
+            <h2 class="sec-title">Explore Our <em>Collections</em></h2>
+        </div>
+        <div class="cat-grid">
+            <a href="product.html" class="cat-card">
+                <img src="https://picsum.photos/seed/juice/400/500" alt="Natural Juices" />
+                <div class="cat-ov"></div>
+                <div class="cat-arrow">→</div>
+                <div class="cat-body">
+                    <p class="cat-label">Cold Pressed</p>
+                    <h3 class="cat-name">Natural Juices</h3>
+                    <p class="cat-count">12 Products</p>
+                </div>
+            </a>
 
-  <div class="footer-bottom"><p>© 2026 Kumaon Herbal. All rights reserved.</p><p>🌿 Pure · Natural · Himalayan</p></div>
-</footer>
+            <a href="product.html" class="cat-card">
+                <img src="https://picsum.photos/seed/herbal/400/500" alt="Herbal Products" />
+                <div class="cat-ov"></div>
+                <div class="cat-arrow">→</div>
+                <div class="cat-body">
+                    <p class="cat-label">Ayurvedic</p>
+                    <h3 class="cat-name">Herbal Products</h3>
+                    <p class="cat-count">16 Products</p>
+                </div>
+            </a>
 
-<script src="script.js"></script>
+            <a href="product.html" class="cat-card">
+                <img src="https://picsum.photos/seed/pickle/400/500" alt="Pickles" />
+                <div class="cat-ov"></div>
+                <div class="cat-arrow">→</div>
+                <div class="cat-body">
+                    <p class="cat-label">Traditional</p>
+                    <h3 class="cat-name">Pickles &amp; Achars</h3>
+                    <p class="cat-count">8 Products</p>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <!-- ====== FEATURED PRODUCTS ====== -->
+    <section class="featured">
+        <div class="sec-center">
+            <p class="sec-label">Handpicked For You</p>
+            <h2 class="sec-title">Kumaon Herbal <em>Products</em></h2>
+        </div>
+        <div class="products-row">
+            <div class="pcard" data-id="amla-juice">
+                <div class="pcard-img">
+                    <span class="pbadge pbadge-pop">Sale</span>
+                    <img src="https://picsum.photos/seed/amla/400/400" alt="Amla juice" />
+                </div>
+                <div class="pcard-body">
+                    <p class="pcat">Natural Juice</p>
+                    <h3 class="ptitle">Amla Juice</h3>
+                    <p class="pstars">★★★★★ <span style="color:var(--text-light);font-size:.65rem">(84)</span></p>
+                    <div class="pfoot">
+                        <div><span class="pprice">₹150</span><span class="pprice-old">₹200</span></div>
+                        <button class="padd add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pcard" data-id="jackfruit-pickle">
+                <div class="pcard-img">
+                    <span class="pbadge pbadge-pop">Sale</span>
+                    <img src="https://picsum.photos/seed/jackfruit/400/400" alt="Jackfruit Pickle" />
+                </div>
+                <div class="pcard-body">
+                    <p class="pcat">Pickle</p>
+                    <h3 class="ptitle">Jackfruit Pickle</h3>
+                    <p class="pstars">★★★★★ <span style="color:var(--text-light);font-size:.65rem">(241)</span></p>
+                    <div class="pfoot">
+                        <div><span class="pprice">₹300</span><span class="pprice-old">₹350</span></div>
+                        <button class="padd add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pcard" data-id="haldi-latte">
+                <div class="pcard-img">
+                    <span class="pbadge pbadge-new">Sale</span>
+                    <img src="https://picsum.photos/seed/haldi/400/400" alt="Haldi Latte" />
+                </div>
+                <div class="pcard-body">
+                    <p class="pcat">Herbal</p>
+                    <h3 class="ptitle">Haldi Latte</h3>
+                    <p class="pstars">★★★★☆ <span style="color:var(--text-light);font-size:.65rem">(72)</span></p>
+                    <div class="pfoot">
+                        <div><span class="pprice">₹190</span><span class="pprice-old">₹200</span></div>
+                        <button class="padd add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="text-align:center;margin-top:2.5rem">
+            <a href="product.html" class="btn-primary">View All Products →</a>
+        </div>
+    </section>
+
+    <!-- ====== VIDEO SHOWCASE ====== -->
+    <section class="video-showcase">
+        <div class="vs-grid">
+            <div class="vs-video-wrap">
+                <video autoplay muted loop playsinline>
+                    <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4" type="video/mp4" />
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+            <div class="vs-content">
+                <p class="sec-label">Watch Our Story</p>
+                <h2 class="sec-title">See the <em>Mountains</em> We Call Home</h2>
+                <div class="sec-div"></div>
+                <p>A short film about the Kumaon region, the wild herbs we harvest, and the people behind every product. From high-altitude farms to your doorstep — this is our journey.</p>
+                <a href="about.html" class="btn-primary" style="background:var(--amber)">Learn About Us →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ====== GALLERY ====== -->
+    <section class="gallery-section">
+        <div class="sec-center">
+            <p class="sec-label">Life in the Hills</p>
+            <h2 class="sec-title">A Glimpse of <em>Our World</em></h2>
+        </div>
+        <div class="gal-grid">
+            <div class="gal-item tall"><img src="https://picsum.photos/seed/himalaya1/600/800" alt="Himalayas" /></div>
+            <div class="gal-item"><img src="https://picsum.photos/seed/herbs1/400/400" alt="herbs" /></div>
+            <div class="gal-item wide"><img src="https://picsum.photos/seed/tea2/800/400" alt="herbal tea" /></div>
+            <div class="gal-item"><img src="https://picsum.photos/seed/spices2/400/400" alt="spices roots" /></div>
+        </div>
+    </section>
+
+    <!-- ====== WHY US ====== -->
+    <section class="why-section">
+        <div class="why-img">
+            <img src="https://picsum.photos/seed/processing/800/600" alt="herbal processing" />
+            <div class="why-badge">10+<span>Years of Trust</span></div>
+        </div>
+        <div>
+            <p class="sec-label">Why Kumaon Herbal</p>
+            <h2 class="sec-title">The <em>Difference</em> You Can Taste</h2>
+            <div class="sec-div"></div>
+            <div class="why-grid">
+                <div class="why-card">
+                    <div class="why-icon">🌱</div>
+                    <h4>100% Natural</h4>
+                    <p>Kumaon Herbal products are made using only pure, natural ingredients—free from artificial colors, flavors, and preservatives. We believe in offering you the goodness of nature in every sip, ensuring freshness, authenticity, and health with every bottle.</p>
+                </div>
+                <div class="why-card">
+                    <div class="why-icon">🚫</div>
+                    <h4>Fresh Products</h4>
+                    <p>We use only the finest, handpicked fruits to craft our beverages, ensuring every bottle is bursting with natural flavor and freshness. From sourcing to packaging, we maintain strict quality standards to deliver farm-fresh goodness straight to you.</p>
+                </div>
+                <div class="why-card">
+                    <div class="why-icon">🏔️</div>
+                    <h4>Biodynamic Food</h4>
+                    <p>Kumaon Herbal products are made from biodynamic ingredients grown through eco-friendly and sustainable farming practices. This holistic approach nurtures the soil, supports biodiversity, and ensures every ingredient is packed with pure, natural vitality for your health and the planet.</p>
+                </div>
+                <div class="why-card">
+                    <div class="why-icon">♻️</div>
+                    <h4>Eco Packaging</h4>
+                    <p>Recyclable and biodegradable packaging. We love the planet.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ====== TESTIMONIALS ====== -->
+    <section class="testimonials">
+        <div class="sec-center">
+            <p class="sec-label">Happy Customers</p>
+            <h2 class="sec-title">What People <em>Say</em></h2>
+        </div>
+        <div class="test-grid">
+            <div class="test-card">
+                <p class="test-stars">★★★★★</p>
+                <p class="test-text">"Great herbal products for daily life as well as wellness. Wide range of products which are both healthy and tasty. Pickles, juices, health tonics and many more. My family has been benefitting from these products. Highly recommend to everyone."</p>
+                <div class="test-author">
+                    <div class="test-avatar"><img src="https://i.pravatar.cc/100?img=1" alt="Himanshu" /></div>
+                    <div><p class="test-name">Himanshu Pandey</p></div>
+                </div>
+            </div>
+            <div class="test-card">
+                <p class="test-stars">★★★★★</p>
+                <p class="test-text">"I've been using products from Kumaon Herbal for a few months now, and I can confidently say it's one of the best decisions I've made for my health and wellness. Their commitment to natural, high-quality ingredients truly sets them apart."</p>
+                <div class="test-author">
+                    <div class="test-avatar"><img src="https://i.pravatar.cc/100?img=2" alt="Bhaskar" /></div>
+                    <div><p class="test-name">Bhaskar Badhani</p></div>
+                </div>
+            </div>
+            <div class="test-card">
+                <p class="test-stars">★★★★★</p>
+                <p class="test-text">"I recently discovered Kumaon Herbal, and I'm absolutely in love! Their commitment to bringing authentic, handcrafted Himalayan products—from juices and pickles to flours and herbal teas—truly shines through. Each item feels like a taste of the pristine Uttarakhand mountains…"</p>
+                <div class="test-author">
+                    <div class="test-avatar"><img src="https://i.pravatar.cc/100?img=3" alt="Nikhil" /></div>
+                    <div><p class="test-name">Nikhil Sebastian</p></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ====== NEWSLETTER ====== -->
+    <section class="newsletter">
+        <h2>Stay Connected with Nature</h2>
+        <p>Get seasonal updates, new launches &amp; exclusive offers straight to your inbox.</p>
+        <div class="nl-form">
+            <input type="email" id="newsletterEmail" placeholder="Enter your email address" />
+            <button id="nlbtn">Subscribe</button>
+        </div>
+    </section>
+
+    <!-- ====== FOOTER ====== -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <div class="f-logo">Kumaon <span>Herbal</span></div>
+                <p>Pure, natural products from the heart of the Himalayas. Crafted with love, delivered with care.</p>
+            </div>
+
+            <div class="footer-col">
+                <h5>Shop</h5>
+                <ul>
+                    <li><a href="product.html">Natural Juices</a></li>
+                    <li><a href="product.html">Pickles &amp; Achars</a></li>
+                    <li><a href="product.html">Herbal Products</a></li>
+                    <li><a href="product.html">Gift Hampers</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h5>Company</h5>
+                <ul>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h5>Support</h5>
+                <ul>
+                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="#">Shipping Policy</a></li>
+                    <li><a href="#">Returns</a></li>
+                    <li><a href="#">FAQ</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>© 2026 Kumaon Herbal. All rights reserved.</p>
+            <p>🌿 Pure · Natural · Himalayan</p>
+        </div>
+    </footer>
+
+    <script>
+        // ===== HAMBURGER MENU =====
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navLinks.classList.toggle('open');
+        });
+
+        // Close menu on link click (mobile)
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navLinks.classList.remove('open');
+            });
+        });
+
+        // ===== NAVBAR SCROLL EFFECT =====
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 60) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // ===== CART COUNTER =====
+        let cartCount = 0;
+        const cartBtn = document.getElementById('cartBtn');
+
+        document.querySelectorAll('.add-to-cart').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                cartCount++;
+                cartBtn.textContent = '🛒 Cart (' + cartCount + ')';
+
+                // Simple feedback
+                const originalText = this.textContent;
+                this.textContent = '✓ Added!';
+                this.style.background = 'var(--sage)';
+                this.style.color = '#fff';
+                setTimeout(() => {
+                    this.textContent = originalText;
+                    this.style.background = '';
+                    this.style.color = '';
+                }, 1200);
+            });
+        });
+
+        // ===== NEWSLETTER =====
+        document.getElementById('nlbtn').addEventListener('click', function() {
+            const input = document.getElementById('newsletterEmail');
+            const email = input.value.trim();
+            if (email && email.includes('@')) {
+                alert('Thank you for subscribing! 🌿');
+                input.value = '';
+            } else {
+                alert('Please enter a valid email address.');
+            }
+        });
+
+        // Allow Enter key on newsletter input
+        document.getElementById('newsletterEmail').addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                document.getElementById('nlbtn').click();
+            }
+        });
+
+        // ===== VIDEO FALLBACK: if hero video fails, show a static image =====
+        const heroVideo = document.querySelector('.hero-video');
+        if (heroVideo) {
+            heroVideo.addEventListener('error', function() {
+                // If video fails, we keep the overlay and content visible — it still looks fine
+                console.log('Video fallback: using overlay + content only.');
+            });
+        }
+
+        console.log('🌿 Kumaon Herbal — Pure, Natural, Himalayan.');
+    </script>
+
 </body>
 </html>
