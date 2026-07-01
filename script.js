@@ -14,188 +14,181 @@ function getStock(id) {
 // ============================================================
 // PRODUCTS DATABASE
 // ============================================================
+
+  
+
 const productsDB = {
-  'amla-juice': {
-    title: 'Amla Juice', breadcrumb: 'Home / Juices / Amla Juice',
-    priceNow: '₹150', priceOld: '₹200', badge: 'Sale!',
-    img: '/images/amla juice.jpeg',
-    shortDesc: 'Pure Himalayan Amla juice — Vitamin C powerhouse for immunity.',
-    descPara1: 'Our Amla Juice is cold-pressed from wild-harvested Indian Gooseberries found in the lower Himalayan ranges. It is a natural source of Vitamin C and antioxidants.',
-    descPara2: 'Regular consumption helps in detoxifying the body, improving skin health, and strengthening the immune system.',
-    benefits: ['Extremely high in Vitamin C', 'Boosts immunity', 'Improves digestion', 'Great for hair and skin'],
-    pros: ['100% pure juice', 'No added sugar', 'Wild-harvested'],
-    cons: ['Very sour taste', 'Best consumed diluted'],
-    specials: ['Cold-pressed extraction', 'Sourced from Almora region']
-  },
-  'haldi-latte': {
-    title: 'Haldi Latte', breadcrumb: 'Home / Herbal / Wellness',
-    priceNow: '₹190', priceOld: '₹200', badge: 'New',
-    img: '/images/haldi latte.jpeg',
-    shortDesc: 'Golden Milk blend with high-curcumin turmeric & mountain spices.',
-    descPara1: 'Our Haldi Latte mix is a proprietary blend of high-altitude Himalayan turmeric, ginger, black pepper, and cardamom.',
-    descPara2: 'Designed for the perfect "Golden Milk", it provides anti-inflammatory benefits and a soothing, warm experience before bedtime.',
-    benefits: ['Anti-inflammatory', 'Relieves joint pain', 'Improves sleep quality', 'Natural antioxidant'],
-    pros: ['Easy to prepare', 'Traditional recipe', 'High curcumin content'],
-    cons: ['Needs to be mixed with warm milk/water'],
-    specials: ['Stone-ground spices', 'Infused with black pepper for curcumin absorption']
-  },
+
   'litchi': {
-    title: 'Litchi Squash', breadcrumb: 'Home / Juices / Litchi Squash',
-    priceNow: '₹190', priceOld: '₹200', badge: 'Sale!',
+    title: 'Litchi Squash',
+    breadcrumb: 'Home / Juices / Litchi Squash',
+    priceNow: '₹250', priceOld: '', badge: 'Sale!',
     img: '/images/litchi squash.jpeg',
-    shortDesc: 'Rich in Vitamin C, Natural Energy Booster, Balances Electrolytes.',
-    descPara1: 'Our Litchi Squash is made from the finest hand-picked litchis from the Himalayan foothills. It offers a refreshing and revitalizing taste that instantly quenches your thirst.',
-    descPara2: 'Free from artificial colors and excess sugar, it provides a natural way to stay hydrated and energetic throughout the day.',
-    benefits: ['High in Vitamin C for immunity', 'Natural cooling properties', 'Rich in antioxidants', 'Supports digestion'],
-    pros: ['100% natural ingredients', 'No artificial colors', 'Refreshing taste'],
-    cons: ['Needs refrigeration after opening', 'Consume within 30 days'],
+    shortDesc: 'Cold-pressed litchi squash rich in Vitamin C — a natural energy booster that helps balance electrolytes.',
+    descPara1: 'Our Litchi Squash is made from hand-picked litchis grown in the Himalayan foothills, cold-pressed to preserve their natural sweetness and nutrients. It delivers a refreshing, thirst-quenching taste in every glass.',
+    descPara2: 'Free from artificial colors and excess sugar, this is a natural way to stay hydrated and energized — perfect on its own or mixed with soda for a summer cooler.',
+    benefits: ['High in Vitamin C for immunity', 'Natural cooling properties', 'Rich in antioxidants', 'Helps balance electrolytes'],
+    pros: ['100% natural ingredients', 'No artificial colors', 'Refreshing, authentic taste'],
+    cons: ['Requires refrigeration after opening', 'Best consumed within 30 days of opening'],
     specials: ['Made with pure Himalayan spring water', 'Cold-pressed extraction method']
   },
+
   'buransh': {
-    title: 'Buransh Juice', breadcrumb: 'Home / Juices / Buransh Juice',
+    title: 'Buransh Juice',
+    breadcrumb: 'Home / Juices / Buransh Juice',
     priceNow: '₹249', priceOld: '₹320', badge: 'Sale!',
     img: '/images/buransh juice.jpeg',
-    shortDesc: 'Rare rhododendron flower juice — floral, tangy & rich in antioxidants.',
-    descPara1: 'The rhododendron (Buransh) is the state tree of Uttarakhand. Its bright red flowers are hand-harvested in early spring to create this highly medicinal, vibrant juice.',
-    descPara2: 'Traditionally used to support heart health and treat mountain sickness, this juice is a pure, tangy elixir that captures the essence of the Himalayas.',
-    benefits: ['Excellent for heart health', 'Anti-inflammatory properties', 'Rich source of iron and potassium', 'Relieves fatigue'],
-    pros: ['Wild-harvested flowers', 'Traditional recipe', 'Highly nutritious'],
-    cons: ['Slightly tart taste', 'Seasonal availability'],
-    specials: ['Sourced from forests above 2000m altitude', 'Zero chemical preservatives']
+    shortDesc: 'Rare rhododendron (buransh) flower juice — floral, tangy and rich in antioxidants.',
+    descPara1: 'Buransh (Rhododendron) is the state flower of Uttarakhand. Its bright red blooms are hand-harvested each spring from forests above 2,000m to make this vibrant, highly medicinal juice.',
+    descPara2: 'Traditionally used by mountain communities to support heart health and combat altitude sickness, Buransh juice is a pure, tangy Himalayan elixir with no chemical preservatives.',
+    benefits: ['Supports heart health', 'Anti-inflammatory properties', 'Rich source of iron and potassium', 'Relieves fatigue'],
+    pros: ['Wild-harvested flowers', 'Traditional Kumaoni recipe', 'Highly nutritious'],
+    cons: ['Slightly tart flavor', 'Limited seasonal availability'],
+    specials: ['Sourced from forests above 2,000m altitude', 'Zero chemical preservatives']
   },
+
   'aam': {
-    title: 'Aam Panna', breadcrumb: 'Home / Juices / Aam Panna',
+    title: 'Aam Panna',
+    breadcrumb: 'Home / Juices / Aam Panna',
     priceNow: '₹199', priceOld: '', badge: 'New',
     img: '/images/aam panna.jpeg',
-    shortDesc: 'Classic raw mango summer cooler with cumin, black salt & fresh mint.',
-    descPara1: 'Aam Panna is India\'s ultimate summer drink. Our version is made using raw green mangoes roasted over open fire, blended with digestive spices like cumin, black salt, and mint.',
-    descPara2: 'It instantly restores electrolytes lost through sweat and protects the body against intense heat and sunstroke.',
-    benefits: ['Prevents heat stroke', 'Cures digestive disorders', 'Rich in vitamins A, B, and C', 'Restores sodium levels'],
-    pros: ['Authentic roasted flavor', 'Perfect balance of sweet and tangy', 'Cooling effect on the body'],
+    shortDesc: 'Classic raw mango summer cooler with cumin, black salt and fresh mint.',
+    descPara1: 'Aam Panna is India\'s ultimate summer cooler. Our version uses raw green mangoes roasted over an open fire and blended with digestive spices — cumin, black salt, and mint — the traditional Pahadi way.',
+    descPara2: 'It instantly restores electrolytes lost to sweat and helps protect the body from heat exhaustion, making it a daily summer essential in Kumaoni households.',
+    benefits: ['Prevents heat stroke', 'Aids digestion', 'Rich in Vitamins A, B and C', 'Restores sodium levels'],
+    pros: ['Authentic wood-fire roasted flavor', 'Balanced sweet-and-tangy taste', 'Naturally cooling'],
     cons: ['Contains added natural cane sugar'],
     specials: ['Wood-fire roasted mangoes', 'Infused with organic Himalayan mint']
   },
+
+  'malta': {
+    title: 'Malta Juice',
+    breadcrumb: 'Home / Juices / Malta Juice',
+    priceNow: '₹200', priceOld: '', badge: 'New',
+    img: '/images/IMG_8484.jpeg',
+    shortDesc: 'Refreshing juice from sweet, juicy Malta oranges — vibrant flavour and high in Vitamin C.',
+    descPara1: 'Malta oranges are grown at high altitude across the Kumaon hills, prized for their deep color and juicy sweetness. Our Malta Juice captures that flavor in its purest, cold-pressed form.',
+    descPara2: 'A daily glass supports immunity and hydration, with none of the artificial colors or concentrates found in mass-market orange drinks.',
+    benefits: ['High in Vitamin C', 'Boosts immunity', 'Naturally hydrating', 'Rich in antioxidants'],
+    pros: ['100% Himalayan Malta oranges', 'No artificial colors or flavors', 'Vibrant, authentic taste'],
+    cons: ['Refrigerate after opening', 'Seasonal fruit availability'],
+    specials: ['Cold-pressed extraction', 'Sourced from high-altitude Kumaon orchards']
+  },
+
+  'amla-juice': {
+    title: 'Amla Juice',
+    breadcrumb: 'Home / Juices / Amla Juice',
+    priceNow: '₹200', priceOld: '', badge: 'Bestseller',
+    img: '/images/IMG_8485.jpg',
+    shortDesc: 'Potent, tangy health tonic from Indian gooseberries — exceptionally high in Vitamin C and antioxidants.',
+    descPara1: 'Our Amla Juice is cold-pressed from wild-harvested Indian gooseberries grown in the lower Himalayan ranges of Kumaon, Uttarakhand. It\'s one of nature\'s richest natural sources of Vitamin C and antioxidants, made without any added preservatives.',
+    descPara2: 'A daily shot of Himalayan Amla juice supports natural detoxification, strengthens immunity, and is widely used in Ayurveda to improve skin and hair health from within.',
+    benefits: ['Exceptionally high in Vitamin C', 'Boosts immunity naturally', 'Supports digestion', 'Improves skin and hair health'],
+    pros: ['100% pure, cold-pressed juice', 'No added sugar or preservatives', 'Wild-harvested from the Himalayas'],
+    cons: ['Naturally sour — best diluted with water or honey', 'Refrigerate after opening'],
+    specials: ['Cold-pressed extraction', 'Sourced from the Almora region of Kumaon']
+  },
+
   'mango': {
-    title: 'Raw Mango Aam Achar', breadcrumb: 'Home / Pickles / Mango Achar',
+    title: 'Raw Mango Aam Achar',
+    breadcrumb: 'Home / Pickles / Mango Achar',
     priceNow: '₹189', priceOld: '₹240', badge: 'Bestseller',
-    img: 'https://images.unsplash.com/photo-1583394293914-b9f4e0e53a7d?w=500&q=80',
-    shortDesc: 'Sun-dried raw mango pieces in mustard oil with kuti mirch & traditional Kumaoni spices.',
-    descPara1: 'Our signature Aam Achar is made following a 3-generation old family recipe. We use crisp, sour raw mangoes, sun-dry them on our terraces, and marinate them in cold-pressed mustard oil.',
-    descPara2: 'The slow, natural fermentation under the Himalayan sun allows the spices—fennel, nigella, and mountain chili—to mature perfectly, creating an unmatched depth of flavor.',
-    benefits: ['Promotes gut health (probiotic)', 'Aids in digestion', 'Authentic traditional taste'],
+    img: '/images/IMG_8487.jpeg',
+    shortDesc: 'Sun-dried raw mango pieces in mustard oil with traditional Kumaoni spices.',
+    descPara1: 'Our signature Aam Achar follows a family recipe passed down three generations. We use crisp, sour raw mangoes, sun-dry them on our terraces, and marinate them in cold-pressed mustard oil.',
+    descPara2: 'Slow, natural fermentation under the Himalayan sun lets fennel, nigella, and mountain chili mature fully — creating a depth of flavor you won\'t find in factory-made pickles.',
+    benefits: ['Promotes gut health (natural probiotic)', 'Aids digestion', 'Authentic traditional taste'],
     pros: ['No synthetic vinegar', 'Naturally sun-cured', 'Cold-pressed mustard oil base'],
-    cons: ['Spicy profile', 'Oil content required for preservation'],
+    cons: ['Spicy profile', 'Oil content required for natural preservation'],
     specials: ['Matured in traditional clay martabans', 'Made by a women\'s cooperative in Almora']
   },
-  'chilli': {
-    title: 'Green Chilli & Garlic Achar', breadcrumb: 'Home / Pickles / Green Chilli Achar',
-    priceNow: '₹169', priceOld: '', badge: 'Organic',
-    img: 'https://images.unsplash.com/photo-1574484284002-952d92456975?w=500&q=80',
-    shortDesc: 'Fiery hill chillis slow-fermented with roasted garlic — bold & probiotic-rich.',
-    descPara1: 'A bold, pungent pickle designed for spice lovers. We use thin, fiery green chilies grown in local organic farms, combined with roasted garlic cloves.',
-    descPara2: 'The garlic infuses the mustard oil, mellowing its bite, while the chilies retain their crunch. A tiny spoonful is enough to elevate any simple Indian meal.',
-    benefits: ['Metabolism booster', 'Garlic aids heart health', 'Rich in Vitamin C'],
-    pros: ['Very flavorful', 'Hand-cut ingredients', 'Zero artificial colors'],
-    cons: ['Extremely spicy', 'Strong garlic aroma'],
-    specials: ['Uses indigenous mountain garlic', '100% Organic ingredients']
+
+  'jackfruit-pickle': {
+    title: 'Jackfruit Pickle',
+    breadcrumb: 'Home / Pickles / Jackfruit Pickle',
+    priceNow: '₹200', priceOld: '', badge: 'Bestseller',
+    img: '/Jackfruit Pickle FRUNT.jpg.jpeg',
+    shortDesc: 'Tangy, savoury jackfruit pickle with tender meaty chunks steeped in aromatic spices and oil.',
+    descPara1: 'Raw jackfruit is hand-cut into tender, meaty chunks and slow-simmered with a bold Kumaoni spice blend and cold-pressed mustard oil, capturing the earthy, tangy flavor mountain households have made for generations.',
+    descPara2: 'Its firm, chewy texture makes it a favorite even among those who don\'t usually enjoy pickles — a great side with dal-rice, parathas, or khichdi.',
+    benefits: ['Good source of dietary fiber', 'Aids digestion', 'Authentic traditional preparation'],
+    pros: ['Meaty, satisfying texture', 'Hand-cut jackfruit', 'No synthetic preservatives'],
+    cons: ['Contains oil for preservation', 'Spicy profile'],
+    specials: ['Slow-cooked in small batches', 'Traditional Kumaoni spice blend']
   },
-  'lahsun': {
-    title: 'Pahadi Lahsun Achar', breadcrumb: 'Home / Pickles / Lahsun Achar',
-    priceNow: '₹219', priceOld: '₹280', badge: 'New',
-    img: 'https://images.unsplash.com/photo-1612200523018-bcd15ea966?w=500&q=80',
+
+  'ginger-achar': {
+    title: 'Pahadi Ginger Achar',
+    breadcrumb: 'Home / Pickles / Ginger Achar',
+    priceNow: '₹219', priceOld: '', badge: 'New',
+    img: '/images/IMG_8492.jpeg',
     shortDesc: 'Mountain garlic fermented in cold-pressed mustard oil with Himalayan black salt.',
-    descPara1: 'Pahadi Lahsun (Mountain Garlic) is smaller, sweeter, and more potent than regular garlic. We peel each clove by hand and pickle it whole in a minimal spice blend to let the garlic shine.',
-    descPara2: 'As it ages, the garlic softens and absorbs the tangy mustard, becoming a delicious, spreadable condiment that is fantastic for immunity.',
-    benefits: ['Immunity booster', 'Helps lower cholesterol', 'Rich in allicin'],
+    descPara1: 'Pahadi Lahsun (mountain garlic) is smaller, sweeter and more potent than regular garlic. We peel each clove by hand and pickle it whole in a minimal spice blend that lets the garlic shine.',
+    descPara2: 'As it ages, the garlic softens and soaks up the tangy mustard oil, turning into a soft, spreadable condiment that\'s excellent for immunity.',
+    benefits: ['Immunity booster', 'May help lower cholesterol', 'Rich in allicin'],
     pros: ['Unique sweet-pungent taste', 'Highly medicinal', 'Soft, spreadable texture over time'],
-    cons: ['Pungent smell', 'Takes 2-3 weeks to fully mature after opening'],
-    specials: ['Single-clove Himalayan garlic', 'Aged for 45 days before packing']
+    cons: ['Pungent aroma', 'Takes 2–3 weeks to fully mature after opening'],
+    specials: ['Single-clove Himalayan garlic', 'Aged 45 days before packing']
   },
-  'tulsi': {
-    title: 'Himalayan Tulsi Green Tea', breadcrumb: 'Home / Herbal / Tulsi Green Tea',
-    priceNow: '₹349', priceOld: '₹420', badge: 'Popular',
-    img: 'https://images.unsplash.com/photo-1591857177580-dc82b9ac4e1e?w=500&q=80',
-    shortDesc: 'Hand-picked tulsi leaves blended with first-flush Kumaon green tea. Stress relief in every cup.',
-    descPara1: 'This soothing blend combines the adaptogenic properties of Rama and Krishna Tulsi with the antioxidant power of high-altitude Kumaon green tea.',
-    descPara2: 'It offers a smooth, non-bitter taste with refreshing herbal notes. Perfect for winding down after a long day or starting your morning with calm focus.',
-    benefits: ['Reduces stress and cortisol levels', 'Boosts metabolism', 'Detoxifies the body', 'Supports respiratory health'],
-    pros: ['Whole leaf tea', 'Pyramid teabags for better infusion', 'No bitter aftertaste'],
-    cons: ['Contains mild caffeine', 'Not suitable right before sleep for sensitive individuals'],
-    specials: ['First-flush harvest only', 'Sourced from chemical-free estates']
+
+  'black-garlic': {
+    title: 'Black Garlic',
+    breadcrumb: 'Home / Herbal / Black Garlic',
+    priceNow: '₹300', priceOld: '', badge: 'New',
+    img: 'https://github.com/Aegis76/Kumaon-Herbal/blob/main/WhatsApp Image 2026-03-16 at 8.49.56 PM.jpeg?raw=true',
+    shortDesc: 'Fermented, aged garlic with a sweet, balsamic-like flavour, prized for enhanced antioxidant content.',
+    descPara1: 'Our garlic is slow-fermented over several weeks at controlled temperature and humidity, transforming pungent raw cloves into soft, jet-black garlic with a sweet, umami-rich, almost balsamic flavor.',
+    descPara2: 'The fermentation process significantly boosts antioxidant levels compared to raw garlic, making it a favorite among health-conscious cooks and wellness enthusiasts alike.',
+    benefits: ['Higher antioxidant content than raw garlic', 'Supports heart health', 'Easier to digest than raw garlic', 'Rich, umami flavor'],
+    pros: ['Naturally fermented, no additives', 'Sweet, mellow flavor', 'Versatile in cooking'],
+    cons: ['Premium pricing due to slow fermentation process', 'Distinct flavor, not for everyone'],
+    specials: ['Slow-fermented over several weeks', 'Small-batch production']
   },
-  'honey': {
-    title: 'Wild Himalayan Forest Honey', breadcrumb: 'Home / Herbal / Forest Honey',
-    priceNow: '₹499', priceOld: '₹620', badge: 'Organic',
-    img: 'https://images.unsplash.com/photo-1571745544682-143ea663cf2c?w=500&q=80',
-    shortDesc: 'Raw, unfiltered honey from wild Apis dorsata bees — collected from rhododendron forests.',
-    descPara1: 'Our honey is sustainably harvested by local tribal communities from deep within the Kumaon forests. It is completely raw, unpasteurized, and unfiltered.',
-    descPara2: 'Because it is multifloral, taking nectar from hundreds of medicinal alpine plants, its color, texture, and flavor change with the seasons, making every batch uniquely potent.',
-    benefits: ['Soothes coughs and sore throats', 'Natural energy booster', 'Antibacterial and antifungal properties', 'Enhances skin glow'],
-    pros: ['100% raw and unprocessed', 'Rich in natural pollen and enzymes', 'Cruelty-free harvesting'],
-    cons: ['May crystallize in winter (which proves its purity)', 'Not suitable for infants under 1 year'],
-    specials: ['Contains traces of medicinal Himalayan pollen', 'Wood-pressed extraction']
+
+  'jamun-guthli': {
+    title: 'Jamun Guthli Powder',
+    breadcrumb: 'Home / Herbal / Jamun Guthli Powder',
+    priceNow: '₹200', priceOld: '', badge: 'Popular',
+    img: '/images/IMG_8489.jpeg',
+    shortDesc: 'Traditional Ayurvedic powder from dried black plum seeds, valued for supporting healthy blood sugar levels.',
+    descPara1: 'Made from sun-dried, finely ground seeds of the Jamun (Indian black plum), this powder is a staple in traditional Ayurvedic wellness routines across India.',
+    descPara2: 'Taken daily with warm water, it\'s valued for supporting healthy blood sugar levels and digestion — a simple, natural addition to your daily wellness ritual.',
+    benefits: ['Supports healthy blood sugar levels', 'Aids digestion', 'Rich in natural antioxidants'],
+    pros: ['100% natural, no additives', 'Fine, easy-to-mix powder', 'Traditional Ayurvedic preparation'],
+    cons: ['Slightly astringent taste', 'Consult a doctor if on diabetes medication'],
+    specials: ['Sun-dried Jamun seeds', 'Stone-ground for fine texture']
   },
-  'peach': {
-    title: 'Peach & Buransh Blend', breadcrumb: 'Home / Juices / Peach Blend',
-    priceNow: '₹329', priceOld: '₹400', badge: 'Popular',
-    img: '/images/litchi squash.jpeg',
-    shortDesc: 'Kumaoni hill peach with rhododendron flower extract — sweet, floral & rich in iron.',
-    descPara1: 'A unique blend of juicy hill peaches and scarlet Buransh flowers. This refreshing drink combines the vitamins of peach with the heart-healthy benefits of rhododendron.',
-    descPara2: 'Naturally sweet and tangy, it is a perfect representation of mountain flavors, enjoyed best chilled or as a base for mocktails.',
-    benefits: ['Rich in dietary fiber and vitamins', 'Supports cardiovascular health', 'Improves skin texture', 'Natural blood purifier'],
-    pros: ['Unique flavor combination', 'No artificial sweeteners', 'High fruit pulp content'],
-    cons: ['Limited seasonal production'],
-    specials: ['Sun-ripened Kumaoni peaches', 'Infused with wild Buransh nectar']
+
+  'haldi-latte': {
+    title: 'Haldi Latte',
+    breadcrumb: 'Home / Herbal / Haldi Latte',
+    priceNow: '₹200', priceOld: '', badge: 'Popular',
+    img: '/images/haldi latte.jpeg',
+    shortDesc: 'The golden wellness drink from the Himalayas — a warming turmeric latte blend.',
+    descPara1: 'Our Haldi Latte mix is a proprietary blend of high-altitude Himalayan turmeric, ginger, black pepper, and cardamom — everything you need for the perfect Golden Milk.',
+    descPara2: 'Just stir into warm milk or water for anti-inflammatory benefits and a soothing, comforting drink before bedtime, straight from Kumaoni tradition.',
+    benefits: ['Anti-inflammatory', 'Relieves joint pain', 'Improves sleep quality', 'Natural antioxidant'],
+    pros: ['Easy to prepare', 'Traditional recipe', 'High curcumin content'],
+    cons: ['Needs to be mixed with warm milk or water'],
+    specials: ['Stone-ground spices', 'Infused with black pepper for better curcumin absorption']
   },
-  'nimbu': {
-    title: 'Nimbu Masala Achar', breadcrumb: 'Home / Pickles / Nimbu Achar',
-    priceNow: '₹159', priceOld: '', badge: 'Traditional',
-    img: 'https://images.unsplash.com/photo-1601066584547-a4f4e92b6c1b?w=500&q=80',
-    shortDesc: 'Juicy hill lemons stuffed with cumin, fenugreek & turmeric — aged 3 months naturally.',
-    descPara1: 'Nimbu Masala Achar is a staple in Pahadi households. We use thin-skinned lemons, slit them, and stuff them with a roasted spice mix including carom seeds, fennel, and black salt.',
-    descPara2: 'The lemons are then cured in their own juices for months. No oil is used in this recipe, making it a very healthy, oil-free digestive aid.',
-    benefits: ['Great for digestion', 'Oil-free recipe', 'Rich in Vitamin C and enzymes'],
-    pros: ['Zero oil', 'Long shelf life', 'Sharp, intense flavor'],
-    cons: ['Very sour/tangy'],
-    specials: ['Zero oil added', 'Aged naturally for 90 days']
-  },
-  'eucalyptus': {
-    title: 'Eucalyptus & Camphor Oil', breadcrumb: 'Home / Herbal / Essential Oil',
-    priceNow: '₹379', priceOld: '₹450', badge: 'Top Pick',
-    img: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=500&q=80',
-    shortDesc: 'Steam-distilled from mountain eucalyptus — used for cold relief, massage & aromatherapy.',
-    descPara1: 'Our Eucalyptus oil is steam-distilled in small batches from leaves collected in the high-altitude forests of Kumaon. It is then infused with natural camphor.',
-    descPara2: 'It provides instant relief from respiratory congestion and muscle pain. Its crisp, woody aroma also helps clear the mind and improve focus.',
-    benefits: ['Relieves respiratory issues', 'Eases muscle and joint pain', 'Natural insect repellent', 'Refreshes the environment'],
-    pros: ['100% pure essential oil', 'Potent medicinal properties', 'Versatile use cases'],
-    cons: ['Must be diluted before skin application', 'Strong aroma'],
-    specials: ['Steam-distilled in Almora', 'Infused with natural camphor crystals']
-  },
-  'facepack': {
-    title: 'Chandan & Haldi Face Pack', breadcrumb: 'Home / Herbal / Skincare',
-    priceNow: '₹229', priceOld: '', badge: 'Organic',
-    img: 'https://images.unsplash.com/photo-1567581935884-3349723552ca?w=500&q=80',
-    shortDesc: 'Wild sandalwood & turmeric blend for clear, glowing skin — chemical free & 100% natural.',
-    descPara1: 'Experience the ancient Ayurvedic beauty secret. This face pack combines cooling sandalwood (Chandan) with antiseptic Himalayan turmeric (Haldi).',
-    descPara2: 'It helps in reducing acne, evening out skin tone, and providing a natural radiance without the use of any synthetic chemicals or preservatives.',
-    benefits: ['Brightens complexion', 'Anti-acne and anti-blemish', 'Soothes skin irritation', 'Removes tan'],
-    pros: ['100% edible-grade ingredients', 'Suitable for all skin types', 'No artificial fragrance'],
-    cons: ['Needs to be mixed with water/rose water'],
-    specials: ['Wild-sourced sandalwood', 'High-curcumin mountain turmeric']
-  },
-  'buransh-syrup': {
-    title: 'Buransh (Rhododendron) Syrup', breadcrumb: 'Home / Herbal / Supplements',
-    priceNow: '₹289', priceOld: '', badge: 'New',
-    img: 'https://images.unsplash.com/photo-1500485035595-cbe6f645feb1?w=600&q=80',
-    shortDesc: 'Heart-healthy rhododendron flower concentrate — rich in antioxidants & vitamin C.',
-    descPara1: 'A thick, ruby-red concentrate made from wild Buransh flowers. This syrup is a powerhouse of nutrients, traditionally given to strengthen the heart and improve blood circulation.',
-    descPara2: 'Simply mix with water or soda for a refreshing health drink, or drizzle over desserts for a floral Himalayan touch.',
-    benefits: ['Natural heart tonic', 'Boosts hemoglobin', 'Relieves seasonal allergies', 'High Vitamin C'],
-    pros: ['Traditional extraction', 'Rich floral aroma', 'Highly concentrated'],
-    cons: ['Seasonal availability'],
-    specials: ['Hand-pressed petals', 'Sustainably wild-crafted']
+
+  'jackfruit-flour': {
+    title: 'Jack Fruit Flour',
+    breadcrumb: 'Home / Herbal / Jackfruit Flour',
+    priceNow: '₹379', priceOld: '', badge: 'New',
+    img: '/images/WhatsApp Image 2026-06-24 at 12.10.02 PM.jpeg',
+    shortDesc: 'Nutrient-dense Himalayan jackfruit flour — a wholesome, natural addition to everyday cooking.',
+    descPara1: 'Raw jackfruit is sun-dried and stone-ground into a fine, nutrient-dense flour, offering a naturally wholesome alternative for rotis, cutlets, and thickening gravies.',
+    descPara2: 'Grown in the Himalayan foothills and processed without any chemical treatment, it\'s a versatile pantry staple for anyone looking to add more fiber to their diet.',
+    benefits: ['High in dietary fiber', 'Naturally gluten-free', 'Versatile for everyday cooking', 'Rich in essential minerals'],
+    pros: ['100% natural, no additives', 'Sun-dried and stone-ground', 'Long shelf life'],
+    cons: ['Different texture from wheat flour — best blended for rotis', 'Seasonal fruit availability'],
+    specials: ['Sun-dried raw jackfruit', 'Stone-ground for a fine texture']
   }
+
 };
+
 
 // ============================================================
 // ADVANCED SEO (dynamic, JS-side)
