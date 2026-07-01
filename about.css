@@ -38,7 +38,7 @@ nav {
 }
 /* 👇 IMAGE LOGO SIZE – MERGED */
 .nav-logo img {
-  max-height: 56px;   /* adjust as needed */
+  max-height: 90px;   /* adjust as needed */
   width: auto;
   display: block;
 }
