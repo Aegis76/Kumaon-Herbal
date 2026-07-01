@@ -8,13 +8,12 @@
     <link href="home.css" rel="stylesheet" />
     <link href="blog.css" rel="stylesheet" />
     <style>
-        /* ensure side‑by‑side layout */
+        /* NAVBAR LOGO: Kumaon = white, Herbal = golden + italic */
         .nav-logo {
             display: flex;
             align-items: center;
             gap: 0.6rem;
             text-decoration: none;
-            color: #fff;
             font-family: 'Playfair Display', serif;
             font-size: 1.45rem;
             letter-spacing: .03em;
@@ -25,11 +24,96 @@
             width: auto;
             display: block;
         }
-        .nav-logo span {
-            color: var(--al);
+        /* Outer span: "Kumaon" — white */
+        .nav-logo>span {
+            color: #fff;
+        }
+        /* Inner span: "Herbal" — golden + italic */
+        .nav-logo>span>span {
+            color: #d4a373;
             font-style: italic;
         }
 
+        /* ensure navbar background stays dark */
+        #navbar {
+            background: #0f1a17;
+            padding: 0.8rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        .nav-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-family: 'Jost', sans-serif;
+            font-weight: 400;
+            font-size: 0.95rem;
+            letter-spacing: 0.04em;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover {
+            color: #d4a373;
+        }
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .nav-cart {
+            background: none;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #fff;
+            padding: 0.4rem 1rem;
+            border-radius: 30px;
+            font-family: 'Jost', sans-serif;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .nav-cart:hover {
+            background: #d4a373;
+            border-color: #d4a373;
+            color: #0f1a17;
+        }
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 4px;
+            cursor: pointer;
+        }
+        .hamburger span {
+            width: 26px;
+            height: 2px;
+            background: #fff;
+            display: block;
+            transition: 0.2s;
+        }
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                padding: 1rem 0;
+                gap: 0.8rem;
+            }
+            .nav-links.open {
+                display: flex;
+            }
+        }
     </style>
 </head>
 <body>
