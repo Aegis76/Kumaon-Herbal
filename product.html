@@ -6,8 +6,6 @@
 
   <!-- ============================================================
        PRIMARY SEO META
-       NOTE: replace https://www.kumaonherbal.com with your real
-       domain everywhere it appears (canonical, OG, JSON-LD).
   ============================================================= -->
   <title>Buy Natural Himalayan Herbal Products Online | Kumaon Herbal</title>
   <meta name="description" content="Shop 100% natural Kumaoni herbal products — cold-pressed juices, traditional handmade pickles & Himalayan wellness powders. Wild-sourced from Uttarakhand, no additives. Free shipping over ₹2000."/>
@@ -16,12 +14,12 @@
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1"/>
   <link rel="canonical" href="https://www.kumaonherbal.com/product.html"/>
 
-  <!-- Local / geo targeting (India · Uttarakhand · Kumaon) -->
+  <!-- Local / geo targeting -->
   <meta name="geo.region" content="IN-UT"/>
   <meta name="geo.placename" content="Kumaon, Uttarakhand"/>
   <meta name="language" content="English"/>
 
-  <!-- Open Graph (Facebook / WhatsApp / LinkedIn) -->
+  <!-- Open Graph -->
   <meta property="og:type" content="website"/>
   <meta property="og:site_name" content="Kumaon Herbal"/>
   <meta property="og:title" content="Buy Natural Himalayan Herbal Products Online | Kumaon Herbal"/>
@@ -36,13 +34,13 @@
   <meta name="twitter:description" content="100% natural cold-pressed juices, traditional pickles & herbal wellness products from the hills of Uttarakhand."/>
   <meta name="twitter:image" content="https://github.com/Aegis76/Kumaon-Herbal/blob/main/WhatsApp%20Image%202026-03-16%20at%208.49.56%20PM.jpeg?raw=true"/>
 
-  <!-- Fonts (preconnect for speed = better Core Web Vitals) -->
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
   <link href="product.css" rel="stylesheet">
 
-  <!-- ===== STOCK FEATURE STYLES (drop-in, scoped) ===== -->
+  <!-- ===== STOCK FEATURE STYLES (scoped) ===== -->
   <style id="stock-styles">
     .stock-pill{
       display:inline-flex;align-items:center;gap:.4em;
@@ -112,8 +110,34 @@
     @media (max-width:820px){.bulk-inner{grid-template-columns:1fr;gap:2rem}.bulk-points{grid-template-columns:1fr}.bulk-section{padding:3.5rem 6vw}}
   </style>
 
+  <!-- ===== NAVBAR OVERRIDE – matches contact page ===== -->
+  <style>
+    /* ensure side‑by‑side layout and logo sizing */
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      text-decoration: none;
+      color: #fff;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.45rem;
+      letter-spacing: .03em;
+      flex-shrink: 0;
+    }
+    .nav-logo img {
+      max-height: 100px;
+      width: auto;
+      display: block;
+    }
+    /* The span is not used in this page, but kept for consistency */
+    .nav-logo span {
+      color: var(--al);
+      font-style: italic;
+    }
+  </style>
+
   <!-- ============================================================
-       STRUCTURED DATA (JSON-LD) — rich results for Google
+       STRUCTURED DATA (JSON-LD)
   ============================================================= -->
   <script type="application/ld+json">
   {
@@ -317,14 +341,12 @@
   </div>
 </div>
 
+<!-- ====== NAVBAR – IMAGE ONLY, STYLED LIKE CONTACT PAGE ====== -->
 <nav id="navbar">
-  <!-- Logo -->
   <a href="index.html" class="nav-logo">
     <img src="file_000000009f0c720bbfdfcab31197dc01.png" alt="Kumaon Herbal Logo" />
-
   </a>
 
-  <!-- Navigation -->
   <ul class="nav-links">
     <li><a href="index.html">Home</a></li>
     <li><a href="product.html">Products</a></li>
@@ -332,10 +354,8 @@
     <li><a href="contact.html">Contact</a></li>
   </ul>
 
-  <!-- Right Side -->
   <div class="nav-actions">
     <button class="nav-cart">🛒 Cart (0)</button>
-
     <div class="hamburger" id="hamburger">
       <span></span>
       <span></span>
@@ -354,7 +374,7 @@
   </div>
 </section>
 
-<!-- SEO INTRO (keyword-rich, human-first copy) -->
+<!-- SEO INTRO -->
 <section class="seo-intro">
   <h2>Authentic Himalayan Herbal Products, Straight from Kumaon</h2>
   <p>
@@ -440,9 +460,9 @@
     <div class="card-img-wrap"><span class="badge badge-new">New</span><button class="wishlist-btn">♡</button><img src="images/IMG_8492.jpeg" alt="Kumaon Herbal Pahadi Ginger Achar pickle"/></div>
     <div class="card-body"><p class="card-category">Pickles</p><h3 class="card-title">Pahadi Ginger Achar</h3><p class="card-desc">Mountain garlic fermented in cold-pressed mustard oil with Himalayan black salt.</p><div class="stars">★★★★☆ <span style="color:var(--text-light);margin-left:.3rem">(54)</span></div><div class="card-footer"><div><span class="price">₹219</span><span class="price-old">₹300</span></div><button class="add-btn">Add to Cart</button></div></div>
   </div>
-</div> <!-- end grid-pickle -->
+</div>
 
-<!-- HERBAL (fixed – one grid, all cards) -->
+<!-- HERBAL -->
 <div class="section-header" id="sh-herbal">
   <div><h2>🌿 Herbal Products <span class="tag">Wild Sourced</span></h2><div class="sec-divider"></div></div>
 </div>
@@ -478,8 +498,7 @@
     <div class="card-img-wrap"><span class="badge badge-popular">Top Pick</span><button class="wishlist-btn">♡</button><img src="images/WhatsApp Image 2026-06-24 at 12.10.02 PM.jpeg" alt="Kumaon Herbal Jack Fruit Flour"/></div>
     <div class="card-body"><p class="card-category">Wellness</p><h3 class="card-title">Jack Fruit Flour</h3><p class="card-desc">Steam-distilled from mountain eucalyptus — used for cold relief & massage.</p><div class="stars">★★★★☆ <span style="color:var(--text-light);margin-left:.3rem">(92)</span></div><div class="card-footer"><div><span class="price">₹379</span><span class="price-old">₹450</span></div><button class="add-btn">Add to Cart</button></div></div>
   </div>
-
-</div> <!-- end grid-herbal -->
+</div>
 
 <!-- ===== BULK / WHOLESALE SECTION ===== -->
 <section class="bulk-section" id="bulk-orders">
@@ -501,7 +520,6 @@
       </ul>
       <div class="bulk-cta-row">
         <a href="contact.html" class="bulk-btn bulk-btn-primary">Contact Us for Bulk Orders →</a>
-        <!-- EDIT: replace the number below with your WhatsApp business number (countrycode + number, no +) -->
         <a href="https://wa.me/919XXXXXXXXX?text=Hi%20Kumaon%20Herbal,%20I'd%20like%20a%20bulk%20order%20quote."
            target="_blank" rel="noopener" class="bulk-btn bulk-btn-ghost">💬 WhatsApp Us</a>
       </div>
@@ -518,7 +536,7 @@
   </div>
 </section>
 
-<!-- ===== FAQ SECTION (content + FAQ rich-result schema above) ===== -->
+<!-- ===== FAQ SECTION ===== -->
 <section class="faq-section" id="faq">
   <div class="faq-head">
     <p class="eyebrow">Good to Know</p>
@@ -622,4 +640,4 @@
 </script>
 
 </body>
-  </html>
+</html>
